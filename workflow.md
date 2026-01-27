@@ -44,9 +44,3 @@ flowchart TD
     A6 --> DB
     DB --> G
 
-
-
-
-🧠 Simple Data Flow
-
-Admin Action → PHP Backend → MySQL Database → User View (Read Only)
