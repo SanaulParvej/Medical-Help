@@ -46,17 +46,6 @@ flowchart TD
 
 
 
-🔐 Access Control Logic
-
-IF role == USER
- → View only
- → Submit request
- → No edit permission
-
-IF role == ADMIN
- → Full CRUD access
- → Control all content
-
 
 🧠 Simple Data Flow
 
