@@ -1,25 +1,44 @@
 # Medical Help - Healthcare Website
 
-A professional medical website project providing healthcare services and information.
+A professional medical website project providing healthcare services and information using **MVC Architecture**.
 
 ## Project Structure
 
 ```
 Medical Help/
-├── index.html              # Homepage
-├── css/
-│   └── style.css          # Main stylesheet
-├── js/
-│   └── main.js            # Main JavaScript file
-├── pages/
-│   ├── about.html         # About page
-│   ├── services.html      # Services page
-│   └── contact.html       # Contact page
-├── components/            # Reusable HTML components
-├── assets/
-│   ├── images/            # Images
-│   ├── icons/             # Icons and logos
-│   └── videos/            # Video files
+├── index.html              # Main homepage
+├── mvc/                    # MVC Application Folder
+│   ├── models/            # Data models
+│   │   ├── User.js        # User model
+│   │   └── Appointment.js # Appointment model
+│   ├── views/             # HTML templates
+│   │   ├── index.html     # Home page
+│   │   ├── login.html     # Login page
+│   │   ├── signup.html    # Registration page
+│   │   ├── about.html     # About page
+│   │   ├── services.html  # Services page
+│   │   ├── contact.html   # Contact page
+│   │   └── forgot-password.html # Password reset
+│   ├── controllers/       # Business logic
+│   │   ├── authController.js # Authentication
+│   │   └── appointmentController.js # Appointments
+│   ├── public/            # Static assets
+│   │   ├── css/
+│   │   │   ├── style.css # Main stylesheet
+│   │   │   └── auth.css  # Auth pages style
+│   │   ├── js/
+│   │   │   ├── main.js   # Main JavaScript
+│   │   │   └── auth.js   # Auth JavaScript
+│   │   └── assets/
+│   │       ├── images/
+│   │       ├── icons/
+│   │       └── videos/
+│   ├── config/            # Configuration
+│   │   └── config.js      # App settings
+│   └── utils/             # Helper utilities
+│       ├── helpers.js     # Helper functions
+│       └── validators.js  # Validation functions
+├── components/            # Reusable components
 ├── workflow.md            # Project workflow documentation
 └── README.md              # This file
 ```

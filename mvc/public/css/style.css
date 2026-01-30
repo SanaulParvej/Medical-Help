@@ -40,7 +40,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
     padding: 1rem 20px;
 }
@@ -684,3 +684,5 @@ nav {
 
     .emergency-text h3 {
         font-size: 1.5rem;
+    }
+}
