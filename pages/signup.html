@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নতুন অ্যাকাউন্ট তৈরি করুন - Medical Help</title>
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Left Side - Branding -->
+        <div class="auth-left">
+            <div class="brand-content">
+                <div class="brand-logo">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h2 class="brand-title">যোগ দিন আজই</h2>
+                <p class="brand-description">Medical Help এর সাথে যুক্ত হয়ে পান সম্পূর্ণ স্বাস্থ্য সেবা এবং পরামর্শ।</p>
+                
+                <div class="brand-features">
+                    <div class="brand-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="brand-feature-text">
+                            <h4>নিরাপদ ও সুরক্ষিত</h4>
+                            <p>আপনার তথ্য সম্পূর্ণ গোপনীয়</p>
+                        </div>
+                    </div>
+                    <div class="brand-feature">
+                        <i class="fas fa-clock"></i>
+                        <div class="brand-feature-text">
+                            <h4>২৪/৭ সেবা</h4>
+                            <p>যেকোনো সময় পরামর্শ নিন</p>
+                        </div>
+                    </div>
+                    <div class="brand-feature">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div class="brand-feature-text">
+                            <h4>সহজ ব্যবহার</h4>
+                            <p>মোবাইল থেকেই সব সেবা</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="auth-content">
+            <div class="auth-icon signup-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            
+            <h1 class="auth-title">নতুন অ্যাকাউন্ট তৈরি করুন</h1>
+            <p class="auth-subtitle">Medical Help এ যোগ দিন</p>
+
+            <form class="auth-form" id="signupForm">
+                <div class="form-group">
+                    <label for="fullname">পূর্ণ নাম</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="fullname" placeholder="আপনার পূর্ণ নাম লিখুন" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">ইমেইল</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="আপনার ইমেইল লিখুন" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">মোবাইল নম্বর</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="phone" placeholder="০১×xxxxxxxx" pattern="01[0-9]{9}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">পাসওয়ার্ড</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="কমপক্ষে ৬ অক্ষর" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">পাসওয়ার্ড নিশ্চিত করুন</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirmPassword" placeholder="পাসওয়ার্ড পুনরায় লিখুন" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" required>
+                        <span>আমি <a href="#">শর্তাবলী</a> এবং <a href="#">গোপনীয়তা নীতি</a> সম্মত</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary">সাইন আপ করুন</button>
+
+                <div class="divider">
+                    <span>অথবা</span>
+                </div>
+
+                <button type="button" class="btn-social google">
+                    <i class="fab fa-google"></i>
+                    Google দিয়ে সাইন আপ করুন
+                </button>
+
+                <button type="button" class="btn-social facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    Facebook দিয়ে সাইন আপ করুন
+                </button>
+
+                <p class="auth-footer-text">
+                    ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="login.html">লগইন করুন</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+</body>
+</html>
