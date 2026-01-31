@@ -1,8 +1,126 @@
+/* =========================
+   RESET & BASICS
+   ========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Adds better layout control */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    /* Prevents Google Translate from pushing the page down */
+    top: 0 !important; 
+}
+
+a {
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* =========================
+   NAVIGATION BAR
+   ========================= */
+nav {
+    display: flex;
+    background-color: antiquewhite;
+    padding: 10px 60px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-links a {
+    color: #000; /* Ensures links are visible */
+    font-weight: 500;
+}
+
+/* Button Container */
+.btn {
+    display: flex;
+    gap: 10px;
+    align-items: center; /* Vertically centers the switch and buttons */
+}
+
+/* Standard Buttons */
+button {
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: none; /* Fixed border syntax */
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #333; /* Slight hover effect */
+}
+
+/* =========================
+   GOOGLE TRANSLATE SWITCH STYLES
+   (New Addition)
+   ========================= */
+#google_translate_element {
+    /* Ensures it sits nicely next to the buttons */
+    margin-right: 5px;
+}
+
+/* Customize the Google Box itself */
+.goog-te-gadget-simple {
+    background-color: white !important;
+    border: 1px solid black !important; /* Matches your button style */
+    padding: 8px 10px !important;
+    border-radius: 5px !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Clean up the text inside the Google box */
+.goog-te-menu-value {
+    color: black !important;
+    margin: 0 !important;
+}
+
+.goog-te-menu-value span {
+    color: black !important;
+    border-left: none !important; /* Removes ugly divider */
+}
+
+/* Hide the Google Icon for a cleaner look */
+.goog-te-gadget-icon {
+    display: none !important;
+}
+
+/* Hide the "Translate" top banner frame */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+/* =========================
+   FOOTER STYLES
+   ========================= */
 .medical-footer {
     background-color: #0f2a47; 
     color: #ffffff;
     padding: 60px 0 20px 0;
-    font-family: 'Arial', sans-serif;
     margin-top: 50px;
 }
 
@@ -40,7 +158,6 @@
     line-height: 1.6;
 }
 
-
 .footer-col ul {
     list-style: none;
     padding: 0;
@@ -61,7 +178,6 @@
     padding-left: 8px;
 }
 
-
 .social-links a {
     display: inline-block;
     height: 35px;
@@ -79,12 +195,10 @@
     background-color: #4facfe;
 }
 
-
 .contact-info i {
     margin-right: 10px;
     color: #4facfe;
 }
-
 
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -95,54 +209,15 @@
     color: #888888;
 }
 
-
 @media (max-width: 768px) {
     .footer-col {
         width: 100%;
         text-align: center;
     }
-}
-* {
-    margin: 0;
-}
-
-nav {
-    display: flex;
-    background-color: antiquewhite;
-    padding: 10px 60px;
-    justify-content: space-between;
-    align-items: center;
-}
-
-h1 {
-    font-size: 24px;
-}
-
-.logo {
-    display: flex;
-}
-
-a {
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 40px
-}
-
-.btn {
-    display: flex;
-    gap: 10px;
-}
-
-button {
-    padding: 10px 12px;
-    border-radius: 5px;
-    border-left: 1px;
-    border-top: 1px;
-    background-color: black;
-    color: white;
-    font-weight: bold;
+    
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
 }
