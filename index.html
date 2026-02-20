@@ -6,9 +6,22 @@
     <title>Medical Help - আপনার স্বাস্থ্য সেবার সঙ্গী</title>
     <link rel="stylesheet" href="./mvc/public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        #google_translate_element {
+            margin-right: 15px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .goog-te-gadget-simple {
+            background-color: transparent !important;
+            border: 1px solid #ccc !important;
+            padding: 5px !important;
+            border-radius: 4px !important;
+        }
+    </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
     <header>
         <nav>
             <div class="logo">
@@ -22,6 +35,8 @@
                 <a href="./mvc/views/contact.html">যোগাযোগ</a>
             </div>
             <div class="btn">
+                <div id="google_translate_element"></div>
+
                 <button onclick="window.location.href='./mvc/views/login.html'">
                     <i class="fas fa-sign-in-alt"></i> লগইন
                 </button>
@@ -32,7 +47,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">আপনার স্বাস্থ্যসেবা এখন আরও সহজ</h1>
@@ -70,7 +84,6 @@
         </div>
     </section>
 
-    <!-- Services Section -->
     <section class="services-section">
         <div class="section-header">
             <h2>আমাদের সেবাসমূহ</h2>
@@ -90,7 +103,7 @@
                     <i class="fas fa-ambulance"></i>
                 </div>
                 <h3>জরুরি সেবা</h3>
-                <p>২৴/৭ অ্যাম্বুলেন্স এবং জরুরি চিকিৎসা সেবা</p>
+                <p>২৪/৭ অ্যাম্বুলেন্স এবং জরুরি চিকিৎসা সেবা</p>
                 <a href="./mvc/views/services.html" class="service-link">বিস্তারিত <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="service-card">
@@ -112,7 +125,6 @@
         </div>
     </section>
 
-    <!-- Emergency Banner -->
     <section class="emergency-banner">
         <div class="emergency-content">
             <i class="fas fa-phone-volume"></i>
@@ -126,8 +138,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <!-- Footer -->
     <footer class="medical-footer">
         <div class="footer-container">
             <div class="footer-row">
@@ -173,5 +183,17 @@
     </footer>
     
     <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'bn',     // Source language is Bengali
+            includedLanguages: 'en,bn', // Only allow English and Bengali
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+          }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
