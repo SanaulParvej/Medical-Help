@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from '../../../assets/logo.png'
 import { CgLogIn } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
+import { Link } from 'react-router';
 
 
 const Navbar = () => {
@@ -13,7 +14,7 @@ const Navbar = () => {
         <li><a href="">যোগাযোগ</a></li>
     </>
     return (
-        <div>
+        <div className='sticky top-0 z-20'>
             <div className="navbar bg-base-100 shadow-sm lg:px-12">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -26,8 +27,11 @@ const Navbar = () => {
                             {navLinks}
                         </ul>
                     </div>
-                    <img className='w-8' src={Logo} alt="" />
-                    <a className="font-bold text-xl text-info">Medical Help</a>
+                    <Link className='flex justify-center items-center'
+                    to={"/"}>
+                        <img className='w-8' src={Logo} alt="" />
+                        <a className="font-bold text-xl text-info">Medical Help</a>
+                    </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -35,13 +39,13 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end flex gap-3 lg:gap-6">
-                    <button className="btn btn-xs lg:btn-md rounded-2xl btn-info btn-outline hover:scale-105 hover:transition-all">
+                    <Link to={"/auth/login"} className="btn btn-xs lg:btn-md rounded-2xl btn-info btn-outline hover:scale-105 hover:transition-all hover:text-white">
                         <CgLogIn size={20} />  সাইন ইন
-                    </button>
+                    </Link>
 
-                    <button className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
+                    <Link to={"/auth/register"} className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
                         <FaUserFriends size={20} /> সাইন আপ
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>
