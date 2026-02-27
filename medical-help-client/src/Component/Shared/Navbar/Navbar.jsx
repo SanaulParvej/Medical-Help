@@ -2,19 +2,19 @@ import React from 'react';
 import Logo from '../../../assets/logo.png'
 import { CgLogIn } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
 
 
 const Navbar = () => {
 
     const navLinks = <>
-        <li><a href="">হোম</a></li>
-        <li><a href="">সেবাসমূহ</a></li>
-        <li><a href="">আমাদের সম্পর্কে</a></li>
-        <li><a href="">যোগাযোগ</a></li>
+        <li className='text-lg'><a href="">হোম</a></li>
+        <li className='text-lg'><NavLink to={'/services'}>সেবাসমূহ</NavLink></li>
+        <li className='text-lg'><a href="">আমাদের সম্পর্কে</a></li>
+        <li className='text-lg'><a href="">যোগাযোগ</a></li>
     </>
     return (
-        <div className='sticky top-0 z-20'>
+        <div className='sticky top-0 z-20 font-bangla'>
             <div className="navbar bg-base-100 shadow-sm lg:px-12">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -27,7 +27,7 @@ const Navbar = () => {
                             {navLinks}
                         </ul>
                     </div>
-                    <Link className='flex justify-center items-center'
+                    <Link className='flex justify-center items-center font-open-sans'
                     to={"/"}>
                         <img className='w-8' src={Logo} alt="" />
                         <a className="font-bold text-xl text-info">Medical Help</a>
