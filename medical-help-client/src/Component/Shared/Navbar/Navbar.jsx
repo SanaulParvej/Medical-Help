@@ -8,10 +8,10 @@ import { Link, NavLink } from 'react-router';
 const Navbar = () => {
 
     const navLinks = <>
-        <li className='text-lg'><a href="">হোম</a></li>
+        <li className='text-lg'><NavLink to={'/'}>হোম</NavLink></li>
         <li className='text-lg'><NavLink to={'/services'}>সেবাসমূহ</NavLink></li>
-        <li className='text-lg'><a href="">আমাদের সম্পর্কে</a></li>
-        <li className='text-lg'><a href="">যোগাযোগ</a></li>
+        <li className='text-lg'><NavLink>আমাদের সম্পর্কে</NavLink></li>
+        <li className='text-lg'><NavLink>যোগাযোগ</NavLink></li>
     </>
     return (
         <div className='sticky top-0 z-20 font-bangla'>
@@ -30,7 +30,7 @@ const Navbar = () => {
                     <Link className='flex justify-center items-center font-open-sans'
                     to={"/"}>
                         <img className='w-8' src={Logo} alt="" />
-                        <a className="font-bold text-xl text-info">Medical Help</a>
+                        <h1 className="font-bold text-xl text-info">Medical Help</h1>
                     </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
