@@ -9,25 +9,25 @@ const ServiceCard = () => {
     const services = [
         {
             id: 1,
-            icon: <LuStethoscope color='#00BAFE'/>,
+            icon: <LuStethoscope color='#00BAFE' />,
             title: 'অনলাইন পরামর্শ',
             description: 'ঘরে বসে বিশেষজ্ঞ ডাক্তারের পরামর্শ নিন'
         },
         {
             id: 2,
-            icon: <PiAmbulance color='#00BAFE'/>,
+            icon: <PiAmbulance color='#00BAFE' />,
             title: 'জরুরি সেবা',
             description: '২৪/৭ অ্যাম্বুলেন্স জরুরি সেবা'
         },
         {
             id: 3,
-            icon: <GiPillDrop color='#00BAFE'/>,
+            icon: <GiPillDrop color='#00BAFE' />,
             title: 'ওষুধের সরবরাহ',
             description: 'অনলাইনে ওষুধ অর্ডার করুন এবং ঘরে পান'
         },
         {
             id: 4,
-            icon: <GiTestTubes color='#00BAFE'/>,
+            icon: <GiTestTubes color='#00BAFE' />,
             title: 'ল্যাব টেস্ট',
             description: 'ঘরে বসে সাশ্রয়ী সুবিধা সহ টেস্ট'
         }
