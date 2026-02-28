@@ -1,20 +1,42 @@
 import React from 'react';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { Link } from 'react-router';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../../firebase/firebase.init';
 
 const Login = () => {
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user)
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
+    }
 
     return (
         <div className="card bg-base-100 w-full max-w-sm mx-auto shadow-2xl">
             <div className="card-body p-8">
                 <h1 className="text-3xl font-bold text-black mb-4 text-center">Login Now</h1>
-                <form>
+                <form onSubmit={handleLogin}>
                     <fieldset>
                         <label className="block text-gray-700 mb-1">Email</label>
                         <input
                             type="email"
                             className="input input-bordered w-full mb-2"
                             placeholder="Email"
+                            name='email'
                         />
 
                         <label className="block text-gray-700 mb-1">Password</label>
@@ -22,13 +44,14 @@ const Login = () => {
                             type="password"
                             className="input input-bordered w-full mb-2"
                             placeholder="Password"
+                            name='password'
                         />
                         <div className="mb-4 text-right">
                             <a className="text-sm text-blue-600 hover:underline cursor-pointer">Forgot password?</a>
                         </div>
 
                         <button type="submit" className="btn btn-neutral w-full">Login</button>
-                        
+
                     </fieldset>
                     <p><small>Don't have an account? <Link className='btn-link' to={'/auth/register'}>Register</Link></small></p>
                 </form>
