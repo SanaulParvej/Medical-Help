@@ -9,7 +9,7 @@ import { IoIosPeople } from "react-icons/io";
 
 const Hero = () => {
     return (
-        <div className="hero bg-base-200 font-bangla overflow-hidden lg:py-14">
+        <div className="hero bg-base-200 font-bangla overflow-hidden lg:py-8">
             <div className="hero-content flex-col lg:flex-row-reverse max-w-7xl mx-auto w-full justify-between p-6 lg:p-12 gap-12">
 
                 <div className="flex-1">
@@ -40,19 +40,19 @@ const Hero = () => {
                     </div>
                     <div className="flex justify-center lg:justify-start gap-8 lg:gap-16 pt-6">
                         <div className="flex flex-col justify-center items-center text-center lg:text-left">
-                            <IoIosPeople size={35} color='teal' />
+                            <IoIosPeople size={35} color='#00BAFE' />
                             <h3 className="text-2xl font-bold text-gray-800">১০,০০০+</h3>
                             <p className="text-gray-500 text-sm mt-1">সন্তুষ্ট রোগী</p>
                         </div>
 
                         <div className="flex flex-col items-center text-center lg:text-left">
-                            <FaUserDoctor size={35} color='teal' />
+                            <FaUserDoctor size={35} color='#00BAFE' />
                             <h3 className="text-2xl font-bold text-gray-800">৫০০+</h3>
                             <p className="text-gray-500 text-sm mt-1">বিশেষজ্ঞ ডাক্তার</p>
                         </div>
 
                         <div className="flex flex-col items-center text-center lg:text-left">
-                            <LuHospital size={35} color='teal'></LuHospital>
+                            <LuHospital size={35} color='#00BAFE'></LuHospital>
                             <h3 className="text-2xl font-bold text-gray-800">২৫+</h3>
                             <p className="text-gray-500 text-sm mt-1">হাসপাতাল</p>
                         </div>
