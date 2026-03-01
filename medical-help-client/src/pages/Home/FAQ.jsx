@@ -33,32 +33,28 @@ const FAQ = () => {
     return (
         <section className="py-14 bg-base-200 font-bangla">
             <div className="max-w-6xl mx-auto px-6 lg:px-10">
-                <div className="card bg-base-100 border border-base-300 shadow-xl">
-                    <div className="card-body p-6 lg:p-10">
-                        <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold text-gray-800">Frequently Asked Questions</h2>
-                            <p className="text-gray-500 mt-2">Find quick answers to common health support questions</p>
-                        </div>
+                <div className="text-center mb-10">
+                    <h2 className="text-3xl font-bold text-gray-800">Frequently Asked Questions</h2>
+                    <p className="text-gray-500 mt-2">Find quick answers to common health support questions</p>
+                </div>
 
-                        <div className="space-y-4">
-                            {faqs.map((faq, index) => (
-                                <div
-                                    key={index}
-                                    className={`collapse collapse-arrow bg-base-200 border border-base-300 rounded-box ${activeIndex === index ? 'collapse-open' : 'collapse-close'}`}
-                                >
-                                    <button
-                                        className="collapse-title text-left text-lg font-semibold text-gray-800"
-                                        onClick={() => toggleFAQ(index)}
-                                    >
-                                        <span>{faq.question}</span>
-                                    </button>
-                                    {activeIndex === index && (
-                                        <div className="collapse-content text-gray-600">{faq.answer}</div>
-                                    )}
-                                </div>
-                            ))}
+                <div className="space-y-4">
+                    {faqs.map((faq, index) => (
+                        <div
+                            key={index}
+                            className={`collapse collapse-arrow bg-base-200 border border-base-300 rounded-box ${activeIndex === index ? 'collapse-open' : 'collapse-close'}`}
+                        >
+                            <button
+                                className="collapse-title text-left text-lg font-semibold text-gray-800"
+                                onClick={() => toggleFAQ(index)}
+                            >
+                                <span>{faq.question}</span>
+                            </button>
+                            {activeIndex === index && (
+                                <div className="collapse-content text-gray-600">{faq.answer}</div>
+                            )}
                         </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </section>
