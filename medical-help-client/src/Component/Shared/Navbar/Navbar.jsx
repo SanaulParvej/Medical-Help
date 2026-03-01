@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { use } from 'react';
 import Logo from '../../../assets/logo.png'
 import { CgLogIn } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
 import { Link, NavLink } from 'react-router';
+import AuthProvider from '../../../contexts/AuthContext/AuthProvider';
+import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
 
 
 const Navbar = () => {
+
+    const { user } = use(AuthContext)
+
+    console.log(user);
 
     const navLinks = <>
         <li className='text-lg'><NavLink to={'/'}>হোম</NavLink></li>
@@ -28,7 +34,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <Link className='flex justify-center items-center font-open-sans'
-                    to={"/"}>
+                        to={"/"}>
                         <img className='w-8' src={Logo} alt="" />
                         <h1 className="font-bold text-xl text-info">Medical Help</h1>
                     </Link>
@@ -39,13 +45,17 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end flex gap-3 lg:gap-6">
-                    <Link to={"/auth/login"} className="btn btn-xs lg:btn-md rounded-2xl btn-info btn-outline hover:scale-105 hover:transition-all hover:text-white">
-                        <CgLogIn size={20} />  সাইন ইন
-                    </Link>
+                    {
+                        user ? (<>                    <Link to={"/auth/login"} className="btn btn-xs lg:btn-md rounded-2xl btn-info btn-outline hover:scale-105 hover:transition-all hover:text-white">
+                            <CgLogIn size={20} />  সাইন ইন
+                        </Link>
 
-                    <Link to={"/auth/register"} className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
-                        <FaUserFriends size={20} /> সাইন আপ
-                    </Link>
+                            <Link to={"/auth/register"} className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
+                                <FaUserFriends size={20} /> সাইন আপ
+                            </Link></>) : (<Link to={"/auth/register"} className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
+                                <FaUserFriends size={20} /> Logout
+                            </Link>)
+                    }
                 </div>
             </div>
         </div>
