@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -7,43 +7,71 @@ import { auth } from '../../../firebase/firebase.init';
 
 
 const Register = () => {
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const navigate = useNavigate();
+
+    const [errors, setErrors] = useState({});
+    const [authError, setAuthError] = useState('');
+
+    const validateForm = ({ name, email, password, confirmPassword }) => {
+        const newErrors = {};
+
+        if (!name.trim()) {
+            newErrors.name = 'Name is required.';
+        } else if (name.trim().length < 2) {
+            newErrors.name = 'Name must be at least 2 characters.';
+        }
+
+        if (!email.trim()) {
+            newErrors.email = 'Email is required.';
+        } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+            newErrors.email = 'Please enter a valid email address.';
+        }
+
+        if (!password) {
+            newErrors.password = 'Password is required.';
+        } else if (password.length < 6) {
+            newErrors.password = 'Password must be at least 6 characters.';
+        } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+            newErrors.password = 'Password must include uppercase, lowercase and a number.';
+        }
+
+        if (!confirmPassword) {
+            newErrors.confirmPassword = 'Confirm password is required.';
+        } else if (password !== confirmPassword) {
+            newErrors.confirmPassword = 'Passwords do not match.';
+        }
+
+        return newErrors;
+    };
 
     const handleRegister = (e) => {
         e.preventDefault();
-        setErrorMessage('');
-        setSuccessMessage('');
-
+        setAuthError('');
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const user = { name, email, password };
+        const confirmPassword = form.confirmPassword.value;
 
-        console.log(user);
+        const validationErrors = validateForm({ name, email, password, confirmPassword });
+        setErrors(validationErrors);
 
-        if (!email || !password) {
-            setErrorMessage('Please fill email and password.');
+        if (Object.keys(validationErrors).length > 0) {
             return;
         }
 
-        if (password.length < 6) {
-            setErrorMessage('Password must be at least 6 characters long.');
-            return;
-        }
+        const user = { name, email, password }
+
+        console.log(user)
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
-                setSuccessMessage('Registration successful.');
+                console.log(user)
+                setErrors({});
                 form.reset();
-                navigate('/auth/login');
             })
             .catch((error) => {
-                setErrorMessage(error.message);
+                setAuthError(error.message);
             });
     }
 
@@ -72,6 +100,7 @@ const Register = () => {
 
                                         />
                                     </div>
+                                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
 
                                 </div>
 
@@ -91,6 +120,7 @@ const Register = () => {
 
                                         />
                                     </div>
+                                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
 
                                 </div>
 
@@ -108,16 +138,33 @@ const Register = () => {
                                             placeholder="Password"
                                         />
                                     </div>
+                                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+
+                                </div>
+
+                                <div>
+                                    <label className="label text-black">Confirm Password</label>
+                                    <div className="relative">
+                                        <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 z-10">
+                                            <FaLock />
+                                        </span>
+                                        <input
+                                            name='confirmPassword'
+                                            type="password"
+                                            className="input input-bordered w-full pl-10"
+                                            placeholder="Confirm Password"
+                                        />
+                                    </div>
+                                    {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
 
                                 </div>
 
                                 <div className="text-right">
                                     <a className="link link-hover text-sm text-black">Forgot password?</a>
                                 </div>
+                                {authError && <p className="text-red-500 text-sm text-center">{authError}</p>}
                                 <button type="submit" className="btn btn-neutral w-full">Register</button>
                             </fieldset>
-                            {errorMessage && <p className="text-red-500 text-sm mt-2">{errorMessage}</p>}
-                            {successMessage && <p className="text-green-600 text-sm mt-2">{successMessage}</p>}
                             <p className='mt-1 text-center text-black'><small>Already have an account? <Link className='btn-link' to={'/auth/login'}>Login</Link></small></p>
                         </form>
                         <SocialLogin></SocialLogin>
