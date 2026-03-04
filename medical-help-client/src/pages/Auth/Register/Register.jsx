@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../../../firebase/firebase.init';
-
+import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
+import Swal from 'sweetalert2';
 
 const Register = () => {
+    const { userSignUp, updateUser } = use(AuthContext)
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
+    const from = '/'
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -34,17 +35,26 @@ const Register = () => {
             return;
         }
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-                setSuccessMessage('Registration successful.');
-                form.reset();
-                navigate('/auth/login');
+        userSignUp(email, password)
+            .then(result => {
+                Swal.fire({
+                    title: "Register Successfully!",
+                    icon: "success",
+                    draggable: true
+                });
+                console.log(result.user);
+                updateUser(name)
+                    .then(() => {
+                        console.log("Updated");
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                navigate(from)
             })
-            .catch((error) => {
-                setErrorMessage(error.message);
-            });
+            .catch(error => {
+                setErrorMessage(error.message)
+            })
     }
 
     return (
@@ -67,8 +77,9 @@ const Register = () => {
                                         <input
                                             name='name'
                                             type="text"
-                                            className="input input-bordered w-full pl-10" // Added pl-10 for icon padding
+                                            className="input input-bordered w-full pl-10"
                                             placeholder="Full Name"
+                                            required
 
                                         />
                                     </div>
@@ -88,7 +99,7 @@ const Register = () => {
                                             type="email"
                                             className="input input-bordered w-full pl-10"
                                             placeholder="Email"
-
+                                            required
                                         />
                                     </div>
 
@@ -106,6 +117,7 @@ const Register = () => {
                                             type="password"
                                             className="input input-bordered w-full pl-10"
                                             placeholder="Password"
+                                            required
                                         />
                                     </div>
 
@@ -116,8 +128,10 @@ const Register = () => {
                                 </div>
                                 <button type="submit" className="btn btn-neutral w-full">Register</button>
                             </fieldset>
+
                             {errorMessage && <p className="text-red-500 text-sm mt-2">{errorMessage}</p>}
                             {successMessage && <p className="text-green-600 text-sm mt-2">{successMessage}</p>}
+
                             <p className='mt-1 text-center text-black'><small>Already have an account? <Link className='btn-link' to={'/auth/login'}>Login</Link></small></p>
                         </form>
                         <SocialLogin></SocialLogin>
