@@ -66,7 +66,7 @@ const Navbar = () => {
 
         {
             user && <li className='text-lg'>
-                <NavLink to={'/aaa'}
+                <NavLink to={'/dashboard'}
                     className={({ isActive }) => (
                         isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
                     Dashboard

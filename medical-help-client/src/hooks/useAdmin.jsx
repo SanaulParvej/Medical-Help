@@ -1,8 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, use } from "react";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
-
 const useAdmin = () => {
-    const { user, loading } = useContext(AuthContext);
+    const { user, loading } = use(AuthContext);
     const [isAdmin, setIsAdmin] = useState(false);
     const [isAdminLoading, setIsAdminLoading] = useState(true);
 
