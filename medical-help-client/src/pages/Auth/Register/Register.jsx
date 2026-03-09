@@ -6,11 +6,11 @@ import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
 import Swal from 'sweetalert2';
 
 const Register = () => {
-    const { userSignUp, updateUser } = use(AuthContext)
+    const { userSignUp, updateUser } = use(AuthContext);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
-    const from = '/'
+    const from = '/';
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -21,41 +21,33 @@ const Register = () => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const user = { name, email, password };
-
-        console.log(user);
-
-        if (!email || !password) {
-            setErrorMessage('Please fill email and password.');
-            return;
-        }
-
-        if (password.length < 6) {
-            setErrorMessage('Password must be at least 6 characters long.');
+        if (!email || !password || !name) {
+            setErrorMessage('All fields are required.');
             return;
         }
 
         userSignUp(email, password)
-            .then(result => {
-                Swal.fire({
-                    title: "Register Successfully!",
-                    icon: "success",
-                    draggable: true
-                });
-                console.log(result.user);
+            .then(() => {
                 updateUser(name)
                     .then(() => {
-                        console.log("Updated");
+                        Swal.fire({
+                            title: 'Registered Successfully!',
+                            icon: 'success',
+                            draggable: true,
+                        });
+                        setSuccessMessage('Registration completed.');
+                        form.reset();
+                        navigate(from);
                     })
                     .catch((error) => {
-                        console.log(error)
-                    })
-                navigate(from)
+                        console.log(error);
+                        setErrorMessage(error.message);
+                    });
             })
-            .catch(error => {
-                setErrorMessage(error.message)
-            })
-    }
+            .catch((error) => {
+                setErrorMessage(error.message);
+            });
+    };
 
     return (
         <div className="hero">
@@ -80,10 +72,8 @@ const Register = () => {
                                             className="input input-bordered w-full pl-10"
                                             placeholder="Full Name"
                                             required
-
                                         />
                                     </div>
-
                                 </div>
 
 
@@ -102,7 +92,6 @@ const Register = () => {
                                             required
                                         />
                                     </div>
-
                                 </div>
 
                                 {/* Password */}
@@ -120,7 +109,6 @@ const Register = () => {
                                             required
                                         />
                                     </div>
-
                                 </div>
 
                                 <div className="text-right">
@@ -128,10 +116,8 @@ const Register = () => {
                                 </div>
                                 <button type="submit" className="btn btn-neutral w-full">Register</button>
                             </fieldset>
-
                             {errorMessage && <p className="text-red-500 text-sm mt-2">{errorMessage}</p>}
                             {successMessage && <p className="text-green-600 text-sm mt-2">{successMessage}</p>}
-
                             <p className='mt-1 text-center text-black'><small>Already have an account? <Link className='btn-link' to={'/auth/login'}>Login</Link></small></p>
                         </form>
                         <SocialLogin></SocialLogin>
