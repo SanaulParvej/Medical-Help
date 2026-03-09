@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { use } from 'react';
+import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import { Link } from 'react-router';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../../../firebase/firebase.init';
+import Swal from 'sweetalert2';
+import { Link, useLocation, useNavigate } from 'react-router';
+
 
 const Login = () => {
+    const { userLogin } = use(AuthContext)
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state || '/';
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -12,17 +17,19 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                console.log(user)
-                // ...
+        userLogin(email, password)
+            .then(result => {
+                Swal.fire({
+                    title: "Login Successfully!",
+                    icon: "success",
+                    draggable: true,
+                });
+                console.log(result.user);
+                navigate(from)
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-            });
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     return (

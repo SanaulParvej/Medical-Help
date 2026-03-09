@@ -2,23 +2,79 @@ import React, { use } from 'react';
 import Logo from '../../../assets/logo.png'
 import { CgLogIn } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 import { Link, NavLink } from 'react-router';
-import AuthProvider from '../../../contexts/AuthContext/AuthProvider';
 import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
+import Swal from 'sweetalert2';
 
 
 const Navbar = () => {
+    const { user, userSignOut } = use(AuthContext)
 
-    const { user } = use(AuthContext)
+    const handleSignOut = () => {
+        userSignOut()
+            .then(() => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Sign out successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    toast: true
+                });
+                console.log('Signed out user');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
 
-    console.log(user);
 
     const navLinks = <>
-        <li className='text-lg'><NavLink to={'/'}>হোম</NavLink></li>
-        <li className='text-lg'><NavLink to={'/services'}>সেবাসমূহ</NavLink></li>
-        <li className='text-lg'><NavLink>আমাদের সম্পর্কে</NavLink></li>
-        <li className='text-lg'><NavLink>যোগাযোগ</NavLink></li>
+        <li className='text-lg'>
+            <NavLink
+                className={({ isActive }) => (
+                    isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}
+                to={'/'}>
+                হোম
+            </NavLink>
+        </li>
+        <li className='text-lg'>
+            <NavLink
+                to={'/services'}
+                className={({ isActive }) => (
+                    isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
+                সেবাসমূহ
+            </NavLink>
+        </li>
+        <li className='text-lg'>
+            <NavLink
+                to={'/aa'}
+                className={({ isActive }) => (
+                    isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
+                আমাদের সম্পর্কে
+            </NavLink>
+        </li>
+        <li className='text-lg'>
+            <NavLink
+                to={'/aaa'}
+                className={({ isActive }) => (
+                    isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
+                যোগাযোগ
+            </NavLink>
+        </li>
+
+        {
+            user && <li className='text-lg'>
+                <NavLink to={'/dashboard'}
+                    className={({ isActive }) => (
+                        isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
+                    Dashboard
+                </NavLink>
+            </li>
+        }
     </>
+
     return (
         <div className='sticky top-0 z-20 font-bangla'>
             <div className="navbar bg-base-100 shadow-sm lg:px-12">
@@ -46,15 +102,26 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end flex gap-3 lg:gap-6">
                     {
-                        user ? (<>                    <Link to={"/auth/login"} className="btn btn-xs lg:btn-md rounded-2xl btn-info btn-outline hover:scale-105 hover:transition-all hover:text-white">
-                            <CgLogIn size={20} />  সাইন ইন
-                        </Link>
-
-                            <Link to={"/auth/register"} className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
-                                <FaUserFriends size={20} /> সাইন আপ
-                            </Link></>) : (<Link to={"/auth/register"} className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
-                                <FaUserFriends size={20} /> Logout
-                            </Link>)
+                        !user ?
+                            (
+                                <>
+                                    <Link
+                                        to={"/auth/login"}
+                                        className="btn btn-xs lg:btn-md rounded-2xl btn-info btn-outline hover:scale-105 hover:transition-all hover:text-white">
+                                        <CgLogIn size={20} /> সাইন ইন
+                                    </Link>
+                                    <Link
+                                        to={"/auth/register"}
+                                        className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
+                                        <FaUserFriends size={20} /> সাইন আপ
+                                    </Link>
+                                </>
+                            ) :
+                            <button
+                                onClick={handleSignOut}
+                                className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all">
+                                <MdLogout size={16} /> Logout
+                            </button>
                     }
                 </div>
             </div>
