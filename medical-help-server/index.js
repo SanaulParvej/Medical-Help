@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -27,20 +27,8 @@ async function run() {
     await client.connect();
 
     const db = client.db("Medical-Help");
-    const userCollection = db.collection("users")
-
-    app.post('/users', async (req, res) => {
-      const user = req.body;
-      // User already exist kore kina check korchi
-      const query = { email: user.email };
-      const existingUser = await userCollection.findOne(query);
-
-      if (existingUser) {
-        return res.send({ message: 'User already exists', insertedId: null });
-      }
-      const result = await userCollection.insertOne(user);
-      res.send(result);
-    });
+    const userCollection = db.collection("users");
+    const doctorCollection = db.collection("doctors");
 
     app.get('/users/role/:email', async (req, res) => {
       const email = req.params.email;
@@ -70,8 +58,9 @@ async function run() {
       next();
     };
 
-    app.get('/users', checkAdminRole, async (req, res) => {
-      res.send("user is coming");
+    app.get('/users', async (req, res) => {
+      const result = await userCollection.find().toArray();
+      res.send(result);
     })
 
     app.post('/users', async (req, res) => {
@@ -92,6 +81,18 @@ async function run() {
       res.send(result);
     });
 
+    app.get('/doctors', async (req, res) => {
+      const result = await doctorCollection.find().toArray();
+      res.send(result);
+    });
+
+    app.get('/doctors/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+
+      const doctor = await doctorCollection.findOne(query);
+      res.send(doctor);
+    });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
