@@ -7,6 +7,7 @@ import Register from "../pages/Auth/Register/Register";
 import Services from "../pages/Services/Services";
 import PrivateRoutes from "../routes/PrivateRoutes";
 import DashboardLayout from "../layout/DashboardLayout/DashboardLayout";
+import Doctors from "../pages/Doctors/Doctors";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,12 @@ export const router = createBrowserRouter([
             {
                 path: '/services',
                 Component: Services
+            },
+            {
+                path: '/doctors',
+                hydrateFallbackElement: <h1 className="loading loading-bars"></h1>,
+                loader: () => fetch("http://localhost:4000/doctors"),
+                Component: Doctors
             }
         ]
     },
