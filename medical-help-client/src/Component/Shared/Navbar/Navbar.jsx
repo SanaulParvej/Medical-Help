@@ -34,32 +34,32 @@ const Navbar = () => {
         <li className='text-lg'>
             <NavLink
                 className={({ isActive }) => (
-                    isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}
+                    isActive ? 'text-indigo-600 underline underline-offset-6 decoration-3' : '')}
                 to={'/'}>
                 হোম
             </NavLink>
         </li>
         <li className='text-lg'>
             <NavLink
-                to={'/services'}
+                to={'/doctors'}
                 className={({ isActive }) => (
-                    isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
-                সেবাসমূহ
+                    isActive ? 'text-indigo-600 underline underline-offset-6 decoration-3' : '')}>
+                ডাক্তারসমূহ
             </NavLink>
         </li>
         <li className='text-lg'>
             <NavLink
-                to={'/aa'}
+                to={'/services'}
                 className={({ isActive }) => (
-                    isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
-                আমাদের সম্পর্কে
+                    isActive ? 'text-indigo-600 underline underline-offset-6 decoration-3' : '')}>
+                সেবাসমূহ
             </NavLink>
         </li>
         <li className='text-lg'>
             <NavLink
                 to={'/aaa'}
                 className={({ isActive }) => (
-                    isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
+                    isActive ? 'text-indigo-600 underline underline-offset-6 decoration-3' : '')}>
                 যোগাযোগ
             </NavLink>
         </li>
@@ -69,7 +69,7 @@ const Navbar = () => {
                 <NavLink to={'/dashboard'}
                     className={({ isActive }) => (
                         isActive ? 'text-indigo-600 underline underline-offset-4 decoration-3' : '')}>
-                    Dashboard
+                    ড্যাশবোর্ড
                 </NavLink>
             </li>
         }
