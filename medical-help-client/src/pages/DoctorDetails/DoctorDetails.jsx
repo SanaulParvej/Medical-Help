@@ -18,7 +18,6 @@ const DoctorDetails = () => {
 
         const startHour = parseInt(match[1]);
         const endHour = parseInt(match[2]);
-        const period = match[3].toUpperCase();
 
         const slots = [];
         for (let i = startHour; i <= endHour; i++) {
