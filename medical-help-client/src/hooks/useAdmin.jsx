@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext, use } from "react";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
+
 const useAdmin = () => {
     const { user, loading } = use(AuthContext);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [role, setRole] = useState(null);
     const [isAdminLoading, setIsAdminLoading] = useState(true);
 
     useEffect(() => {
@@ -10,7 +11,7 @@ const useAdmin = () => {
             fetch(`http://localhost:4000/users/role/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
-                    setIsAdmin(data?.role === 'admin');
+                    setRole(data?.role); 
                     setIsAdminLoading(false);
                 })
                 .catch(error => {
@@ -22,7 +23,7 @@ const useAdmin = () => {
         }
     }, [user, loading]);
 
-    return [isAdmin, isAdminLoading];
+    return [role, isAdminLoading];
 };
 
 export default useAdmin;

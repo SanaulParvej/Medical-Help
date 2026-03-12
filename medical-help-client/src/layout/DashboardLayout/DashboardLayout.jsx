@@ -7,12 +7,9 @@ const DashboardLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     return (
         <div className="flex h-screen bg-gray-50">
-            {/* Sidebar */}
             <Sidebar setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen}></Sidebar>
 
-            {/* Main Content */}
             <div className={`${sidebarOpen ? 'ml-64' : 'ml-20'} flex-1 flex flex-col transition-all duration-300`}>
-                {/* Navigation Bar */}
                 <DashNavbar></DashNavbar>
                 <main className="flex-1 overflow-auto">
                     <div className="p-8">
