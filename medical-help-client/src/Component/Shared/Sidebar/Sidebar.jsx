@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FiMenu, FiX, FiUsers, FiSettings, FiLogOut, FiGrid, FiCalendar } from 'react-icons/fi';
+import useAdmin from '../../../hooks/useAdmin';
 
 const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
+    const [role, isAdminLoading] = useAdmin();
 
-    const menuItems = [
-        {name: "Home", icon: FiGrid, path: '/'},
+    const adminMenuItems = [
+        { name: "Home", icon: FiGrid, path: '/' },
         { name: 'Dashboard', icon: FiGrid, path: '/dashboard' },
         { name: 'Appointments', icon: FiCalendar, path: '/dashboard/appointments' },
         { name: 'Patients', icon: FiUsers, path: '/dashboard/patients' },
@@ -13,12 +15,22 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
         { name: 'Settings', icon: FiSettings, path: '/dashboard/settings' },
     ];
 
+    const userMenuItems = [
+        { name: "Home", icon: FiGrid, path: '/' },
+        { name: 'My Appointments', icon: FiCalendar, path: '/dashboard/my-appointments' },
+        { name: 'My Profile', icon: FiUsers, path: '/dashboard/profile' },
+        { name: 'Settings', icon: FiSettings, path: '/dashboard/settings' },
+    ];
+
+    const menuItems = role === 'admin' ? adminMenuItems : userMenuItems;
+
+    if (isAdminLoading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div>
-            <aside
-                className={`${sidebarOpen ? 'w-64' : 'w-20'
-                    } bg-linear-to-b from-slate-900 to-slate-800 text-white transition-all duration-300 ease-in-out fixed h-screen left-0 top-0 z-40`}
-            >
+            <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-linear-to-b from-slate-900 to-slate-800 text-white transition-all duration-300 ease-in-out fixed h-screen left-0 top-0 z-40`}>
                 {/* Logo Section */}
                 <div className="flex items-center justify-between p-6 border-b border-slate-700">
                     {sidebarOpen && (

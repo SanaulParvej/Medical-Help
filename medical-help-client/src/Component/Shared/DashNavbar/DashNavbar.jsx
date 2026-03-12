@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { FiBell } from 'react-icons/fi';
+import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
+import useAdmin from '../../../hooks/useAdmin';
 
 const DashNavbar = () => {
     const [notificationOpen, setNotificationOpen] = useState(false);
+    const {user} = use(AuthContext);
+    const [role] = useAdmin();
 
     return (
         <div>
@@ -46,8 +50,8 @@ const DashNavbar = () => {
                         <div className="flex items-center gap-3 pl-6 border-l border-gray-200">
                             <img src="" alt="" />
                             <div className="hidden sm:block">
-                                <p className="text-sm font-medium text-gray-800">Dr. Admin</p>
-                                <p className="text-xs text-gray-500">Administrator</p>
+                                <p className="text-sm font-medium text-gray-800">{user.displayName}</p>
+                                <p className="text-xs text-gray-500">{role}</p>
                             </div>
                         </div>
                     </div>

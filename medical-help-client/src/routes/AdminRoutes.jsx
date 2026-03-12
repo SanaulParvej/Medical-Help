@@ -5,7 +5,7 @@ import { AuthContext } from '../contexts/AuthContext/AuthContext';
 
 const AdminRoutes = ({ children }) => {
     const { user, loading } = use(AuthContext);
-    const [isAdmin, isAdminLoading] = useAdmin();
+    const [role, isAdminLoading] = useAdmin();
     const location = useLocation();
 
     if (loading || isAdminLoading) {
@@ -16,7 +16,7 @@ const AdminRoutes = ({ children }) => {
         );
     }
 
-    if (user && isAdmin) {
+    if (user && role === 'admin') {
         return children;
     }
 
