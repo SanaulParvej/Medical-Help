@@ -9,6 +9,7 @@ import PrivateRoutes from "../routes/PrivateRoutes";
 import DashboardLayout from "../layout/DashboardLayout/DashboardLayout";
 import Doctors from "../pages/Doctors/Doctors";
 import Dashboard from "../pages/DashboardHome/Dashboard"
+import DoctorDetails from "../pages/DoctorDetails/DoctorDetails";
 
 export const router = createBrowserRouter([
     {
@@ -28,13 +29,18 @@ export const router = createBrowserRouter([
                 hydrateFallbackElement: <h1 className="loading loading-bars"></h1>,
                 loader: () => fetch("http://localhost:4000/doctors"),
                 Component: Doctors
+            },
+            {
+                path: '/doctor/:id',
+                loader: ({ params }) => fetch(`http://localhost:4000/doctors/${params.id}`).then(res => res.json()),
+                Component: DoctorDetails
             }
         ]
     },
     {
         path: "/auth",
         Component: AuthLayout,
-        children:[
+        children: [
             {
                 path: "/auth/login",
                 Component: Login
@@ -49,7 +55,7 @@ export const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
-        children : [
+        children: [
             {
                 index: true,
                 Component: Dashboard

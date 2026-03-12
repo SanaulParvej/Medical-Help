@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.json());
 
 
-const uri = "mongodb+srv://medical-admin:rvdtuLFrLA2PFY3o@cluster0.rbn9qen.mongodb.net/?appName=Cluster0";
+const uri = "mongodb://medical-admin:rvdtuLFrLA2PFY3o@ac-iydmfi3-shard-00-00.rbn9qen.mongodb.net:27017,ac-iydmfi3-shard-00-01.rbn9qen.mongodb.net:27017,ac-iydmfi3-shard-00-02.rbn9qen.mongodb.net:27017/?authSource=admin&replicaSet=atlas-m585ba-shard-0&tls=true&retryWrites=true&w=majority&appName=Cluster0";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
