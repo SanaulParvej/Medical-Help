@@ -30,6 +30,7 @@ Client runs on Vite default port (usually `http://localhost:5173`).
 
 This README is generated from your current codebase to avoid manual rewrite every day.
 
+<<<<<<< HEAD
 One-time Git hook setup:
 
 ```bash
