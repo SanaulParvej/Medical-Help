@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-03-12 17:11:37.018Z
+Last updated: 2026-03-12 17:26:28.510Z
 
 ### Project Structure
 
@@ -103,6 +103,7 @@ Medical-Help/
 │   └── package.json
 ├── scripts/
 │   └── update-readme.mjs
+├── .gitattributes
 ├── README.md
 └── workflow.md
 ```
