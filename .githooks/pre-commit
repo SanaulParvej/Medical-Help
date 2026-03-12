@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "[pre-commit] Updating README snapshot..."
+node scripts/update-readme.mjs
+
+if [ $? -ne 0 ]; then
+  echo "[pre-commit] README update failed. Commit aborted."
+  exit 1
+fi
+
+git add README.md
+echo "[pre-commit] README updated and staged."
+
+exit 0
