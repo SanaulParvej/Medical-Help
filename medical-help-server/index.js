@@ -1,5 +1,7 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express()
@@ -10,9 +12,13 @@ app.use(cors())
 app.use(express.json());
 
 
-const uri = "mongodb://medical-admin:rvdtuLFrLA2PFY3o@ac-iydmfi3-shard-00-00.rbn9qen.mongodb.net:27017,ac-iydmfi3-shard-00-01.rbn9qen.mongodb.net:27017,ac-iydmfi3-shard-00-02.rbn9qen.mongodb.net:27017/?authSource=admin&replicaSet=atlas-m585ba-shard-0&tls=true&retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGODB_URI;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+if (!uri) {
+  console.error('Missing MONGODB_URI in medical-help-server/.env');
+  console.error('Set MONGODB_URI to your MongoDB connection string and restart the server.');
+  process.exit(1);
+}
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -23,7 +29,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
     const db = client.db("Medical-Help");
@@ -43,7 +48,7 @@ async function run() {
     });
 
     const checkAdminRole = async (req, res, next) => {
-      const email = req.headers['user-email']; // Frontend theke header e email asbe
+      const email = req.headers['user-email'];
 
       if (!email) {
         return res.status(401).send({ message: 'Email not provided' });
@@ -65,18 +70,13 @@ async function run() {
 
     app.post('/users', async (req, res) => {
       const user = req.body;
-
-      // Prothome check korchi ei email diye already kono user database e ache kina
-      // (Eta pore Social login er somoy khub kaje dibe, jate eki user barbar save na hoy)
       const query = { email: user.email };
       const existingUser = await userCollection.findOne(query);
 
       if (existingUser) {
-        // User age thekei thakle notun kore ar insert korbo na
         return res.send({ message: 'User already exists', insertedId: null });
       }
 
-      // User na thakle database a notun user hisabe insert korbo
       const result = await userCollection.insertOne(user);
       res.send(result);
     });
@@ -94,12 +94,9 @@ async function run() {
       res.send(doctor);
     });
 
-    // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    // Ensures that the client will close when you finish/error
-    // await client.close();
   }
 }
 run().catch(console.dir);
