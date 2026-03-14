@@ -1,8 +1,9 @@
-const express = require('express')
-const cors = require('cors')
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+const express = require('express');
+const cors = require('cors');
+const dotenv = require("dotenv");
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+
+dotenv.config();
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -14,11 +15,6 @@ app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
 
-if (!uri) {
-  console.error('Missing MONGODB_URI in medical-help-server/.env');
-  console.error('Set MONGODB_URI to your MongoDB connection string and restart the server.');
-  process.exit(1);
-}
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -97,6 +93,8 @@ async function run() {
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
+    // Ensures that the client will close when you finish/error
+    // await client.close();
   }
 }
 run().catch(console.dir);
