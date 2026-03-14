@@ -66,19 +66,19 @@ const DoctorCard = ({ doctor }) => {
                 <div className="flex gap-3 mt-2 pt-2">
                     <Link
                         to={`/doctor/${_id}`}
-                    className="flex-1 flex items-center justify-center gap-2 rounded-lg btn btn-primary btn-outline"
+                        className="flex-1 flex items-center justify-center gap-2 rounded-lg btn btn-primary btn-outline"
                     >
-                    <FaBriefcaseMedical size={16} />
-                    Details
-                </Link>
+                        <FaBriefcaseMedical size={16} />
+                        Details
+                    </Link>
 
-                <button className="flex-1 flex items-center justify-center gap-2 rounded-lg btn btn-primary">
-                    <FaCalendarAlt size={16} />
-                    Book
-                </button>
+                    <button className="flex-1 flex items-center justify-center gap-2 rounded-lg btn btn-primary">
+                        <FaCalendarAlt size={16} />
+                        Book
+                    </button>
+                </div>
+
             </div>
-
-        </div>
         </div >
     );
 };
