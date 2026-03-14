@@ -1,70 +1,159 @@
-# Medical Help - Healthcare Website
+# Medical Help
 
-A professional medical website project providing healthcare services and information using **MVC Architecture**.
+A full-stack healthcare web application with a React frontend and an Express + MongoDB backend.
 
-## Project Structure
+## Quick Start
 
-```
-Medical Help/
-├── index.html              # Main homepage
-├── mvc/                    # MVC Application Folder
-│   ├── models/            # Data models
-│   │   ├── User.js        # User model
-│   │   └── Appointment.js # Appointment model
-│   ├── views/             # HTML templates
-│   │   ├── index.html     # Home page
-│   │   ├── login.html     # Login page
-│   │   ├── signup.html    # Registration page
-│   │   ├── about.html     # About page
-│   │   ├── services.html  # Services page
-│   │   ├── contact.html   # Contact page
-│   │   └── forgot-password.html # Password reset
-│   ├── controllers/       # Business logic
-│   │   ├── authController.js # Authentication
-│   │   └── appointmentController.js # Appointments
-│   ├── public/            # Static assets
-│   │   ├── css/
-│   │   │   ├── style.css # Main stylesheet
-│   │   │   └── auth.css  # Auth pages style
-│   │   ├── js/
-│   │   │   ├── main.js   # Main JavaScript
-│   │   │   └── auth.js   # Auth JavaScript
-│   │   └── assets/
-│   │       ├── images/
-│   │       ├── icons/
-│   │       └── videos/
-│   ├── config/            # Configuration
-│   │   └── config.js      # App settings
-│   └── utils/             # Helper utilities
-│       ├── helpers.js     # Helper functions
-│       └── validators.js  # Validation functions
-├── components/            # Reusable components
-├── workflow.md            # Project workflow documentation
-└── README.md              # This file
+### 1) Run backend server
+
+```bash
+cd medical-help-server
+npm install
+npm run dev
 ```
 
-## Features
+Server runs on: `http://localhost:4000`
 
-- Professional medical website template
-- Responsive design
-- Multi-page structure
-- Organized asset management
-- Clean code structure
+### 2) Run frontend client
 
-## Getting Started
+Open a new terminal:
 
-1. Open `index.html` in a web browser
-2. Customize the content according to your needs
-3. Add your images and assets to the `assets/` folder
-4. Update the navigation links as needed
+```bash
+cd medical-help-client
+npm install
+npm run dev
+```
 
-## Technologies Used
+Client runs on Vite default port (usually `http://localhost:5173`).
 
-- HTML5
-- CSS3
-- JavaScript
-- Font Awesome Icons
+## README Automation
+
+This README is generated from your current codebase to avoid manual rewrite every day.
+
+One-time Git hook setup:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+Run this command to refresh:
+
+```bash
+node scripts/update-readme.mjs
+```
+
+<!-- AUTO-GENERATED:START -->
+## Auto-Generated Project Snapshot
+
+Last updated: 2026-03-14 07:56:02.116Z
+
+### Project Structure
+
+```text
+Medical-Help/
+├── .githooks/
+│   └── pre-commit
+├── medical-help-client/
+│   ├── public/
+│   │   └── vite.svg
+│   ├── src/
+│   │   ├── assets/
+│   │   │   ├── lottie/
+│   │   │   ├── logo.png
+│   │   │   └── react.svg
+│   │   ├── Component/
+│   │   │   └── Shared/
+│   │   ├── contexts/
+│   │   │   └── AuthContext/
+│   │   ├── data/
+│   │   ├── firebase/
+│   │   │   └── firebase.init.js
+│   │   ├── hooks/
+│   │   │   └── useAdmin.jsx
+│   │   ├── layout/
+│   │   │   ├── AuthLayout/
+│   │   │   ├── DashboardLayout/
+│   │   │   └── HomeLayout/
+│   │   ├── pages/
+│   │   │   ├── Auth/
+│   │   │   ├── DashboardHome/
+│   │   │   ├── DoctorDetails/
+│   │   │   ├── Doctors/
+│   │   │   ├── Home/
+│   │   │   └── Services/
+│   │   ├── router/
+│   │   │   └── router.jsx
+│   │   ├── routes/
+│   │   │   ├── AdminRoutes.jsx
+│   │   │   └── PrivateRoutes.jsx
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   └── vite.config.js
+├── medical-help-server/
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── index.js
+│   ├── package-lock.json
+│   └── package.json
+├── scripts/
+│   └── update-readme.mjs
+├── .gitattributes
+├── README.md
+└── workflow.md
+```
+
+### NPM Scripts
+
+#### Client (medical-help-client)
+- build: vite build
+- dev: vite
+- lint: eslint .
+- preview: vite preview
+
+#### Server (medical-help-server)
+- dev: nodemon index.js
+- start: node index.js
+- test: echo "Error: no test specified" && exit 1
+
+### Key Dependencies
+
+#### Client Dependencies
+- @tailwindcss/vite: ^4.2.0
+- firebase: ^12.10.0
+- lottie-react: ^2.4.1
+- react: ^19.2.0
+- react-dom: ^19.2.0
+- react-icons: ^5.5.0
+- react-router: ^7.13.1
+- sweetalert2: ^11.26.21
+- swiper: ^12.1.2
+- tailwindcss: ^4.2.0
+
+#### Server Dependencies
+- cors: ^2.8.6
+- dotenv: ^16.4.5
+- express: ^5.2.1
+- mongodb: ^7.1.0
+
+### API Endpoints (from server code)
+- GET /users/role/:email
+- GET /users
+- POST /users
+- GET /doctors
+- GET /doctors/:id
+- GET /
+<!-- AUTO-GENERATED:END -->
 
 ## License
 
-© 2026 Medical Help. All rights reserved.
+ISC (see package settings).
