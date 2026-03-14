@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-03-12 17:26:28.510Z
+Last updated: 2026-03-14 07:56:02.116Z
 
 ### Project Structure
 
@@ -90,6 +90,8 @@ Medical-Help/
 │   │   ├── App.jsx
 │   │   ├── index.css
 │   │   └── main.jsx
+│   ├── .env
+│   ├── .env.example
 │   ├── .gitignore
 │   ├── eslint.config.js
 │   ├── index.html
@@ -97,6 +99,8 @@ Medical-Help/
 │   ├── package.json
 │   └── vite.config.js
 ├── medical-help-server/
+│   ├── .env
+│   ├── .env.example
 │   ├── .gitignore
 │   ├── index.js
 │   ├── package-lock.json
@@ -137,6 +141,7 @@ Medical-Help/
 
 #### Server Dependencies
 - cors: ^2.8.6
+- dotenv: ^16.4.5
 - express: ^5.2.1
 - mongodb: ^7.1.0
 
