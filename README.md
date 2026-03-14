@@ -110,6 +110,7 @@ Medical-Help/
 │   └── vite.config.js
 ├── medical-help-server/
 │   ├── .env
+│   ├── .env.example
 │   ├── .gitignore
 │   ├── index.js
 │   ├── package-lock.json
@@ -181,7 +182,7 @@ Medical-Help/
 
 ## Licensing FAQ
 
-This repository is under the **ISC** open-source license.  
+This repository is under the **ISC** open-source license.
 You do not need to purchase or request it.
 
 To use it correctly:
