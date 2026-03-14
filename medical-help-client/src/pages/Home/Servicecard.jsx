@@ -1,34 +1,30 @@
 import React from 'react';
-import { PiAmbulance } from "react-icons/pi";
-import { GiPillDrop } from "react-icons/gi";
-import { GiTestTubes } from "react-icons/gi";
-import { LuStethoscope } from "react-icons/lu";
-
+import { FaUserMd, FaHeartbeat, FaHome, FaUserNurse } from "react-icons/fa";
 
 const ServiceCard = () => {
     const services = [
         {
             id: 1,
-            icon: <LuStethoscope color='#00BAFE' />,
-            title: 'অনলাইন পরামর্শ',
+            icon: <FaUserMd color='#00BAFE' size={40} />,
+            title: 'ডাক্তার খুঁজুন',
             description: 'ঘরে বসে বিশেষজ্ঞ ডাক্তারের পরামর্শ নিন'
         },
         {
             id: 2,
-            icon: <PiAmbulance color='#00BAFE' />,
-            title: 'জরুরি সেবা',
+            icon: <FaUserNurse color='#00BAFE' size={40} />,
+            title: 'নার্সিং কেয়ার',
             description: '২৪/৭ অ্যাম্বুলেন্স জরুরি সেবা'
         },
         {
             id: 3,
-            icon: <GiPillDrop color='#00BAFE' />,
-            title: 'ওষুধের সরবরাহ',
+            icon: <FaHeartbeat color='#00BAFE' size={40} />,
+            title: "ফিজিওথেরাপি",
             description: 'অনলাইনে ওষুধ অর্ডার করুন এবং ঘরে পান'
         },
         {
             id: 4,
-            icon: <GiTestTubes color='#00BAFE' />,
-            title: 'ল্যাব টেস্ট',
+            icon: <FaHome color='#00BAFE' size={40} />,
+            title: "হোম কেয়ার",
             description: 'ঘরে বসে সাশ্রয়ী সুবিধা সহ টেস্ট'
         }
     ];
