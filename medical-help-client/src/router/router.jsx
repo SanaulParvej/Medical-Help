@@ -10,6 +10,7 @@ import DashboardLayout from "../layout/DashboardLayout/DashboardLayout";
 import Doctors from "../pages/Doctors/Doctors";
 import Dashboard from "../pages/DashboardHome/Dashboard"
 import DoctorDetails from "../pages/DoctorDetails/DoctorDetails";
+import NursingCare from "../pages/NursingCare/NursingCare";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home
+            },
+            {
+                path: '/nursing-care-services',
+                Component: NursingCare
             },
             {
                 path: '/services',
