@@ -180,10 +180,10 @@ const AddDoctor = () => {
 
                 {/* Form Actions */}
                 <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
-                    <button type="button" className="px-6 py-2.5 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                    <button type="button" className="px-6 py-2.5 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
                         Cancel
                     </button>
-                    <button type="submit" className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-100 transition-all">
+                    <button type="submit" className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-100">
                         <Save size={18} />
                         Save Doctor Profile
                     </button>
