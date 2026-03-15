@@ -11,6 +11,9 @@ import Doctors from "../pages/Doctors/Doctors";
 import Dashboard from "../pages/DashboardHome/Dashboard"
 import DoctorDetails from "../pages/DoctorDetails/DoctorDetails";
 import NursingCare from "../pages/NursingCare/NursingCare";
+import AdminRoutes from "../routes/AdminRoutes";
+import AllDoctors from "../pages/Admin/AllDoctors/AllDoctors";
+import AddDoctor from "../pages/Admin/AddDoctor/AddDoctor";
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +67,16 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Dashboard
+            },
+            {
+                path: '/dashboard/all-doctors',
+                hydrateFallbackElement: <h1 className="loading loading-bars"></h1>,
+                loader: () => fetch("http://localhost:4000/doctors"),
+                element: <PrivateRoutes> <AdminRoutes> <AllDoctors></AllDoctors> </AdminRoutes> </PrivateRoutes>
+            },
+            {
+                path: '/dashboard/add-doctor',
+                element: <PrivateRoutes> <AdminRoutes> <AddDoctor></AddDoctor> </AdminRoutes> </PrivateRoutes>
             }
         ]
     }

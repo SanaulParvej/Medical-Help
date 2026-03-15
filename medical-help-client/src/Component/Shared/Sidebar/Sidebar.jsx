@@ -11,7 +11,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
         { name: 'Dashboard', icon: FiGrid, path: '/dashboard' },
         { name: 'Appointments', icon: FiCalendar, path: '/dashboard/appointments' },
         { name: 'Patients', icon: FiUsers, path: '/dashboard/patients' },
-        { name: 'Analytics', icon: FiUsers, path: '/dashboard/analytics' },
+        { name: 'All Doctors', icon: FiUsers, path: '/dashboard/all-doctors' },
         { name: 'Settings', icon: FiSettings, path: '/dashboard/settings' },
     ];
 
