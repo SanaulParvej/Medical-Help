@@ -12,7 +12,7 @@ const DashboardLayout = () => {
             <div className={`${sidebarOpen ? 'ml-64' : 'ml-20'} flex-1 flex flex-col transition-all duration-300`}>
                 <DashNavbar></DashNavbar>
                 <main className="flex-1 overflow-auto">
-                    <div className="p-8">
+                    <div className="p-4">
                         <Outlet />
                     </div>
                 </main>
