@@ -90,6 +90,25 @@ async function run() {
       res.send(doctor);
     });
 
+    app.post('/doctors', async (req, res) => {
+      const newDoctor = req.body;
+      const query = { registration_number: newDoctor.registration_number };
+      const existingDoctor = await doctorCollection.findOne(query);
+
+      if (existingDoctor) {
+        return res.send({ 
+            message: 'এই রেজিস্ট্রেশন নম্বরের ডাক্তার আগে থেকেই ডেটাবেসে আছেন!', 
+            insertedId: null 
+        });
+    }
+
+      const result = await doctorCollection.insertOne(newDoctor);
+      res.send(result);
+    });
+
+
+
+
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
