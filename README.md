@@ -110,7 +110,6 @@ Medical-Help/
 │   └── vite.config.js
 ├── medical-help-server/
 │   ├── .env
-│   ├── .env.example
 │   ├── .gitignore
 │   ├── index.js
 │   ├── package-lock.json
