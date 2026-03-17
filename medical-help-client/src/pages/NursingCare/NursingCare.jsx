@@ -1,5 +1,5 @@
 import React from 'react';
-import banner from '/public/banner_1.jpg';
+import banner from '/banner_1.jpg?url';
 import {
 	FaTools,
 	FaHospital,
@@ -168,11 +168,10 @@ const NursingCare = () => {
 						{pricingPlans.map((plan, index) => (
 							<div
 								key={index}
-								className={`rounded-lg p-8 hover:scale-105 transition ${
-									plan.highlight
+								className={`rounded-lg p-8 hover:scale-105 transition ${plan.highlight
 										? 'bg-teal-50 border-2 border-teal-500 shadow-lg transform md:scale-105 '
 										: 'bg-white border border-gray-200 shadow'
-								}`}
+									}`}
 							>
 								<h3 className='text-xl font-bold mb-3'>{plan.name}</h3>
 								<div className='mb-6'>
@@ -190,11 +189,10 @@ const NursingCare = () => {
 								</ul>
 
 								<button
-									className={`w-full py-3 rounded-lg font-bold transition ${
-										plan.highlight
+									className={`w-full py-3 rounded-lg font-bold transition ${plan.highlight
 											? 'bg-teal-500 text-white hover:bg-teal-600'
 											: 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-									}`}
+										}`}
 								>
 									িনবাচন করুন
 								</button>
