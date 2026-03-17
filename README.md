@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-03-14 07:56:02.116Z
+Last updated: 2026-03-17 08:10:31.668Z
 
 ### Project Structure
 
@@ -55,6 +55,7 @@ Medical-Help/
 │   └── pre-commit
 ├── medical-help-client/
 │   ├── public/
+│   │   ├── banner_1.jpg
 │   │   └── vite.svg
 │   ├── src/
 │   │   ├── assets/
@@ -75,11 +76,13 @@ Medical-Help/
 │   │   │   ├── DashboardLayout/
 │   │   │   └── HomeLayout/
 │   │   ├── pages/
+│   │   │   ├── Admin/
 │   │   │   ├── Auth/
 │   │   │   ├── DashboardHome/
 │   │   │   ├── DoctorDetails/
 │   │   │   ├── Doctors/
 │   │   │   ├── Home/
+│   │   │   ├── NursingCare/
 │   │   │   └── Services/
 │   │   ├── router/
 │   │   │   └── router.jsx
@@ -100,7 +103,6 @@ Medical-Help/
 │   └── vite.config.js
 ├── medical-help-server/
 │   ├── .env
-│   ├── .env.example
 │   ├── .gitignore
 │   ├── index.js
 │   ├── package-lock.json
@@ -131,6 +133,7 @@ Medical-Help/
 - @tailwindcss/vite: ^4.2.0
 - firebase: ^12.10.0
 - lottie-react: ^2.4.1
+- lucide-react: ^0.577.0
 - react: ^19.2.0
 - react-dom: ^19.2.0
 - react-icons: ^5.5.0
@@ -141,7 +144,7 @@ Medical-Help/
 
 #### Server Dependencies
 - cors: ^2.8.6
-- dotenv: ^16.4.5
+- dotenv: ^16.6.1
 - express: ^5.2.1
 - mongodb: ^7.1.0
 
@@ -151,6 +154,7 @@ Medical-Help/
 - POST /users
 - GET /doctors
 - GET /doctors/:id
+- POST /doctors
 - GET /
 <!-- AUTO-GENERATED:END -->
 
