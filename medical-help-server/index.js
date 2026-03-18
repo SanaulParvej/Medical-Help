@@ -79,6 +79,40 @@ async function run() {
       res.send(result);
     });
 
+        // Nursing Bookings API
+
+    app.post('/nursing-bookings', async (req, res) => {
+      const bookingData = req.body;
+
+      const query = {
+        phone: bookingData.phone,
+        startDate: bookingData.startDate,
+        planName: bookingData.planName
+      };
+
+      const alreadyBooked = await nursingBookingCollection.findOne(query);
+
+      if (alreadyBooked) {
+        return res.send({
+          message: 'আপনি ইতিমধ্যে এই তারিখের জন্য এই প্যাকেজটি বুক করেছেন! আমাদের প্রতিনিধি শীঘ্রই আপনার সাথে যোগাযোগ করবেন।',
+          insertedId: null
+        });
+      }
+
+      const result = await nursingBookingCollection.insertOne(bookingData);
+      res.send(result);
+    });
+
+
+    app.get('/nursing-bookings', async (req, res) => {
+      let query = {};
+      if (req.query?.email) {
+        query = { patientEmail: req.query.email };
+      }
+      const result = await nursingBookingCollection.find(query).toArray();
+      res.send(result);
+    });
+
     // Doctors
     app.get("/doctors", async (req, res) => {
       const result = await doctorCollection.find().toArray();
