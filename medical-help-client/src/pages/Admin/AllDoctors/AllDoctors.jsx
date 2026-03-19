@@ -35,7 +35,7 @@ const AllDoctors = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200 text-gray-700">
-                            {Array.isArray(doctors) && doctors.length > 0 ? (
+                            { doctors.length > 0 ? (
                                 doctors.map((doctor, idx) => (
                                     <tr 
                                         key={doctor._id || idx} 

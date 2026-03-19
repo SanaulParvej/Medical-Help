@@ -1,4 +1,4 @@
- import React, { use, useState } from 'react';
+import React, { use, useState } from 'react';
 import banner from '/banner_1.jpg';
 import {
   FaTools,
@@ -150,14 +150,14 @@ const NursingCare = () => {
       });
       return;
     }
-	
+
 
     Swal.fire({
       title: 'আপনি কি নিশ্চিত?',
       text: `আপনি ${formData.patientName}-এর জন্য "${selectedPlan.name}" প্যাকেজটি বুক করতে চাচ্ছেন।`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#0d9488', 
+      confirmButtonColor: '#0d9488',
       cancelButtonColor: '#d33',
       confirmButtonText: 'হ্যাঁ, বুক করুন!',
       cancelButtonText: 'বাতিল করুন'
@@ -260,7 +260,7 @@ const NursingCare = () => {
           </div>
         </div>
       </div>
-	  
+
 
       {/* Pricing Section */}
       <div className='bg-base-200 py-12'>
@@ -344,7 +344,7 @@ const NursingCare = () => {
                   required
                 />
               </div>
-			  
+
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">ঠিকানা (যেখানে সেবা প্রয়োজন)</label>
