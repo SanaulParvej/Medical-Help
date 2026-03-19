@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-03-17 17:37:08.520Z
+Last updated: 2026-03-19 17:38:24.892Z
 
 ### Project Structure
 
@@ -152,6 +152,8 @@ Medical-Help/
 - GET /users/role/:email
 - GET /users
 - POST /users
+- POST /nursing-bookings
+- GET /nursing-bookings
 - GET /doctors
 - GET /doctors/:id
 - POST /doctors
