@@ -61,6 +61,8 @@ async function run() {
       next();
     };
 
+    // Users API
+    
     app.get("/users", async (req, res) => {
       const result = await userCollection.find().toArray();
       res.send(result);
@@ -79,7 +81,7 @@ async function run() {
       res.send(result);
     });
 
-        // Nursing Bookings API
+    // Nursing Bookings API
 
     app.post('/nursing-bookings', async (req, res) => {
       const bookingData = req.body;
@@ -102,7 +104,6 @@ async function run() {
       const result = await nursingBookingCollection.insertOne(bookingData);
       res.send(result);
     });
-
 
     app.get('/nursing-bookings', async (req, res) => {
       let query = {};
@@ -175,6 +176,8 @@ async function run() {
       const result = await appointmentCollection.find(query).toArray();
       res.send(result);
     });
+
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!",

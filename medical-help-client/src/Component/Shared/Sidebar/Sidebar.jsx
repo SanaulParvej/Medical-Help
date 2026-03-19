@@ -1,15 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router';
-import { FiMenu, FiX, FiUsers, FiSettings, FiLogOut, FiGrid, FiCalendar } from 'react-icons/fi';
+import React, { use } from 'react';
+import { NavLink } from 'react-router';
+import { FiMenu, FiX, FiUsers, FiSettings, FiLogOut, FiGrid, FiCalendar, FiHome } from 'react-icons/fi';
 import useAdmin from '../../../hooks/useAdmin';
+import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
 
 const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
     const [role, isAdminLoading] = useAdmin();
+    const { userSignOut } = use(AuthContext)
+    const handleSignOut = () => {
+        userSignOut()
+            .then(() => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Sign out successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    toast: true
+                });
+                console.log('Signed out user');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
 
     const adminMenuItems = [
-        { name: "Home", icon: FiGrid, path: '/' },
+        { name: "Home", icon: FiHome, path: '/' },
         { name: 'Dashboard', icon: FiGrid, path: '/dashboard' },
-        { name: 'Appointments', icon: FiCalendar, path: '/dashboard/appointments' },
+        { name: 'All Appointments', icon: FiCalendar, path: '/dashboard/all-appointments' },
         { name: 'Patients', icon: FiUsers, path: '/dashboard/patients' },
         { name: 'All Doctors', icon: FiUsers, path: '/dashboard/all-doctors' },
         { name: 'Settings', icon: FiSettings, path: '/dashboard/settings' },
@@ -50,22 +69,21 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                 {/* Navigation Menu */}
                 <nav className="mt-8 px-3 space-y-2">
                     {menuItems.map((item) => (
-                        <Link
+                        <NavLink
                             key={item.path}
                             to={item.path}
-                            className="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors group"
-                        >
+                            className="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors group">
                             <item.icon size={20} className="shrink-0" />
                             {sidebarOpen && (
                                 <span className="text-sm font-medium">{item.name}</span>
                             )}
-                        </Link>
+                        </NavLink>
                     ))}
                 </nav>
 
                 {/* Logout Button */}
                 <div className="absolute bottom-6 left-3 right-3">
-                    <button className="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-red-400">
+                    <button onClick={handleSignOut} className="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-red-400">
                         <FiLogOut size={20} className="shrink-0" />
                         {sidebarOpen && <span className="text-sm font-medium">Logout</span>}
                     </button>
