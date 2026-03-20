@@ -62,7 +62,7 @@ async function run() {
     };
 
     // Users API
-    
+
     app.get("/users", async (req, res) => {
       const result = await userCollection.find().toArray();
       res.send(result);
@@ -175,6 +175,27 @@ async function run() {
       }
       const result = await appointmentCollection.find(query).toArray();
       res.send(result);
+    });
+
+    // Appointment Status Update (Approve/Cancel)
+    app.patch("/appointments/:id", async (req, res) => {
+      const id = req.params.id;
+      const { status } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          status: status,
+        },
+      };
+
+      try {
+        const result = await appointmentCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      } catch (error) {
+        console.error("Error updating status:", error);
+        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
+      }
     });
 
 
