@@ -1,8 +1,10 @@
 import React, { use } from 'react';
 import { NavLink } from 'react-router';
-import { FiMenu, FiX, FiUsers, FiSettings, FiLogOut, FiGrid, FiCalendar, FiHome } from 'react-icons/fi';
+import { FiMenu, FiX, FiUsers, FiSettings, FiLogOut, FiGrid, FiCalendar, FiHome, FiBookmark } from 'react-icons/fi';
+import { FaFileMedical } from "react-icons/fa";
 import useAdmin from '../../../hooks/useAdmin';
 import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
+import Loading from '../../Loader/Loading';
 
 const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
     const [role, isAdminLoading] = useAdmin();
@@ -29,22 +31,21 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
         { name: "Home", icon: FiHome, path: '/' },
         { name: 'Dashboard', icon: FiGrid, path: '/dashboard' },
         { name: 'All Appointments', icon: FiCalendar, path: '/dashboard/all-appointments' },
-        { name: 'Patients', icon: FiUsers, path: '/dashboard/patients' },
         { name: 'All Doctors', icon: FiUsers, path: '/dashboard/all-doctors' },
-        { name: 'Settings', icon: FiSettings, path: '/dashboard/settings' },
+        { name: 'All Bookings', icon: FaFileMedical, path: '/dashboard/all-bookings' },
+        { name: 'Patients', icon: FiUsers, path: '/dashboard/patients' },
     ];
 
     const userMenuItems = [
         { name: "Home", icon: FiGrid, path: '/' },
         { name: 'My Appointments', icon: FiCalendar, path: '/dashboard/my-appointments' },
         { name: 'My Profile', icon: FiUsers, path: '/dashboard/profile' },
-        { name: 'Settings', icon: FiSettings, path: '/dashboard/settings' },
     ];
 
     const menuItems = role === 'admin' ? adminMenuItems : userMenuItems;
 
     if (isAdminLoading) {
-        return <div>Loading...</div>;
+        return <Loading></Loading>;
     }
 
     return (

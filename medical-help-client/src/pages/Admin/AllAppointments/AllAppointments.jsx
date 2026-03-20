@@ -3,18 +3,15 @@ import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
 
 const AllAppointments = () => {
-    const data = useLoaderData();
-    // Modal-এ দেখানোর জন্য সিলেক্টেড অ্যাপয়েন্টমেন্টের স্টেট
+    const loadedData = useLoaderData();
+    const [appointments, setAppointments] = useState(loadedData);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
 
-    // View Details হ্যান্ডলার
     const handleViewDetails = (appointment) => {
         setSelectedAppointment(appointment);
-        // DaisyUI Modal ওপেন করার নিয়ম
         document.getElementById('details_modal').showModal();
     };
 
-    // Approve হ্যান্ডলার (ভবিষ্যতে ব্যাকএন্ড API এখানে বসবে)
     const handleApprove = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -26,14 +23,25 @@ const AllAppointments = () => {
             confirmButtonText: 'Yes, Approve!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // TODO: Backend update status API call here
-                console.log("Approved Appointment ID:", id);
-                Swal.fire('Approved!', 'The appointment has been approved.', 'success');
+                fetch(`http://localhost:4000/appointments/${id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: 'approved' })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.modifiedCount > 0) {
+                            Swal.fire('Approved!', 'The appointment has been approved.', 'success');
+                            setAppointments(prev => prev.map(app =>
+                                app._id === id ? { ...app, status: 'approved' } : app
+                            ));
+                        }
+                    })
+                    .catch(error => console.error(error));
             }
         });
     };
 
-    // Cancel হ্যান্ডলার (ভবিষ্যতে ব্যাকএন্ড API এখানে বসবে)
     const handleCancel = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -45,46 +53,51 @@ const AllAppointments = () => {
             confirmButtonText: 'Yes, Cancel it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // TODO: Backend update status API call here
-                console.log("Cancelled Appointment ID:", id);
-                Swal.fire('Cancelled!', 'The appointment has been cancelled.', 'success');
+                fetch(`http://localhost:4000/appointments/${id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: 'cancelled' })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.modifiedCount > 0) {
+                            Swal.fire('Cancelled!', 'The appointment has been cancelled.', 'success');
+
+                            setAppointments(prev => prev.map(app =>
+                                app._id === id ? { ...app, status: 'cancelled' } : app
+                            ));
+                        }
+                    })
+                    .catch(error => console.error(error));
             }
         });
     };
 
     return (
-        <div className="p-6 max-w-7xl mx-auto">
-            <h2 className="text-2xl font-bold mb-6">All Appointments ({data.length})</h2>
-
+        <div className="p-6">
+            <h2 className="text-2xl font-semibold mb-6">All Appointments ({appointments.length})</h2>
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="table min-w-full divide-y divide-gray-200">
-                        {/* Table Head */}
                         <thead className="bg-gray-100">
                             <tr>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">#</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Doctor</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Patient</th>
-                                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
-                                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700"> Time</th>
+                                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Date & Time</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
                                 <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">Actions</th>
                             </tr>
                         </thead>
-                        {/* Table Body */}
                         <tbody className="bg-white divide-y divide-gray-200">
-                            {data.map((item, idx) => (
+                            {appointments.map((item, idx) => (
                                 <tr key={item._id} className="hover:bg-blue-50 transition">
                                     <td className="px-4 py-3 text-sm text-gray-600 font-medium">{idx + 1}</td>
                                     <td className="px-4 py-3 text-sm text-gray-900 font-medium">{item.doctorName}</td>
                                     <td className="px-4 py-3 text-sm text-gray-900">{item.patientName}</td>
                                     <td className="px-4 py-3 text-sm text-gray-700">
                                         <div className="font-medium">{item.date}</div>
-                                        
-                                    </td>
-                                    <td className="px-4 py-3 text-sm text-gray-700 ">
-                                        
-                                        <div className="font-medium">{item.time}</div>
+                                        <div className="text-xs text-gray-500">{item.time}</div>
                                     </td>
                                     <td className="px-4 py-3">
                                         <span
@@ -109,13 +122,15 @@ const AllAppointments = () => {
                                             >
                                                 View
                                             </button>
+
                                             <button
                                                 onClick={() => handleApprove(item._id)}
                                                 className="btn btn-sm btn-success text-white"
-                                                disabled={item.status === 'approved' || item.status === 'completed'}
+                                                disabled={item.status === 'approved' || item.status === 'completed' || item.status === 'cancelled'}
                                             >
                                                 Approve
                                             </button>
+
                                             <button
                                                 onClick={() => handleCancel(item._id)}
                                                 className="btn btn-sm btn-error text-white"
@@ -161,7 +176,6 @@ const AllAppointments = () => {
 
                     <div className="modal-action">
                         <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
                             <button className="btn btn-outline">Close</button>
                         </form>
                     </div>

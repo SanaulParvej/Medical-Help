@@ -2,13 +2,14 @@ import React from 'react';
 import useAdmin from '../../hooks/useAdmin';
 import AdminDashboard from './AdminDashboard';
 import UserDashboard from './UserDashboard';
+import Loading from '../../Component/Loader/Loading';
 
 const Dashboard = () => {
 
     const [role, isAdminLoading] = useAdmin();
 
     if (isAdminLoading) {
-        return <h1 className='loading loading-bars'></h1>
+        return <Loading></Loading>
     }
 
     if (role === 'admin') {

@@ -15,6 +15,7 @@ import AdminRoutes from "../routes/AdminRoutes";
 import AllDoctors from "../pages/Admin/AllDoctors/AllDoctors";
 import AddDoctor from "../pages/Admin/AddDoctor/AddDoctor";
 import AllAppointments from "../pages/Admin/AllAppointments/AllAppointments";
+import Loading from "../Component/Loader/Loading";
 
 export const router = createBrowserRouter([
     {
@@ -71,7 +72,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/all-doctors',
-                hydrateFallbackElement: <h1 className="loading loading-bars"></h1>,
+                hydrateFallbackElement: <Loading></Loading>,
                 loader: () => fetch("http://localhost:4000/doctors"),
                 element: <PrivateRoutes> <AdminRoutes> <AllDoctors></AllDoctors> </AdminRoutes> </PrivateRoutes>
             },
@@ -81,7 +82,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/all-appointments',
-                hydrateFallbackElement: <h1 className="loading loading-bars"></h1>,
+                hydrateFallbackElement: <Loading></Loading>,
                 loader: () => fetch("http://localhost:4000/appointments"),
                 element: <PrivateRoutes> <AdminRoutes> <AllAppointments></AllAppointments> </AdminRoutes> </PrivateRoutes>
             },
