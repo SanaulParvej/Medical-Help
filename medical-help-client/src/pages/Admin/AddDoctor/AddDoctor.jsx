@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Save, UserPlus } from 'lucide-react';
-import { Link} from 'react-router';
+import { Link } from 'react-router';
 import Swal from 'sweetalert2';
 
 const AddDoctor = () => {

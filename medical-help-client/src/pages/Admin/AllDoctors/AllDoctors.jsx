@@ -1,16 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { Pencil, Trash2, UserPlus, Inbox } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const AllDoctors = () => {
-    const doctors = useLoaderData();
+    const loadedDoctors = useLoaderData();
+    const [doctors, setDoctors] = useState(loadedDoctors);
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this doctor's data!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#6b7280',  
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:4000/doctors/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            Swal.fire(
+                                'Deleted!',
+                                'The doctor has been removed from the system.',
+                                'success'
+                            );
+                            const remainingDoctors = doctors.filter(doctor => doctor._id !== id);
+                            setDoctors(remainingDoctors);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error deleting doctor:", error);
+                        Swal.fire('Error!', 'Something went wrong. Could not delete.', 'error');
+                    });
+            }
+        });
+    };
 
     return (
         <div className="max-w-7xl mx-auto p-6">
             {/* Header Section */}
             <div className="flex flex-col lg:flex-row justify-between items-start mb-8 gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">All Doctors</h1>
+                    <h1 className="text-2xl font-bold text-gray-900">All Doctors ({doctors.length})</h1>
                     <p className="text-sm text-gray-500 mt-1">
                         Manage your clinic's medical professionals and their details.
                     </p>
@@ -35,7 +71,7 @@ const AllDoctors = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200 text-gray-700">
-                            { doctors.length > 0 ? (
+                            {doctors.length > 0 ? (
                                 doctors.map((doctor, idx) => (
                                     <tr 
                                         key={doctor._id || idx} 
@@ -56,13 +92,14 @@ const AllDoctors = () => {
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex justify-end gap-2">
                                                 <button 
-                                                    className="p-2 text-blue-600  rounded-lg"
+                                                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
                                                     aria-label="Edit"
                                                 >
                                                     <Pencil size={18} />
                                                 </button>
                                                 <button 
-                                                    className="p-2 text-red-600  rounded-lg"
+                                                    onClick={() => handleDelete(doctor._id)} // ডিলিট ফাংশন কল করা হলো
+                                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
                                                     aria-label="Delete"
                                                 >
                                                     <Trash2 size={18} />

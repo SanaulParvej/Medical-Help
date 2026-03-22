@@ -6,7 +6,7 @@ const NursingCareBookings = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:4000/nursing-bookings") 
+        fetch("http://localhost:4000/nursing-bookings")
             .then(res => res.json())
             .then(data => {
                 setBookings(data);
@@ -25,7 +25,7 @@ const NursingCareBookings = () => {
     return (
         <div>
             <h2 className="text-2xl font-semibold mb-6">Nursing Care Bookings ({bookings.length})</h2>
-            
+
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="table min-w-full divide-y divide-gray-200">
@@ -86,7 +86,7 @@ const NursingCareBookings = () => {
                             ))}
                         </tbody>
                     </table>
-                    
+
                     {bookings.length === 0 && !loading && (
                         <div className="text-center py-8 text-gray-500">
                             No nursing bookings found.
