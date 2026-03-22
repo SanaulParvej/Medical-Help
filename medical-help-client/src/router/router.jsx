@@ -16,6 +16,8 @@ import AllDoctors from "../pages/Admin/AllDoctors/AllDoctors";
 import AddDoctor from "../pages/Admin/AddDoctor/AddDoctor";
 import AllAppointments from "../pages/Admin/AllAppointments/AllAppointments";
 import Loading from "../Component/Loader/Loading";
+import AllBookings from "../pages/Admin/AllBookings/AllBookings";
+import NursingCareBookings from "../pages/Admin/AllBookings/NursingCareBookings/NursingCareBookings";
 
 export const router = createBrowserRouter([
     {
@@ -86,6 +88,18 @@ export const router = createBrowserRouter([
                 loader: () => fetch("http://localhost:4000/appointments"),
                 element: <PrivateRoutes> <AdminRoutes> <AllAppointments></AllAppointments> </AdminRoutes> </PrivateRoutes>
             },
+            {
+                path: '/dashboard/all-bookings',
+                hydrateFallbackElement: <Loading></Loading>,
+                element: <PrivateRoutes> <AdminRoutes> <AllBookings></AllBookings> </AdminRoutes> </PrivateRoutes>
+            },
+            {
+                path: '/dashboard/all-bookings/nursing',
+                hydrateFallbackElement: <Loading></Loading>,
+                loader: () => fetch("http://localhost:4000/doctors") ,
+                element: <PrivateRoutes> <AdminRoutes> <NursingCareBookings></NursingCareBookings> </AdminRoutes> </PrivateRoutes>
+            }
+
         ]
     }
 ]);
