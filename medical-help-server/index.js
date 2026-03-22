@@ -144,6 +144,20 @@ async function run() {
       res.send(result);
     });
 
+    app.delete("/doctors/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+
+      try {
+        const result = await doctorCollection.deleteOne(query);
+        res.send(result);
+      } catch (error) {
+        console.error("Error deleting doctor:", error);
+        res.status(500).send({ message: "ডাক্তার ডিলিট করতে সার্ভারে সমস্যা হয়েছে" });
+      }
+    });
+
+
     // Appointments
 
     app.post("/appointments", async (req, res) => {
