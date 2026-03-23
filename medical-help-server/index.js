@@ -157,6 +157,19 @@ async function run() {
       }
     });
 
+    app.patch("/doctors/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const updatedData = req.body;
+
+      const updateDoc = {
+        $set: updatedData
+      };
+
+      const result = await doctorCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    });
+
 
     // Appointments
 
