@@ -33,7 +33,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
         { name: 'All Appointments', icon: FiCalendar, path: '/dashboard/all-appointments' },
         { name: 'All Doctors', icon: FiUsers, path: '/dashboard/all-doctors' },
         { name: 'All Bookings', icon: FaFileMedical, path: '/dashboard/all-bookings' },
-        { name: 'Patients', icon: FiUsers, path: '/dashboard/patients' },
+        { name: 'All Users', icon: FiUsers, path: '/dashboard/all-users' },
     ];
 
     const userMenuItems = [
