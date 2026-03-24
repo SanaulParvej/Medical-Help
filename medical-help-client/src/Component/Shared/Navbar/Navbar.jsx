@@ -57,10 +57,10 @@ const Navbar = () => {
         </li>
         <li className='text-lg'>
             <NavLink
-                to={'/aaa'}
+                to={'/emergency-service'}
                 className={({ isActive }) => (
                     isActive ? 'text-indigo-600 underline underline-offset-6 decoration-3' : '')}>
-                যোগাযোগ
+                জরুরি সেবা
             </NavLink>
         </li>
 

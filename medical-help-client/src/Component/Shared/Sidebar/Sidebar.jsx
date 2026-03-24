@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { FiMenu, FiX, FiUsers, FiSettings, FiLogOut, FiGrid, FiCalendar, FiHome, FiBookmark } from 'react-icons/fi';
 import { FaFileMedical } from "react-icons/fa";
 import useAdmin from '../../../hooks/useAdmin';
@@ -37,8 +37,10 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
     ];
 
     const userMenuItems = [
-        { name: "Home", icon: FiGrid, path: '/' },
+        { name: "Home", icon: FiHome, path: '/' },
+        { name: 'Dashboard', icon: FiGrid, path: '/dashboard' },
         { name: 'My Appointments', icon: FiCalendar, path: '/dashboard/my-appointments' },
+        { name: 'My Bookings', icon: FaFileMedical, path: '/dashboard/my-bookings'},
         { name: 'My Profile', icon: FiUsers, path: '/dashboard/profile' },
     ];
 
@@ -56,7 +58,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                     {sidebarOpen && (
                         <div className="flex items-center gap-2">
                             <img src="" alt="" />
-                            <h1 className="text-lg font-bold">Medical Help</h1>
+                            <Link to={'/'} className="text-lg font-bold">Medical Help</Link>
                         </div>
                     )}
                     <button
