@@ -19,6 +19,7 @@ import Loading from "../Component/Loader/Loading";
 import AllBookings from "../pages/Admin/AllBookings/AllBookings";
 import NursingCareBookings from "../pages/Admin/AllBookings/NursingCareBookings/NursingCareBookings";
 import AllUsers from "../pages/Admin/AllUsers/AllUsers";
+import EmergencyService from "../pages/EmergencyService/EmergencyService";
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path: '/services',
                 Component: Services
+            },
+            {
+                path: '/emergency-service',
+                Component: EmergencyService
             },
             {
                 path: '/doctors',
