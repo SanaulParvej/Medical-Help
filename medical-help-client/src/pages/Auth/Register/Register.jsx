@@ -77,35 +77,48 @@ const Register = () => {
                 updateUser(name)
                     .then(() => {
                         console.log('Updated');
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-                setErrors({});
-                setSuccessMessage('Account created successfully.');
-                form.reset();
-                navigate(from);
-            })
-            .catch((error) => {
-                setAuthError(error.message);
-            });
-    }
+// 1) Create auth account
+=======
 
-    return (
-        <div className="hero">
-            <div className="hero-content flex-col lg:flex-row-reverse w-full max-w-md">
-                <div className="card bg-base-100 w-full shadow-2xl">
-                    <div className="card-body p-8 lg:p-10 xl:p-12">
-                        <h1 className="text-3xl font-bold text-black mb-4 text-center">Create an Account</h1>
+        if (password.length < 6) {
+                        // 2) Update Firebase profile name
+            setErrorMessage('Password must be at least 6 characters long.');
+            return;
+        }
+                                // 3) Save profile in backend with default role
+                                const savedUser = {
+                                    name,
+                                    email,
+                                    role: 'user'
+                                };
+                                fetch('http://localhost:4000/users', {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify(savedUser)
+                                })
+                                    .then((res) => res.json())
+                                    .then((data) => {
+                                        if (data.insertedId || data.message === 'User already exists') {
+                                            Swal.fire({
+                                                title: 'Registered Successfully!',
+                                                icon: 'success',
+                                                draggable: true
+                                            });
+                                            navigate(from);
+                                        }
+                                    });
+                            })
+                            .catch((error) => {
+                                console.log(error);
 
-                        <form onSubmit={handleRegister}>
-                            <fieldset className="fieldset space-y-1">
+                const user = result.user;
+                console.log("Firebase user created:", user);
 
-                                {/* Name */}
-                                <div>
-                                    <label className="label text-black">Name</label>
-                                    <div className="relative">
-                                        <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 z-10">
+                updateUser(name)
+                        console.log("Profile Updated");
+
                                             <FaUser />
                                         </span>
                                         <input
@@ -184,8 +197,10 @@ const Register = () => {
                                 <button type="submit" className="btn btn-neutral w-full">Register</button>
                             </fieldset>
                             {successMessage && <p className="text-green-600 text-sm mt-2">{successMessage}</p>}
+
                             <p className='mt-1 text-center text-black'><small>Already have an account? <Link className='btn-link' to={'/auth/login'}>Login</Link></small></p>
                         </form>
+
                         <SocialLogin></SocialLogin>
                     </div>
                 </div>

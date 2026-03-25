@@ -34,6 +34,10 @@ export const router = createBrowserRouter([
                 path: '/nursing-care-services',
                 Component: NursingCare
             },
+                        {
+                path: '/home-care-services',
+                Component: HomeCare
+            },
             {
                 path: '/services',
                 Component: Services
