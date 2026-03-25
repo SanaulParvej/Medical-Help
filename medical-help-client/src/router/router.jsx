@@ -20,6 +20,7 @@ import AllBookings from "../pages/Admin/AllBookings/AllBookings";
 import NursingCareBookings from "../pages/Admin/AllBookings/NursingCareBookings/NursingCareBookings";
 import AllUsers from "../pages/Admin/AllUsers/AllUsers";
 import EmergencyService from "../pages/EmergencyService/EmergencyService";
+import HomeCare from "../pages/HomeCare/HomeCare";
 
 export const router = createBrowserRouter([
     {
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
                 path: '/nursing-care-services',
                 Component: NursingCare
             },
-                        {
+            {
                 path: '/home-care-services',
                 Component: HomeCare
             },
