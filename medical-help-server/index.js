@@ -30,6 +30,7 @@ async function run() {
     const doctorCollection = db.collection("doctors");
     const appointmentCollection = db.collection("appointments");
     const nursingBookingCollection = db.collection("nursingBookings");
+    const homecareBookingCollection = db.collection("homecareBookings");
 
     app.get("/users/role/:email", async (req, res) => {
       const email = req.params.email;
@@ -111,6 +112,39 @@ async function run() {
         query = { patientEmail: req.query.email };
       }
       const result = await nursingBookingCollection.find(query).toArray();
+      res.send(result);
+    });
+
+        // Homecare Bookings API
+
+    app.post('/homecare-bookings', async (req, res) => {
+      const bookingData = req.body;
+
+      const query = {
+        phone: bookingData.phone,
+        startDate: bookingData.startDate,
+        planName: bookingData.planName
+      };
+
+      const alreadyBooked = await homecareBookingCollection.findOne(query);
+
+      if (alreadyBooked) {
+        return res.send({
+          message: 'apni itimodhei ei tarikh er jonno ei package ti book korechen!',
+          insertedId: null
+        });
+      }
+
+      const result = await homecareBookingCollection.insertOne(bookingData);
+      res.send(result);
+    });
+
+    app.get('/homecare-bookings', async (req, res) => {
+      let query = {};
+      if (req.query?.email) {
+        query = { patientEmail: req.query.email };
+      }
+      const result = await homecareBookingCollection.find(query).toArray();
       res.send(result);
     });
 
