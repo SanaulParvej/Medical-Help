@@ -21,19 +21,18 @@ import {
 import { AuthContext } from '../../contexts/AuthContext/AuthContext';
 
 const HomeCare = () => {
-    // Modal এবং ফর্মের জন্য স্টেট
+
     const {user} = use(AuthContext)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [formData, setFormData] = useState({
         patientName: '',
-        patientEmail: '', // যিনি বুক করছেন তার ইমেইল
+        patientEmail: '', 
         phone: '',
         address: '',
         startDate: ''
     });
 
-    // ৬টি হোম কেয়ার সার্ভিস
     const services = [
         { icon: FaUserEdit, title: 'বয়স্ক যত্ন', description: 'বয়োবৃদ্ধদের দৈনন্দিন ও স্বাস্থ্যসেবা', color: 'text-pink-500 bg-pink-100' },
         { icon: FaBed, title: 'রোগী পরিচর্যা', description: 'অসুস্থ রোগীদের সম্পূর্ণ পরিচর্যা সেবা', color: 'text-red-500 bg-red-100' },
@@ -43,11 +42,10 @@ const HomeCare = () => {
         { icon: FaUserFriends, title: 'সঙ্গী সেবা', description: 'মানসিক সাপোর্ট ও সামাজিক সহায়তা', color: 'text-cyan-500 bg-cyan-100' },
     ];
 
-    // ৩টি প্যাকেজ (ফুল-টাইম হাইলাইট করা)
     const pricingPlans = [
         {
             name: 'পার্ট-টাইম কেয়ার',
-            price: '৳12,000',
+            price: '12,000',
             period: 'মাস',
             hours: 'দৈনিক ৪-৬ ঘণ্টা',
             features: ['দৈনিক ৪-৬ ঘণ্টা সেবা', 'প্রাথমিক যত্ন', 'ওষুধ প্রদান', 'খাবার সহায়তা', 'প্রাথমিক রিপোর্টিং'],
@@ -56,7 +54,7 @@ const HomeCare = () => {
         {
             name: 'ফুল-টাইম কেয়ার',
             badge: 'জনপ্রিয়',
-            price: '৳22,000',
+            price: '22,000',
             period: 'মাস',
             hours: 'দৈনিক ৮-১০ ঘণ্টা',
             features: ['দৈনিক ৮-১০ ঘণ্টা সেবা', 'সম্পূর্ণ শারীরিক যত্ন', 'ওষুধ ব্যবস্থাপনা', 'খাবার প্রস্তুতি ও প্রদান', 'রোগীর পরিচর্যা', 'হালকা ব্যায়াম', 'দৈনিক রিপোর্টিং', 'ফোন সাপোর্ট'],
@@ -64,7 +62,7 @@ const HomeCare = () => {
         },
         {
             name: 'লাইভ-ইন কেয়ার',
-            price: '৳35,000',
+            price: '35,000',
             period: 'মাস',
             hours: '২৪ ঘণ্টা',
             features: ['২৪ ঘণ্টা সেবা', 'সম্পূর্ণ রোগীর পরিচর্যা', 'সবসময় ওষুধ প্রদান', 'খাবার প্রস্তুতি ও পর্যবেক্ষণ', 'জরুরি সহায়তা', 'পরিবারের সাথে সমন্বয়', 'দৈনিক বিস্তারিত রিপোর্ট', 'ডাক্তার পরামর্শ সুবিধা'],
@@ -126,7 +124,6 @@ const HomeCare = () => {
                     status: 'pending'
                 };
 
-                // API Call (আগের মতোই)
                 fetch('http://localhost:4000/homecare-bookings', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -200,7 +197,7 @@ const HomeCare = () => {
                                 )}
                                 <h3 className='font-bold text-gray-800 text-lg mb-2'>{plan.name}</h3>
                                 <div className='mb-2'>
-                                    <span className='text-3xl font-bold text-pink-600'>{plan.price}</span>
+                                    <span className='text-3xl font-bold text-pink-600'>৳{plan.price}</span>
                                     <span className='text-gray-500 text-sm'> /{plan.period}</span>
                                 </div>
                                 <p className='text-xs text-gray-400 mb-6'>{plan.hours}</p>

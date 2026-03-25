@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import NursingCareBookings from './NursingCareBookings/NursingCareBookings';
+import HomeCareBookings from './HomeCareBookings/HomeCareBookings';
 
 const AllBookings = () => {
     return (
@@ -23,7 +24,7 @@ const AllBookings = () => {
                         <NursingCareBookings></NursingCareBookings>
                     </TabPanel>
                     <TabPanel>
-                        <h2>Any content 2</h2>
+                        <HomeCareBookings></HomeCareBookings>
                     </TabPanel>
                     <TabPanel>
                         <h2>Alll</h2>
