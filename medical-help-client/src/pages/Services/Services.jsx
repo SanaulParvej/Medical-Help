@@ -40,6 +40,7 @@ const Services = () => {
             description: "ঘরে বসে সাশ্রয়ী সুবিধা সহ টেস্ট", 
             icon: <FaHome color='#00BAFE' size={40} />, 
             button: "যোগাযোগ করুন", 
+            link: '/home-care-services'
         }, 
         { 
             id: 5, 
