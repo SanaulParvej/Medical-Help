@@ -19,7 +19,7 @@ const NursingCare = () => {
 
   const { user } = use(AuthContext);
 
-  // Modal এবং ফর্মের জন্য স্টেট
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [formData, setFormData] = useState({
@@ -65,7 +65,7 @@ const NursingCare = () => {
   const pricingPlans = [
     {
       name: 'বেসিক সেবা',
-      price: '৳৪,০০০', // চাইলে 4,000 ও রাখতে পারেন
+      price: 4000, 
       period: 'প্রতি সপ্তাহ',
       features: [
         'দৈনিক এক ঘণ্টা',
@@ -78,7 +78,7 @@ const NursingCare = () => {
     },
     {
       name: 'স্ট্যান্ডার্ড সেবা',
-      price: '৳১৫,০০০',
+      price: 15000,
       period: 'প্রতি মাস',
       features: [
         'দৈনিক দুই ঘণ্টা',
@@ -92,7 +92,7 @@ const NursingCare = () => {
     },
     {
       name: 'প্রিমিয়াম সেবা',
-      price: '৳২৫,০০০',
+      price: 25000,
       period: 'প্রতি মাস',
       features: [
         'দৈনিক তিন ঘণ্টা',
@@ -273,7 +273,7 @@ const NursingCare = () => {
               <div key={index} className={`rounded-lg p-8 hover:scale-105 transition ${plan.highlight ? 'bg-teal-50 border-2 border-teal-500 shadow-lg transform md:scale-105 ' : 'bg-white border border-gray-200 shadow hover:bg-teal-50 hover:border-2 hover:border-teal-500'}`}>
                 <h3 className='text-xl font-bold mb-3'>{plan.name}</h3>
                 <div className='mb-6'>
-                  <span className='text-3xl font-bold text-teal-600'>{plan.price}</span>
+                  <span className='text-3xl font-bold text-teal-600'>৳{plan.price}</span>
                   <p className='text-gray-600 text-sm'>{plan.period}</p>
                 </div>
 
