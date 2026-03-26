@@ -259,6 +259,92 @@ async function run() {
       }
     });
 
+    app.get("/admin-stats", async (req, res) => {
+      try {
+        const totalUsers = await userCollection.estimatedDocumentCount();
+        const totalDoctors = await doctorCollection.estimatedDocumentCount();
+        const totalAppointments = await appointmentCollection.estimatedDocumentCount();
+
+        const pendingAppointments = await appointmentCollection.countDocuments({ status: "pending" });
+        const approvedAppointments = await appointmentCollection.countDocuments({ status: "approved" });
+        const cancelledAppointments = await appointmentCollection.countDocuments({ status: "cancelled" });
+
+
+        // Doctor Revenue
+        const doctorData = await appointmentCollection.aggregate([
+          { $match: { status: "approved" } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$totalFee" }
+            }
+          }
+        ]).toArray();
+
+        // Nursing Revenue
+        const nursingData = await nursingBookingCollection.aggregate([
+          { $match: { status: "approved" } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$planPrice" }
+            }
+          }
+        ]).toArray();
+
+        // Homecare Revenue
+        const homecareData = await homecareBookingCollection.aggregate([
+          { $match: { status: "approved" } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$planPrice" }
+            }
+          }
+        ]).toArray();
+
+        const doctorRevenue = doctorData[0]?.total || 0;
+        const nursingRevenue = nursingData[0]?.total || 0;
+        const homecareRevenue = homecareData[0]?.total || 0;
+
+        const totalRevenue = doctorRevenue + nursingRevenue + homecareRevenue;
+
+        // Recent Appointments
+        const recentAppointments = await appointmentCollection
+          .find()
+          .sort({ _id: -1 })
+          .limit(5)
+          .toArray();
+
+        res.send({
+          overview: {
+            totalUsers,
+            totalDoctors,
+            totalAppointments,
+            totalRevenue
+          },
+
+          appointments: {
+            pending: pendingAppointments,
+            approved: approvedAppointments,
+            cancelled: cancelledAppointments
+          },
+
+          revenueByService: {
+            doctor: doctorRevenue,
+            nursing: nursingRevenue,
+            homecare: homecareRevenue
+          },
+
+          recentAppointments
+        });
+
+      } catch (error) {
+        console.error("Admin stats error:", error);
+        res.status(500).send({ message: "Admin stats error" });
+      }
+    });
+
 
     await client.db("admin").command({ ping: 1 });
     console.log(
