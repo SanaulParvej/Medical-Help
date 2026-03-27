@@ -115,6 +115,28 @@ async function run() {
       res.send(result);
     });
 
+    app.patch("/nursing-bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const { status } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          status: status,
+        },
+      };
+
+      try {
+        const result = await nursingBookingCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      } catch (error) {
+        console.error("Error updating status:", error);
+        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
+      }
+    });
+
+
+
     // Homecare Bookings API
 
     app.post('/homecare-bookings', async (req, res) => {
