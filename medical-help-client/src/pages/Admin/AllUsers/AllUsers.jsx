@@ -50,12 +50,15 @@ const AllUsers = () => {
                                                 {user.role === 'admin' ? 'Admin' : 'User'}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 text-right">
+                                        <td className="px-6 py-4 flex justify-end gap-3">
                                             <button 
                                                 disabled={user.role === 'admin'}
-                                                className="btn btn-sm bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border-indigo-200 disabled:bg-gray-100 disabled:text-gray-400 font-medium transition"
+                                                className="btn btn-sm btn-primary disabled:bg-gray-100 disabled:text-gray-400 font-medium transition"
                                             >
                                                 <Shield size={14} className="mr-1" /> Make Admin
+                                            </button>
+                                            <button className='btn btn-sm btn-error text-base-100'>
+                                                Block User
                                             </button>
                                         </td>
                                     </tr>
