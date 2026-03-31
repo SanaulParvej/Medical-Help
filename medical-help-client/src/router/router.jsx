@@ -115,6 +115,10 @@ export const router = createBrowserRouter([
                 hydrateFallbackElement: <Loading></Loading>,
                 loader: () => fetch("http://localhost:4000/users"),
                 element: <PrivateRoutes> <AdminRoutes> <AllUsers></AllUsers> </AdminRoutes> </PrivateRoutes>
+            },
+            {
+                path: '/dashboard/my-bookings',
+                element: <PrivateRoutes><MyBookings></MyBookings></PrivateRoutes>
             }
         ]
     }
