@@ -30,6 +30,7 @@ async function run() {
     const doctorCollection = db.collection("doctors");
     const appointmentCollection = db.collection("appointments");
     const nursingBookingCollection = db.collection("nursingBookings");
+    const homecareBookingCollection = db.collection("homecareBookings");
 
     app.get("/users/role/:email", async (req, res) => {
       const email = req.params.email;
@@ -62,7 +63,7 @@ async function run() {
     };
 
     // Users API
-    
+
     app.get("/users", async (req, res) => {
       const result = await userCollection.find().toArray();
       res.send(result);
@@ -114,6 +115,61 @@ async function run() {
       res.send(result);
     });
 
+    app.patch("/nursing-bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const { status } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          status: status,
+        },
+      };
+
+      try {
+        const result = await nursingBookingCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      } catch (error) {
+        console.error("Error updating status:", error);
+        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
+      }
+    });
+
+
+
+    // Homecare Bookings API
+
+    app.post('/homecare-bookings', async (req, res) => {
+      const bookingData = req.body;
+
+      const query = {
+        phone: bookingData.phone,
+        startDate: bookingData.startDate,
+        planName: bookingData.planName
+      };
+
+      const alreadyBooked = await homecareBookingCollection.findOne(query);
+
+      if (alreadyBooked) {
+        return res.send({
+          message: 'apni itimodhei ei tarikh er jonno ei package ti book korechen!',
+          insertedId: null
+        });
+      }
+
+      const result = await homecareBookingCollection.insertOne(bookingData);
+      res.send(result);
+    });
+
+    app.get('/homecare-bookings', async (req, res) => {
+      let query = {};
+      if (req.query?.email) {
+        query = { patientEmail: req.query.email };
+      }
+      const result = await homecareBookingCollection.find(query).toArray();
+      res.send(result);
+    });
+
     // Doctors
     app.get("/doctors", async (req, res) => {
       const result = await doctorCollection.find().toArray();
@@ -143,6 +199,33 @@ async function run() {
       const result = await doctorCollection.insertOne(newDoctor);
       res.send(result);
     });
+
+    app.delete("/doctors/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+
+      try {
+        const result = await doctorCollection.deleteOne(query);
+        res.send(result);
+      } catch (error) {
+        console.error("Error deleting doctor:", error);
+        res.status(500).send({ message: "ডাক্তার ডিলিট করতে সার্ভারে সমস্যা হয়েছে" });
+      }
+    });
+
+    app.patch("/doctors/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const updatedData = req.body;
+
+      const updateDoc = {
+        $set: updatedData
+      };
+
+      const result = await doctorCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    });
+
 
     // Appointments
 
@@ -175,6 +258,113 @@ async function run() {
       }
       const result = await appointmentCollection.find(query).toArray();
       res.send(result);
+    });
+
+    // Appointment Status Update (Approve/Cancel)
+    app.patch("/appointments/:id", async (req, res) => {
+      const id = req.params.id;
+      const { status } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          status: status,
+        },
+      };
+
+      try {
+        const result = await appointmentCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      } catch (error) {
+        console.error("Error updating status:", error);
+        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
+      }
+    });
+
+    app.get("/admin-stats", async (req, res) => {
+      try {
+        const totalUsers = await userCollection.estimatedDocumentCount();
+        const totalDoctors = await doctorCollection.estimatedDocumentCount();
+        const totalAppointments = await appointmentCollection.estimatedDocumentCount();
+
+        const pendingAppointments = await appointmentCollection.countDocuments({ status: "pending" });
+        const approvedAppointments = await appointmentCollection.countDocuments({ status: "approved" });
+        const cancelledAppointments = await appointmentCollection.countDocuments({ status: "cancelled" });
+
+
+        // Doctor Revenue
+        const doctorData = await appointmentCollection.aggregate([
+          { $match: { status: "approved" } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$totalFee" }
+            }
+          }
+        ]).toArray();
+
+        // Nursing Revenue
+        const nursingData = await nursingBookingCollection.aggregate([
+          { $match: { status: "approved" } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$planPrice" }
+            }
+          }
+        ]).toArray();
+
+        // Homecare Revenue
+        const homecareData = await homecareBookingCollection.aggregate([
+          { $match: { status: "approved" } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$planPrice" }
+            }
+          }
+        ]).toArray();
+
+        const doctorRevenue = doctorData[0]?.total || 0;
+        const nursingRevenue = nursingData[0]?.total || 0;
+        const homecareRevenue = homecareData[0]?.total || 0;
+
+        const totalRevenue = doctorRevenue + nursingRevenue + homecareRevenue;
+
+        // Recent Appointments
+        const recentAppointments = await appointmentCollection
+          .find()
+          .sort({ _id: -1 })
+          .limit(5)
+          .toArray();
+
+        res.send({
+          overview: {
+            totalUsers,
+            totalDoctors,
+            totalAppointments,
+            totalRevenue
+          },
+
+          appointments: {
+            pending: pendingAppointments,
+            approved: approvedAppointments,
+            cancelled: cancelledAppointments
+          },
+
+          revenueByService: {
+            doctor: doctorRevenue,
+            nursing: nursingRevenue,
+            homecare: homecareRevenue
+          },
+
+          recentAppointments
+        });
+
+      } catch (error) {
+        console.error("Admin stats error:", error);
+        res.status(500).send({ message: "Admin stats error" });
+      }
     });
 
 

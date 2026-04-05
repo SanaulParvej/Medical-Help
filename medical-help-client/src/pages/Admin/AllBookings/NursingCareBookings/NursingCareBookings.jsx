@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
-import { useLoaderData } from 'react-router';
+import React, { useState, useEffect } from 'react';
+import Loading from '../../../../Component/Loader/Loading';
 import Swal from 'sweetalert2';
 
-const AllAppointments = () => {
-    const loadedData = useLoaderData();
-    const [appointments, setAppointments] = useState(loadedData);
-    const [selectedAppointment, setSelectedAppointment] = useState(null);
+const NursingCareBookings = () => {
+    const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const handleViewDetails = (appointment) => {
-        setSelectedAppointment(appointment);
-        document.getElementById('details_modal').showModal();
-    };
+    useEffect(() => {
+        fetch("http://localhost:4000/nursing-bookings")
+            .then(res => res.json())
+            .then(data => {
+                setBookings(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <Loading></Loading>;
+    }
 
     const handleApprove = (id) => {
         Swal.fire({
@@ -23,7 +34,7 @@ const AllAppointments = () => {
             confirmButtonText: 'Yes, Approve!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4000/appointments/${id}`, {
+                fetch(`http://localhost:4000/nursing-bookings/${id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ status: 'approved' })
@@ -31,8 +42,8 @@ const AllAppointments = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.modifiedCount > 0) {
-                            Swal.fire('Approved!', 'The appointment has been approved.', 'success');
-                            setAppointments(prev => prev.map(app =>
+                            Swal.fire('Approved!', 'The Nursing Care Bookings has been approved.', 'success');
+                            setBookings(prev => prev.map(app =>
                                 app._id === id ? { ...app, status: 'approved' } : app
                             ));
                         }
@@ -53,7 +64,7 @@ const AllAppointments = () => {
             confirmButtonText: 'Yes, Cancel it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4000/appointments/${id}`, {
+                fetch(`http://localhost:4000/nursing-bookings/${id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ status: 'cancelled' })
@@ -61,9 +72,9 @@ const AllAppointments = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.modifiedCount > 0) {
-                            Swal.fire('Cancelled!', 'The appointment has been cancelled.', 'success');
+                            Swal.fire('Cancelled!', 'The Nursing Care Bookings has been cancelled.', 'success');
 
-                            setAppointments(prev => prev.map(app =>
+                            setBookings(prev => prev.map(app =>
                                 app._id === id ? { ...app, status: 'cancelled' } : app
                             ));
                         }
@@ -74,30 +85,37 @@ const AllAppointments = () => {
     };
 
     return (
-        <div className="p-6">
-            <h2 className="text-2xl font-semibold mb-6">All Appointments ({appointments.length})</h2>
+        <div>
+            <h2 className="text-2xl font-semibold mb-6">Nursing Care Bookings ({bookings.length})</h2>
+
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="table min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-100">
                             <tr>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">#</th>
-                                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Doctor</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Patient</th>
-                                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Date & Time</th>
+                                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Contact</th>
+                                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Plan & Date</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
                                 <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                            {appointments.map((item, idx) => (
+                            {bookings.map((item, idx) => (
                                 <tr key={item._id} className="hover:bg-blue-50 transition">
                                     <td className="px-4 py-3 text-sm text-gray-600 font-medium">{idx + 1}</td>
-                                    <td className="px-4 py-3 text-sm text-gray-900 font-medium">{item.doctorName}</td>
-                                    <td className="px-4 py-3 text-sm text-gray-900">{item.patientName}</td>
+                                    <td className="px-4 py-3 text-sm text-gray-900">
+                                        <div className="font-medium">{item.patientName}</div>
+                                        <div className="text-xs text-gray-500">{item.patientEmail}</div>
+                                    </td>
+                                    <td className="px-4 py-3 text-sm text-gray-900">
+                                        <div className="font-medium">{item.phone}</div>
+                                        <div className="text-xs text-gray-500 truncate w-32" title={item.address}>{item.address}</div>
+                                    </td>
                                     <td className="px-4 py-3 text-sm text-gray-700">
-                                        <div className="font-medium">{item.date}</div>
-                                        <div className="text-xs text-gray-500">{item.time}</div>
+                                        <div className="font-medium">{item.planName}</div>
+                                        <div className="text-xs text-gray-500 font-semibold">{item.startDate}</div>
                                     </td>
                                     <td className="px-4 py-3">
                                         <span
@@ -116,12 +134,6 @@ const AllAppointments = () => {
                                     </td>
                                     <td className="px-4 py-3">
                                         <div className="flex justify-center items-center gap-2">
-                                            <button
-                                                onClick={() => handleViewDetails(item)}
-                                                className="btn btn-sm btn-info text-white"
-                                            >
-                                                View
-                                            </button>
 
                                             <button
                                                 onClick={() => handleApprove(item._id)}
@@ -134,7 +146,7 @@ const AllAppointments = () => {
                                             <button
                                                 onClick={() => handleCancel(item._id)}
                                                 className="btn btn-sm btn-error text-white"
-                                                disabled={item.status === 'cancelled'}
+                                                disabled={item.status === 'cancelled' || item.status === 'approved'}
                                             >
                                                 Cancel
                                             </button>
@@ -144,46 +156,17 @@ const AllAppointments = () => {
                             ))}
                         </tbody>
                     </table>
-                </div>
-            </div>
 
-            {/* DaisyUI Modal for View Details */}
-            <dialog id="details_modal" className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box">
-                    <h3 className="font-bold text-xl mb-4 border-b pb-2">Appointment Details</h3>
-
-                    {selectedAppointment && (
-                        <div className="space-y-3 text-gray-700">
-                            <div className="grid grid-cols-2 gap-4">
-                                <p><span className="font-semibold text-gray-900">Doctor Name:</span><br /> {selectedAppointment.doctorName}</p>
-                                <p><span className="font-semibold text-gray-900">Patient Name:</span><br /> {selectedAppointment.patientName}</p>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <p><span className="font-semibold text-gray-900">Contact:</span><br /> {selectedAppointment.contactNumber}</p>
-                                <p><span className="font-semibold text-gray-900">Email:</span><br /> {selectedAppointment.patientEmail}</p>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4 bg-gray-50 p-3 rounded-lg">
-                                <p><span className="font-semibold text-gray-900">Date:</span><br /> {selectedAppointment.date}</p>
-                                <p><span className="font-semibold text-gray-900">Time:</span><br /> {selectedAppointment.time}</p>
-                            </div>
-                            <div className="grid grid-cols-3 gap-2 border-t pt-3 mt-3">
-                                <p className="text-center text-sm"><span className="font-semibold text-gray-900">Consultation</span><br /> ৳{selectedAppointment.consultationFee}</p>
-                                <p className="text-center text-sm border-l border-r"><span className="font-semibold text-gray-900">Platform</span><br /> ৳{selectedAppointment.platformFee}</p>
-                                <p className="text-center text-sm text-indigo-600"><span className="font-semibold text-gray-900">Total</span><br /> ৳{selectedAppointment.totalFee}</p>
-                            </div>
+                    {bookings.length === 0 && !loading && (
+                        <div className="text-center py-8 text-gray-500">
+                            No nursing bookings found.
                         </div>
                     )}
-
-                    <div className="modal-action">
-                        <form method="dialog">
-                            <button className="btn btn-outline">Close</button>
-                        </form>
-                    </div>
                 </div>
-            </dialog>
+            </div>
 
         </div>
     );
 };
 
-export default AllAppointments;
+export default NursingCareBookings;

@@ -1,5 +1,5 @@
 import React, { use, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router'; 
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
@@ -21,33 +21,62 @@ const Register = () => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        if (!email || !password || !name) {
-            setErrorMessage('All fields are required.');
+        
+        if (!email || !password) {
+            setErrorMessage('Please fill email and password.');
             return;
         }
 
+        if (password.length < 6) {
+            setErrorMessage('Password must be at least 6 characters long.');
+            return;
+        }
+
+        // 1. Firebase e Register
         userSignUp(email, password)
-            .then(() => {
+            .then(result => {
+                const user = result.user;
+                console.log("Firebase user created:", user);
+
+                // 2. Firebase Profile a Name Update kora
                 updateUser(name)
                     .then(() => {
-                        Swal.fire({
-                            title: 'Registered Successfully!',
-                            icon: 'success',
-                            draggable: true,
-                        });
-                        setSuccessMessage('Registration completed.');
-                        form.reset();
-                        navigate(from);
+                        console.log("Profile Updated");
+
+                        // 3. Database a User Info Save Kora (With Default Role)
+                        const savedUser = {
+                            name: name,
+                            email: email,
+                            role: 'user' 
+                        };
+                        fetch('http://localhost:4000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(savedUser)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.insertedId || data.message === 'User already exists') {
+                                Swal.fire({
+                                    title: "Registered Successfully!",
+                                    icon: "success",
+                                    draggable: true
+                                });
+                                navigate(from);
+                            }
+                        })
                     })
                     .catch((error) => {
                         console.log(error);
                         setErrorMessage(error.message);
                     });
             })
-            .catch((error) => {
+            .catch(error => {
                 setErrorMessage(error.message);
             });
-    };
+    }
 
     return (
         <div className="hero">
@@ -59,7 +88,7 @@ const Register = () => {
                         <form onSubmit={handleRegister}>
                             <fieldset className="fieldset space-y-1">
 
-                                {/* Name */}
+{/* Name */}
                                 <div>
                                     <label className="label text-black">Name</label>
                                     <div className="relative">
@@ -116,10 +145,13 @@ const Register = () => {
                                 </div>
                                 <button type="submit" className="btn btn-neutral w-full">Register</button>
                             </fieldset>
+
                             {errorMessage && <p className="text-red-500 text-sm mt-2">{errorMessage}</p>}
                             {successMessage && <p className="text-green-600 text-sm mt-2">{successMessage}</p>}
+
                             <p className='mt-1 text-center text-black'><small>Already have an account? <Link className='btn-link' to={'/auth/login'}>Login</Link></small></p>
                         </form>
+                        
                         <SocialLogin></SocialLogin>
                     </div>
                 </div>

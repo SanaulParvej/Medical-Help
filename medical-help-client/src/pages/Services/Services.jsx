@@ -1,10 +1,11 @@
 import React from "react"; 
 import { 
     FaUserMd, 
-    FaCalendarCheck, 
-    FaAmbulance, 
+    FaCalendarCheck,  
     FaPhoneAlt, 
-    FaUserNurse, 
+    FaUserNurse,
+    FaHeartbeat,
+    FaHome, 
 } from "react-icons/fa"; 
 import { Link } from "react-router"; 
  
@@ -14,35 +15,38 @@ const Services = () => {
             id: 1, 
             title: "ডাক্তার পরামর্শ", 
             description: "অভিজ্ঞ ও বিশেষজ্ঞ ডাক্তারদের সাথে সহজে পরামর্শ নিন।", 
-            icon: <FaUserMd className="text-4xl text-blue-500" />, 
+            icon: <FaUserMd color='#00BAFE' size={40} />, 
             button: "অ্যাপয়েন্টমেন্ট নিন", 
+            link: '/doctors'
         }, 
         { 
             id: 2, 
             title: "অ্যাপয়েন্টমেন্ট বুকিং", 
             description: "আপনার পছন্দের ডাক্তারের সাথে সহজেই অ্যাপয়েন্টমেন্ট বুক করুন।", 
-            icon: <FaCalendarCheck className="text-4xl text-green-500" />, 
+            icon: <FaCalendarCheck color='#00BAFE' size={40} />, 
             button: "বুক করুন", 
+            link: '/doctors'
         }, 
         { 
             id: 3, 
-            title: "অ্যাম্বুলেন্স সার্ভিস", 
-            description: "২৪/৭ জরুরি অ্যাম্বুলেন্স সেবা উপলব্ধ।", 
-            icon: <FaAmbulance className="text-4xl text-red-500" />, 
+            title: "ফিজিওথেরাপি", 
+            description: "অনলাইনে ওষুধ অর্ডার করুন এবং ঘরে পান", 
+            icon: <FaHeartbeat color='#00BAFE' size={40}/>, 
             button: "কল করুন", 
         }, 
         { 
             id: 4, 
-            title: "জরুরি যোগাযোগ", 
-            description: "জরুরি চিকিৎসা সহায়তার জন্য দ্রুত যোগাযোগ করুন।", 
-            icon: <FaPhoneAlt className="text-4xl text-orange-500" />, 
+            title: "হোম কেয়ার", 
+            description: "ঘরে বসে সাশ্রয়ী সুবিধা সহ টেস্ট", 
+            icon: <FaHome color='#00BAFE' size={40} />, 
             button: "যোগাযোগ করুন", 
+            link: '/home-care-services'
         }, 
         { 
             id: 5, 
             title: "নার্সিং / হোম কেয়ার", 
             description: "আপনার বাসায় পেশাদার নার্সিং ও রোগী সেবা।", 
-            icon: <FaUserNurse className="text-4xl text-purple-500" />, 
+            icon: <FaUserNurse color='#00BAFE' size={40} />, 
             button: "সেবা নিন", 
             link: "/nursing-care-services", 
         }, 
@@ -50,8 +54,9 @@ const Services = () => {
             id: 6, 
             title: "ডাক্তার খুঁজুন", 
             description: "আপনার রোগ অনুযায়ী অভিজ্ঞ ডাক্তার খুঁজে নিন।", 
-            icon: <FaUserMd className="text-4xl text-blue-500" />, 
+            icon: <FaUserMd color='#00BAFE' size={40} />, 
             button: "ডাক্তার দেখুন", 
+            link: '/doctors'
         }, 
     ]; 
  
@@ -75,7 +80,7 @@ const Services = () => {
                     {services.map((service) => ( 
                         <div 
                             key={service.id} 
-                            className="rounded-xl border-r border-b-4 border-l-4 bg-white p-6 text-center shadow-xl transition duration-300 hover:scale-105 hover:shadow-2xl" 
+                            className="rounded-xl border-blue-200 border-r border-b-4 border-l-4 bg-white p-6 text-center shadow-xl transition duration-300 hover:scale-105 hover:shadow-2xl" 
                         > 
                             <div className="mb-4 flex justify-center"> 
                                 {service.icon} 

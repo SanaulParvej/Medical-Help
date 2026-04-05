@@ -2,6 +2,7 @@ import React from 'react';
 import { use } from 'react';
 import { AuthContext } from '../contexts/AuthContext/AuthContext';
 import { Navigate, useLocation } from 'react-router';
+import Loading from '../Component/Loader/Loading';
 
 const PrivateRoutes = ({ children }) => {
 
@@ -9,7 +10,7 @@ const PrivateRoutes = ({ children }) => {
     const location = useLocation()
 
     if (loading) {
-        return <span className='loading loading-bars loading-xl'></span>
+        return <Loading></Loading>
     }
 
     if (!user) {
