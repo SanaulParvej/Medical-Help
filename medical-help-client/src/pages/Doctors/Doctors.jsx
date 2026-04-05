@@ -9,7 +9,7 @@ const Doctors = () => {
         <section className="min-h-screen px-6 py-16">
             <div className="max-w-7xl mx-auto">
 
-                {/* Header Section */}
+                
                 <div className="text-center mb-16">
                     <div className="inline-block mb-4">
                         <span className="text-indigo-600 font-semibold text-sm px-4 py-2 bg-indigo-50 rounded-full border border-indigo-200">
@@ -24,7 +24,7 @@ const Doctors = () => {
                     </p>
                 </div>
 
-                {/* Grid */}
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 md:gap-8">
                     {doctors && doctors.length > 0 ? (
                         doctors.map((doctor) => (

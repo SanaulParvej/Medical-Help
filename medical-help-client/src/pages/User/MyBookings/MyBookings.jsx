@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import MyNursingCareBookings from './MyNursingCareBookings/MyNursingCareBookings';
+import MyNursingCareBookings from './MyNursingCareBookings';
 
 const MyBookings = () => {
     return (

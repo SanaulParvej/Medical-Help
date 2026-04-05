@@ -146,7 +146,7 @@ const HomeCare = () => {
 
     return (
         <div className='bg-gray-50 pb-12 font-sans'>
-            {/* Hero Section */}
+            
             <div
                 className='hero h-70'
                 style={{ backgroundImage: `url(${banner})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
@@ -164,7 +164,7 @@ const HomeCare = () => {
             
 
             <div className='max-w-6xl mx-auto px-4 py-12'>
-                {/* Services Section */}
+                
                 <div className='mb-16'>
                     <h2 className='text-2xl font-bold text-center mb-8'>আমাদের হোম কেয়ার সেবা</h2>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -182,7 +182,7 @@ const HomeCare = () => {
                     </div>
                 </div>
 
-                {/* Pricing Section */}
+                
                 <div className='mb-16'>
                     <h2 className='text-2xl font-bold text-center mb-2'>সেবা প্যাকেজ ও মূল্য</h2>
                     <p className='text-center text-gray-500 mb-8 text-sm'>আপনার পরিবারের জন্য সঠিক প্যাকেজ বেছে নিন</p>
@@ -219,7 +219,7 @@ const HomeCare = () => {
                 </div>
                 
 
-                {/* Why Choose Us */}
+                
                 <div className='mb-16'>
                     <h2 className='text-2xl font-bold text-center mb-8'>কেন আমাদের হোম কেয়ার সেবা</h2>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -237,7 +237,7 @@ const HomeCare = () => {
                     </div>
                 </div>
 
-                {/* Who is this for */}
+                
                 <div className='mb-16'>
                     <h2 className='text-2xl font-bold text-center mb-8'>কাদের জন্য এই সেবা</h2>
                     <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
@@ -252,7 +252,7 @@ const HomeCare = () => {
                     </div>
                 </div>
 
-                {/* Pink CTA Footer */}
+                
                 <div className='bg-pink-500 text-white rounded-lg p-8 md:p-12 text-center'>
                     <h2 className='text-2xl md:text-3xl font-bold mb-2'>আপনার প্রিয়জনের যত্ন নিন</h2>
                     <p className='text-sm md:text-base mb-6 opacity-90'>আজই আমাদের হোম কেয়ার সেবা গ্রহণ করুন</p>
@@ -266,7 +266,7 @@ const HomeCare = () => {
             </div>
             
 
-            {/* Booking Modal (আগের মতোই) */}
+            
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-4">
                     <div className="bg-white rounded-xl p-8 max-w-md w-full relative shadow-2xl">

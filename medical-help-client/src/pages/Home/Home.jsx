@@ -13,7 +13,7 @@ const Home = () => {
             
             <CTAService></CTAService>
             <FAQ></FAQ>
-            {/* <Carousel></Carousel> */}
+            
         </div>
     );
 };

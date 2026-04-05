@@ -24,7 +24,6 @@ const AddDoctor = () => {
 
     const [formData, setFormData] = useState(initialState);
 
-    // Handle the availability array (checkboxes)
     const handleCheckboxChange = (day) => {
         setFormData((prev) => {
             const isSelected = prev.availability.includes(day);
@@ -37,7 +36,6 @@ const AddDoctor = () => {
         });
     };
 
-    // Handle standard text/number inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -97,7 +95,7 @@ const AddDoctor = () => {
 
     return (
         <div className="max-w-5xl mx-auto p-6">
-            {/* Header Section */}
+            
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
                     <UserPlus className="text-blue-600" size={28} />
@@ -108,11 +106,11 @@ const AddDoctor = () => {
                 </p>
             </div>
 
-            {/* Form Section */}
+            
             <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    {/* Name */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                         <input
@@ -126,7 +124,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Image URL */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Profile Image URL</label>
                         <input
@@ -139,7 +137,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Speciality */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Specialty</label>
                         <input
@@ -153,7 +151,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Education */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Education & Degrees</label>
                         <input
@@ -167,7 +165,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Experience */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Experience (Years)</label>
                         <input
@@ -182,7 +180,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Registration Number */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">BMDC Registration Number</label>
                         <input
@@ -196,7 +194,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Working Place */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Current Working Place</label>
                         <input
@@ -210,7 +208,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Consultation Fee */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Consultation Fee (BDT)</label>
                         <input
@@ -225,7 +223,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Chamber Time */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Chamber Time</label>
                         <input
@@ -239,7 +237,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Rating */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
                         <input
@@ -256,7 +254,7 @@ const AddDoctor = () => {
                         />
                     </div>
 
-                    {/* Patient Treated */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Total Treated Patient</label>
                         <input
@@ -271,9 +269,9 @@ const AddDoctor = () => {
                     </div>
                 </div>
 
-                {/* Full Width Sections */}
+                
 
-                {/* Availability Checkboxes */}
+                
                 <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-3">Availability (Visiting Days)</label>
                     <div className="flex flex-wrap gap-3">
@@ -297,7 +295,7 @@ const AddDoctor = () => {
                     </div>
                 </div>
 
-                {/* About Textarea */}
+                
                 <div className="mb-8">
                     <label className="block text-sm font-medium text-gray-700 mb-1">About & Biography</label>
                     <textarea
@@ -311,7 +309,7 @@ const AddDoctor = () => {
                     ></textarea>
                 </div>
 
-                {/* Form Actions */}
+                
                 <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
                     <Link
                         to={'/dashboard/all-doctors'}

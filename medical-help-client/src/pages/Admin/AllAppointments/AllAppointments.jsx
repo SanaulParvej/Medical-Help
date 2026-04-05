@@ -147,7 +147,7 @@ const AllAppointments = () => {
                 </div>
             </div>
 
-            {/* DaisyUI Modal for View Details */}
+            
             <dialog id="details_modal" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <h3 className="font-bold text-xl mb-4 border-b pb-2">Appointment Details</h3>

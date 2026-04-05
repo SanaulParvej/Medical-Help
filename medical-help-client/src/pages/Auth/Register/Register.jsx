@@ -32,18 +32,15 @@ const Register = () => {
             return;
         }
 
-        // 1. Firebase e Register
         userSignUp(email, password)
             .then(result => {
                 const user = result.user;
                 console.log("Firebase user created:", user);
 
-                // 2. Firebase Profile a Name Update kora
                 updateUser(name)
                     .then(() => {
                         console.log("Profile Updated");
 
-                        // 3. Database a User Info Save Kora (With Default Role)
                         const savedUser = {
                             name: name,
                             email: email,
@@ -88,7 +85,7 @@ const Register = () => {
                         <form onSubmit={handleRegister}>
                             <fieldset className="fieldset space-y-1">
 
-{/* Name */}
+
                                 <div>
                                     <label className="label text-black">Name</label>
                                     <div className="relative">
@@ -106,7 +103,7 @@ const Register = () => {
                                 </div>
 
 
-                                {/* Email */}
+                                
                                 <div>
                                     <label className="label text-black">Email</label>
                                     <div className="relative">
@@ -123,7 +120,7 @@ const Register = () => {
                                     </div>
                                 </div>
 
-                                {/* Password */}
+                                
                                 <div>
                                     <label className="label text-black">Password</label>
                                     <div className="relative">

@@ -62,7 +62,6 @@ async function run() {
       next();
     };
 
-    // Users API
 
     app.get("/users", async (req, res) => {
       const result = await userCollection.find().toArray();
@@ -82,7 +81,6 @@ async function run() {
       res.send(result);
     });
 
-    // Nursing Bookings API
 
     app.post('/nursing-bookings', async (req, res) => {
       const bookingData = req.body;
@@ -137,7 +135,6 @@ async function run() {
 
 
 
-    // Homecare Bookings API
 
     app.post('/homecare-bookings', async (req, res) => {
       const bookingData = req.body;
@@ -170,7 +167,6 @@ async function run() {
       res.send(result);
     });
 
-    // Doctors
     app.get("/doctors", async (req, res) => {
       const result = await doctorCollection.find().toArray();
       res.send(result);
@@ -227,7 +223,6 @@ async function run() {
     });
 
 
-    // Appointments
 
     app.post("/appointments", async (req, res) => {
       const appointment = req.body;
@@ -260,7 +255,6 @@ async function run() {
       res.send(result);
     });
 
-    // Appointment Status Update (Approve/Cancel)
     app.patch("/appointments/:id", async (req, res) => {
       const id = req.params.id;
       const { status } = req.body;
@@ -292,7 +286,6 @@ async function run() {
         const cancelledAppointments = await appointmentCollection.countDocuments({ status: "cancelled" });
 
 
-        // Doctor Revenue
         const doctorData = await appointmentCollection.aggregate([
           { $match: { status: "approved" } },
           {
@@ -303,7 +296,6 @@ async function run() {
           }
         ]).toArray();
 
-        // Nursing Revenue
         const nursingData = await nursingBookingCollection.aggregate([
           { $match: { status: "approved" } },
           {
@@ -314,7 +306,6 @@ async function run() {
           }
         ]).toArray();
 
-        // Homecare Revenue
         const homecareData = await homecareBookingCollection.aggregate([
           { $match: { status: "approved" } },
           {
@@ -331,7 +322,6 @@ async function run() {
 
         const totalRevenue = doctorRevenue + nursingRevenue + homecareRevenue;
 
-        // Recent Appointments
         const recentAppointments = await appointmentCollection
           .find()
           .sort({ _id: -1 })
@@ -373,8 +363,6 @@ async function run() {
       "Pinged your deployment. You successfully connected to MongoDB!",
     );
   } finally {
-    // Ensures that the client will close when you finish/error
-    // await client.close();
   }
 }
 run().catch(console.dir);
