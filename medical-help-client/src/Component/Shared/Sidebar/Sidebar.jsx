@@ -81,7 +81,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
       <aside
         className={`${sidebarOpen ? "w-64" : "w-20"} bg-linear-to-b from-slate-900 to-slate-800 text-white transition-all duration-300 ease-in-out fixed h-screen left-0 top-0 z-40`}
       >
-        {/* Logo Section */}
+        
         <div className="flex items-center justify-between p-6 border-b border-slate-700">
           {sidebarOpen && (
             <div className="flex items-center gap-2">
@@ -99,7 +99,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
           </button>
         </div>
 
-        {/* Navigation Menu */}
+        
         <nav className="mt-8 px-3 space-y-2">
           {menuItems.map((item) => (
             <NavLink
@@ -115,7 +115,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
           ))}
         </nav>
 
-        {/* Logout Button */}
+        
         <div className="absolute bottom-6 left-3 right-3">
           <button
             onClick={handleSignOut}

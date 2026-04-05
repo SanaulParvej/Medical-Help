@@ -64,7 +64,7 @@ const Services = () => {
         <section className="py-16 bg-gray-50 font-bangla"> 
             <div className="max-w-6xl mx-auto px-10"> 
  
-                {/* Heading */} 
+                 
                 <div className="text-center mb-12"> 
                     <h2 className="text-3xl font-bold text-gray-800"> 
                         আমাদের সেবাসমূহ 
@@ -74,7 +74,7 @@ const Services = () => {
                     </p> 
                 </div> 
  
-                {/* Service Cards */} 
+                 
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3"> 
  
                     {services.map((service) => ( 

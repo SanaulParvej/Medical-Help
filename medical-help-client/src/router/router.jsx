@@ -21,6 +21,7 @@ import NursingCareBookings from "../pages/Admin/AllBookings/NursingCareBookings/
 import AllUsers from "../pages/Admin/AllUsers/AllUsers";
 import EmergencyService from "../pages/EmergencyService/EmergencyService";
 import HomeCare from "../pages/HomeCare/HomeCare";
+import MyBookings from "../pages/User/MyBookings/MyBookings";
 
 export const router = createBrowserRouter([
     {

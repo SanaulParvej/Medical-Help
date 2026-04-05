@@ -10,7 +10,7 @@ const AllUsers = () => {
 
     return (
         <div className="max-w-7xl mx-auto p-6 relative">
-            {/* Header Section */}
+            
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                     <Users className="text-indigo-600" size={28} />
@@ -21,7 +21,7 @@ const AllUsers = () => {
                 </p>
             </div>
 
-            {/* Simple Table Container */}
+            
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-sm text-left">

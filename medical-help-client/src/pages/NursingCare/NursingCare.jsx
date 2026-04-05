@@ -182,7 +182,6 @@ const NursingCare = () => {
         })
           .then(res => res.json())
           .then(data => {
-            // যদি ডাটাবেসে সফলভাবে সেভ হয় (insertedId থাকে)
             if (data.insertedId) {
               Swal.fire({
                 icon: 'success',
@@ -191,11 +190,9 @@ const NursingCare = () => {
                 confirmButtonColor: '#0d9488'
               });
 
-              // ফর্ম রিসেট এবং মোডাল ক্লোজ
               setFormData({ patientName: '', phone: '', address: '', startDate: '' });
               setIsModalOpen(false);
             }
-            // যদি ডাবল বুকিং থাকে (insertedId না আসে এবং ব্যাকএন্ড থেকে মেসেজ আসে)
             else {
               Swal.fire({
                 icon: 'warning',
@@ -207,7 +204,6 @@ const NursingCare = () => {
           })
           .catch(error => {
             console.error("Error submitting nursing booking:", error);
-            // সার্ভার বা নেটওয়ার্ক এরর হলে
             Swal.fire({
               icon: 'error',
               title: 'সার্ভার এরর',
@@ -221,7 +217,7 @@ const NursingCare = () => {
 
   return (
     <div className='bg-base-300 pb-12'>
-      {/* Hero Banner */}
+      
       <div
         className='hero h-70'
         style={{
@@ -238,7 +234,7 @@ const NursingCare = () => {
         </div>
       </div>
 
-      {/* Services Section */}
+      
       <div className='py-12'>
         <div className='max-w-6xl mx-auto px-4'>
           <h2 className='text-2xl font-bold mb-3'>আমােদর সবাসমূহ</h2>
@@ -262,7 +258,7 @@ const NursingCare = () => {
       </div>
 
 
-      {/* Pricing Section */}
+      
       <div className='bg-base-200 py-12'>
         <div className='max-w-6xl mx-auto px-4'>
           <h2 className='text-3xl font-bold text-center mb-3'>মূল্য তালিকা</h2>
@@ -286,7 +282,7 @@ const NursingCare = () => {
                   ))}
                 </ul>
 
-                {/* বাটন ক্লিক ইভেন্ট অ্যাড করা হয়েছে */}
+                
                 <button
                   onClick={() => handlePlanSelect(plan)}
                   className={`w-full py-3 rounded-lg font-bold transition ${plan.highlight ? 'bg-teal-500 text-white hover:bg-teal-600' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
@@ -299,13 +295,13 @@ const NursingCare = () => {
         </div>
       </div>
 
-      {/* Benefits Section & CTA Section - আগের মতোই থাকবে */}
+      
 
-      {/* Booking Modal */}
+      
       {isModalOpen && (
         <div className="fixed inset-0 bg-opacity-800 flex justify-center items-center z-50 px-4">
           <div className="bg-white rounded-2xl p-8 max-w-md w-full relative shadow-2xl">
-            {/* Close Button */}
+            
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl"
@@ -379,7 +375,7 @@ const NursingCare = () => {
         </div>
       )}
 
-      {/* Benefits Section */}
+      
       <div className='bg-base-200 py-12'>
         <div className='max-w-6xl mx-auto px-4'>
           <h2 className='text-2xl font-bold mb-3'>কেন আমাদের বেছে নেবেন</h2>          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -401,7 +397,7 @@ const NursingCare = () => {
         </div>
       </div>
 
-      {/* CTA Section */}
+      
       <div className='bg-teal-600 text-white py-12 max-w-6xl mx-auto rounded-2xl '>
         <div className='text-center'>
           <h2 className='text-2xl font-bold mb-3'>আজই আমাদের সেবা নিন</h2><p className='text-md mb-8'>আজই যোগাযোগ করুন এবং সেরা চিকিৎসা সেবার অভিজ্ঞতা নিন</p>

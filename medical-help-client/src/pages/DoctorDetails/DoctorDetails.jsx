@@ -19,7 +19,6 @@ const DoctorDetails = () => {
     const doctor = useLoaderData();
     const { user } = use(AuthContext);
 
-    // Form states
     const [patientName, setPatientName] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [selectedDate, setSelectedDate] = useState("");
@@ -85,7 +84,6 @@ const DoctorDetails = () => {
 
     const timeSlots = generateTimeSlots();
 
-    // Form Submit Handler
     const handleBookAppointment = (e) => {
         e.preventDefault();
 
@@ -108,7 +106,6 @@ const DoctorDetails = () => {
             confirmButtonText: "Yes, Book it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                // Backend-e pathanor data
                 const appointmentData = {
                     doctorId: _id,
                     doctorName: name,
@@ -122,7 +119,6 @@ const DoctorDetails = () => {
                     totalFee: consultation_fee + 50,
                     status: "pending",
                 };
-                // Fetch API er madhome POST request pathano hocche
                 fetch("http://localhost:4000/appointments", {
                     method: "POST",
                     headers: {
@@ -132,7 +128,6 @@ const DoctorDetails = () => {
                 })
                     .then((res) => res.json())
                     .then((data) => {
-                        // data.insertedId thakle tar mane booking success hoyeche
                         if (data.insertedId) {
                             Swal.fire(
                                 "Booked!",
@@ -140,12 +135,10 @@ const DoctorDetails = () => {
                                 "success",
                             );
 
-                            // Form reset kora hocche
                             setSelectedDate("");
                             setSelectedTime(null);
                             setContactNumber("");
                         } else {
-                            // Double booking ba onno kono error thakle (Backend theke asha message)
                             Swal.fire({
                                 icon: "error",
                                 title: "Booking Failed",
@@ -169,12 +162,12 @@ const DoctorDetails = () => {
         <div className="bg-base-300">
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Left Column - Main Details */}
+                    
                     <div className="lg:col-span-2 space-y-8">
-                        {/* Doctor Card */}
+                        
                         <div className="bg-white rounded-2xl shadow-lg">
                             <div className="grid grid-cols-1 md:grid-cols-5 gap-8 p-8">
-                                {/* Image */}
+                                
                                 <div className="md:col-span-2">
                                     <div className="relative">
                                         <img
@@ -188,7 +181,7 @@ const DoctorDetails = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* Info */}
+                                
                                 <div className="md:col-span-3 flex flex-col justify-center space-y-4">
                                     <div>
                                         <h1 className="text-xl md:text-3xl font-bold text-gray-900">
@@ -300,17 +293,17 @@ const DoctorDetails = () => {
                         </div>
                     </div>
 
-                    {/* Right Column - Booking Section */}
+                    
                     <div className="lg:col-span-1">
                         <div className="sticky top-24 space-y-6">
-                            {/* Booking Card */}
+                            
                             <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-100">
                                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
                                     Book Appointment
                                 </h3>
 
                                 <form onSubmit={handleBookAppointment}>
-                                    {/* Patient Name */}
+                                    
                                     <div className="mb-4">
                                         <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                                             <FaUser className="text-indigo-600" size={14} />
@@ -325,7 +318,7 @@ const DoctorDetails = () => {
                                             className="input input-bordered w-full rounded-lg focus:outline-none focus:ring focus:ring-indigo-600 p-2 border"
                                         />
                                     </div>
-                                    {/* Contact Number */}
+                                    
                                     <div className="mb-6">
                                         <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                                             <FaPhoneAlt className="text-indigo-600" size={14} />
@@ -341,7 +334,7 @@ const DoctorDetails = () => {
                                         />
                                     </div>
 
-                                    {/* Select Date */}
+                                    
                                     <div className="mb-4">
                                         <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                                             <FaCalendarAlt className="text-indigo-600" size={14} />
@@ -366,7 +359,7 @@ const DoctorDetails = () => {
                                         )}
                                     </div>
 
-                                    {/* Select Time */}
+                                    
                                     <div className="mb-6">
                                         <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                                             <FaClock className="text-indigo-600" size={14} />
@@ -404,7 +397,7 @@ const DoctorDetails = () => {
                                         )}
                                     </div>
 
-                                    {/* Fee Summary */}
+                                    
                                     <div className="border-t border-gray-200 pt-4 mb-6">
                                         <div className="flex justify-between items-center mb-2">
                                             <span className="text-gray-700">Consultation Fee</span>
@@ -424,7 +417,7 @@ const DoctorDetails = () => {
                                         </div>
                                     </div>
 
-                                    {/* Book Button */}
+                                    
                                     <button
                                         type="submit"
                                         disabled={
@@ -444,7 +437,7 @@ const DoctorDetails = () => {
                                 </div>
                             </div>
 
-                            {/* Quick Info Cards */}
+                            
                             <div className="space-y-3">
                                 <div className="bg-green-50 border border-green-200 rounded-xl p-4">
                                     <p className="text-sm font-semibold text-green-900 flex items-center gap-2">

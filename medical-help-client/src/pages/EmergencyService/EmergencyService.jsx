@@ -81,7 +81,7 @@ const EmergencyService = () => {
     return (
         <div className="bg-gray-100 min-h-screen pb-12 font-sans">
 
-            {/* Header */}
+            
             <div className="bg-red-800 text-white pt-12 pb-24 text-center px-4">
                 <div className="flex justify-center mb-3">
                     <div className="bg-white/20 p-3 rounded-full inline-block">
@@ -93,7 +93,7 @@ const EmergencyService = () => {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 -mt-16">
-                {/* Hotline Numbers */}
+                
                 <div className="bg-white rounded-2xl shadow-md p-6 md:p-8 mb-8 border border-gray-100">
                     <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2 border-b pb-3">
                         <Phone className="text-red-600" size={20} /> জরুরি হটলাইন নম্বর
@@ -122,7 +122,7 @@ const EmergencyService = () => {
                     </div>
                 </div>
 
-                {/* Ambulance Numbers */}
+                
                 <div className="mb-8">
                     <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
                         <Ambulance className="text-teal-600" size={24} /> অ্যাম্বুলেন্স সেবা
@@ -176,7 +176,7 @@ const EmergencyService = () => {
                     </div>
                 </div>
                 
-                {/* Emergency Advice */}
+                
                 <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 shadow-sm">
                     <h3 className="font-bold text-blue-900 mb-4 flex items-center gap-2">
                         <Info size={20} className="text-blue-600" /> জরুরি পরিস্থিতিতে করণীয়

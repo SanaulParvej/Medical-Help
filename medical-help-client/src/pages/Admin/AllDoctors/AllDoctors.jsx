@@ -16,7 +16,6 @@ const AllDoctors = () => {
 
     const daysOfWeek = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
-    // Delete Handler
     const handleDelete = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -41,7 +40,6 @@ const AllDoctors = () => {
         });
     };
 
-    // Edit Button 
     const handleEditClick = (doctor) => {
         setCurrentDoctor({
             ...doctor,
@@ -60,7 +58,6 @@ const AllDoctors = () => {
         });
     };
 
-    // Edit Form Checkbox Handler
     const handleEditCheckboxChange = (day) => {
         setCurrentDoctor((prev) => {
             const isSelected = prev.availability.includes(day);
@@ -101,7 +98,7 @@ const AllDoctors = () => {
 
     return (
         <div className="max-w-7xl mx-auto p-6 relative">
-            {/* Header Section */}
+            
             <div className="flex flex-col lg:flex-row justify-between items-start mb-8 gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">All Doctors ({doctors.length})</h1>
@@ -113,7 +110,7 @@ const AllDoctors = () => {
                 </Link>
             </div>
 
-            {/* Table Container */}
+            
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-sm text-left">
@@ -167,11 +164,11 @@ const AllDoctors = () => {
                 </div>
             </div>
 
-            {/* DaisyUI Edit Modal */}
+            
             <dialog id="edit_doctor_modal" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box max-w-4xl p-0 overflow-hidden flex flex-col max-h-[90vh]">
                     
-                    {/* Modal Header (Fixed) */}
+                    
                     <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-gray-50 shrink-0">
                         <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
                             <Pencil className="text-indigo-600" size={20} /> Edit Doctor Profile
@@ -183,7 +180,7 @@ const AllDoctors = () => {
                         </form>
                     </div>
 
-                    {/* Modal Body (Scrollable) */}
+                    
                     <div className="p-6 overflow-y-auto">
                         <form id="editDoctorForm" onSubmit={handleUpdate}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -208,7 +205,7 @@ const AllDoctors = () => {
                                     <input type="number" name="experience_years" required min="0" value={currentDoctor.experience_years} onChange={handleEditChange} className="input input-bordered w-full focus:ring-2 focus:ring-indigo-500" />
                                 </div>
                                 
-                                {/* ReadOnly BMDC Reg. Number */}
+                                
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">BMDC Reg. Number</label>
                                     <input 
@@ -243,7 +240,7 @@ const AllDoctors = () => {
                                 </div>
                             </div>
 
-                            {/* Availability Checkboxes */}
+                            
                             <div className="mb-6">
                                 <label className="block text-sm font-medium text-gray-700 mb-3">Availability (Visiting Days)</label>
                                 <div className="flex flex-wrap gap-3">
@@ -260,7 +257,7 @@ const AllDoctors = () => {
                                 </div>
                             </div>
 
-                            {/* About Textarea */}
+                            
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">About & Biography</label>
                                 <textarea
@@ -274,7 +271,7 @@ const AllDoctors = () => {
                         </form>
                     </div>
 
-                    {/* Modal Footer (Fixed at bottom) */}
+                    
                     <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50 shrink-0">
                         <form method="dialog">
                             <button className="btn btn-neutral rounded-lg">

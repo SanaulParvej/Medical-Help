@@ -46,7 +46,7 @@ const DashNavbar = () => {
                             )}
                         </div>
 
-                        {/* User Profile */}
+                        
                         <div className="flex items-center gap-3 pl-6 border-l border-gray-200">
                             <img src="" alt="" />
                             <div className="hidden sm:block">

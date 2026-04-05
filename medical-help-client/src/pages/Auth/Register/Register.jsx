@@ -49,6 +49,7 @@ const Register = () => {
         e.preventDefault();
         setAuthError('');
         setSuccessMessage('');
+
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
@@ -62,80 +63,72 @@ const Register = () => {
             return;
         }
 
-        const user = { name, email, password }
-
-        console.log(user);
-
         userSignUp(email, password)
             .then((result) => {
-                Swal.fire({
-                    title: 'Register Successfully!',
-                    icon: 'success',
-                    draggable: true
-                });
                 console.log(result.user);
-                updateUser(name)
+
+                return updateUser(name)
                     .then(() => {
-                        console.log('Updated');
-// 1) Create auth account
-=======
+                        const savedUser = {
+                            name,
+                            email,
+                            role: 'user'
+                        };
 
-        if (password.length < 6) {
-                        // 2) Update Firebase profile name
-            setErrorMessage('Password must be at least 6 characters long.');
-            return;
-        }
-                                // 3) Save profile in backend with default role
-                                const savedUser = {
-                                    name,
-                                    email,
-                                    role: 'user'
-                                };
-                                fetch('http://localhost:4000/users', {
-                                    method: 'POST',
-                                    headers: {
-                                        'content-type': 'application/json'
-                                    },
-                                    body: JSON.stringify(savedUser)
-                                })
-                                    .then((res) => res.json())
-                                    .then((data) => {
-                                        if (data.insertedId || data.message === 'User already exists') {
-                                            Swal.fire({
-                                                title: 'Registered Successfully!',
-                                                icon: 'success',
-                                                draggable: true
-                                            });
-                                            navigate(from);
-                                        }
-                                    });
-                            })
-                            .catch((error) => {
-                                console.log(error);
+                        return fetch('http://localhost:4000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(savedUser)
+                        }).then((res) => res.json());
+                    })
+                    .then((data) => {
+                        if (data.insertedId || data.message === 'User already exists') {
+                            Swal.fire({
+                                title: 'Registered Successfully!',
+                                icon: 'success',
+                                draggable: true
+                            });
+                        }
 
-                const user = result.user;
-                console.log("Firebase user created:", user);
+                        setErrors({});
+                        setSuccessMessage('Account created successfully.');
+                        form.reset();
+                        navigate(from);
+                    });
+            })
+            .catch((error) => {
+                setAuthError(error.message);
+            });
+    };
 
-                updateUser(name)
-                        console.log("Profile Updated");
+    return (
+        <div className="hero">
+            <div className="hero-content flex-col lg:flex-row-reverse w-full max-w-md">
+                <div className="card bg-base-100 w-full shadow-2xl">
+                    <div className="card-body p-8 lg:p-10 xl:p-12">
+                        <h1 className="text-3xl font-bold text-black mb-4 text-center">Create an Account</h1>
 
+                        <form onSubmit={handleRegister}>
+                            <fieldset className="fieldset space-y-1">
+                                <div>
+                                    <label className="label text-black">Name</label>
+                                    <div className="relative">
+                                        <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 z-10">
                                             <FaUser />
                                         </span>
                                         <input
-                                            name='name'
+                                            name="name"
                                             type="text"
                                             className="input input-bordered w-full pl-10"
                                             placeholder="Full Name"
                                             required
-
                                         />
                                     </div>
                                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-
                                 </div>
 
-
-                                {/* Email */}
                                 <div>
                                     <label className="label text-black">Email</label>
                                     <div className="relative">
@@ -143,7 +136,7 @@ const Register = () => {
                                             <FaEnvelope />
                                         </span>
                                         <input
-                                            name='email'
+                                            name="email"
                                             type="email"
                                             className="input input-bordered w-full pl-10"
                                             placeholder="Email"
@@ -151,10 +144,8 @@ const Register = () => {
                                         />
                                     </div>
                                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-
                                 </div>
 
-                                {/* Password */}
                                 <div>
                                     <label className="label text-black">Password</label>
                                     <div className="relative">
@@ -162,7 +153,7 @@ const Register = () => {
                                             <FaLock />
                                         </span>
                                         <input
-                                            name='password'
+                                            name="password"
                                             type="password"
                                             className="input input-bordered w-full pl-10"
                                             placeholder="Password"
@@ -170,7 +161,6 @@ const Register = () => {
                                         />
                                     </div>
                                     {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
-
                                 </div>
 
                                 <div>
@@ -180,14 +170,13 @@ const Register = () => {
                                             <FaLock />
                                         </span>
                                         <input
-                                            name='confirmPassword'
+                                            name="confirmPassword"
                                             type="password"
                                             className="input input-bordered w-full pl-10"
                                             placeholder="Confirm Password"
                                         />
                                     </div>
                                     {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
-
                                 </div>
 
                                 <div className="text-right">
@@ -196,9 +185,10 @@ const Register = () => {
                                 {authError && <p className="text-red-500 text-sm text-center">{authError}</p>}
                                 <button type="submit" className="btn btn-neutral w-full">Register</button>
                             </fieldset>
+
                             {successMessage && <p className="text-green-600 text-sm mt-2">{successMessage}</p>}
 
-                            <p className='mt-1 text-center text-black'><small>Already have an account? <Link className='btn-link' to={'/auth/login'}>Login</Link></small></p>
+                            <p className="mt-1 text-center text-black"><small>Already have an account? <Link className="btn-link" to="/auth/login">Login</Link></small></p>
                         </form>
 
                         <SocialLogin></SocialLogin>
