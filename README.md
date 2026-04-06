@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-04-05 13:27:43.197Z
+Last updated: 2026-04-06 13:25:18.073Z
 
 ### Project Structure
 
@@ -93,6 +93,8 @@ Medical-Help/
 │   │   ├── routes/
 │   │   │   ├── AdminRoutes.jsx
 │   │   │   └── PrivateRoutes.jsx
+│   │   ├── utils/
+│   │   │   └── image.js
 │   │   ├── App.css
 │   │   ├── App.jsx
 │   │   ├── index.css
