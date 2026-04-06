@@ -54,7 +54,7 @@ const Physiotherapy = () => {
 
         Swal.fire({
             title: 'আপনি কি নিশ্চিত?',
-            text: `আপনি ${formData.patientName}-এর জন্য "${selectedPlan.name}" প্যাকেজটি বুক করতে চাচ্ছেন।`,
+            text: `আপনি ${formData.patientName}-এর জন্য "${selectedPlan.title}" প্যাকেজটি বুক করতে চাচ্ছেন।`,
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#0d9488',
@@ -66,12 +66,12 @@ const Physiotherapy = () => {
                 const bookingData = {
                     ...formData,
                     patientEmail: user?.email || 'Unknown Email',
-                    planName: selectedPlan.name,
+                    planName: selectedPlan.title,
                     planPrice: selectedPlan.price,
                     status: 'pending'
                 };
 
-                console.log("Submitting Nursing Booking:", bookingData);
+                console.log("Submitting Physiotherapy Booking:", bookingData);
 
                 fetch('http://localhost:4000/physiotherapy-bookings', {
                     method: 'POST',
@@ -103,7 +103,7 @@ const Physiotherapy = () => {
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting nursing booking:", error);
+                        console.error("Error submitting physiotherapy booking:", error);
                         Swal.fire({
                             icon: 'error',
                             title: 'সার্ভার এরর',
@@ -119,8 +119,6 @@ const Physiotherapy = () => {
         setSelectedPlan(plan);
         setIsModalOpen(true);
     };
-
-
     const services = [
         {
             title: "অর্থোপেডিক ফিজিওথেরাপি",
@@ -259,7 +257,6 @@ const Physiotherapy = () => {
         },
     ];
 
-
     return (
         <div className="font-sans bg-gray-50 pb-16">
             {/* Hero Section */}
@@ -350,9 +347,6 @@ const Physiotherapy = () => {
                                         সবচেয়ে জনপ্রিয়
                                     </div>
                                 )}
-
-
-
                                 <div className="text-center mb-6">
                                     <h3 className="text-lg font-bold text-gray-800 mb-2">
                                         {pkg.title}
@@ -410,7 +404,7 @@ const Physiotherapy = () => {
                                 সার্ভিস বুকিং
                             </h3>
                             <p className="text-teal-600 font-semibold mb-6">
-                                প্যাকেজ: {selectedPlan?.name} ({selectedPlan?.price})
+                                প্যাকেজ: {selectedPlan?.title} (৳{selectedPlan?.price})
                             </p>
 
                             <form onSubmit={handleBookService} className="space-y-4">
@@ -484,7 +478,6 @@ const Physiotherapy = () => {
                         </div>
                     </div>
                 )}
-
                 <section className="mt-20">
                     <h2 className="text-xl font-bold text-gray-800 mb-8 pb-2 text-center">
                         চিকিৎসা প্রক্রিয়া
