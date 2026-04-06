@@ -22,6 +22,7 @@ import AllUsers from "../pages/Admin/AllUsers/AllUsers";
 import EmergencyService from "../pages/EmergencyService/EmergencyService";
 import HomeCare from "../pages/HomeCare/HomeCare";
 import MyBookings from "../pages/User/MyBookings/MyBookings";
+import Physiotherapy from "../pages/Physiotherapy/Physiotherapy";
 
 export const router = createBrowserRouter([
     {
@@ -33,8 +34,8 @@ export const router = createBrowserRouter([
                 Component: Home
             },
                         {
-                path: '/nursing-care-services',
-                Component: NursingCare
+                path: '/physiotherapy-services',
+                Component: Physiotherapy
             },
             {
                 path: '/nursing-care-services',
