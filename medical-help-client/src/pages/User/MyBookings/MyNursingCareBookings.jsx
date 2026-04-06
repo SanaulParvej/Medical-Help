@@ -64,7 +64,7 @@ const MyNursingCareBookings = () => {
 
 
     return (
-        <div className="p-6 max-w-5xl mx-auto animate-fade-in font-sans">
+        <div className="p-6 max-w-8xl mx-auto animate-fade-in font-sans">
 
 
             <div className="mb-8">
@@ -77,7 +77,7 @@ const MyNursingCareBookings = () => {
 
 
             {bookings.length > 0 ? (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {bookings.map((booking) => (
                         <div key={booking._id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 relative overflow-hidden">
 
