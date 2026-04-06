@@ -362,15 +362,18 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!",
     );
+
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
   } finally {
   }
 }
-run().catch(console.dir);
+run().catch((error) => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
+});
 
 app.get("/", (req, res) => {
   res.send(" server is running");
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
 });
