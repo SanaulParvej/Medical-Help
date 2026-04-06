@@ -45,14 +45,15 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-04-06 13:25:18.073Z
+Last updated: 2026-04-06 13:39:25.924Z
 
 ### Project Structure
 
 ```text
 Medical-Help/
 ├── .githooks/
-│   └── pre-commit
+│   ├── pre-commit
+│   └── pre-push
 ├── medical-help-client/
 │   ├── public/
 │   │   ├── banner_1.jpg
