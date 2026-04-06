@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { use, useState } from "react";
 import { useLoaderData, Link } from "react-router";
 import Swal from "sweetalert2";
 import {
@@ -14,6 +14,7 @@ import {
     FaPhoneAlt,
 } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import { getOptimizedImageUrl } from "../../utils/image";
 
 const DoctorDetails = () => {
     const doctor = useLoaderData();
@@ -40,6 +41,12 @@ const DoctorDetails = () => {
         registration_number,
         patients_treated,
     } = doctor;
+
+    const optimizedImage = getOptimizedImageUrl(image, {
+        width: 960,
+        height: 720,
+        quality: 80,
+    });
 
     const generateTimeSlots = () => {
         if (!chamber_time) return [];
@@ -162,17 +169,24 @@ const DoctorDetails = () => {
         <div className="bg-base-300">
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    
+
                     <div className="lg:col-span-2 space-y-8">
-                        
+
                         <div className="bg-white rounded-2xl shadow-lg">
                             <div className="grid grid-cols-1 md:grid-cols-5 gap-8 p-8">
-                                
+
                                 <div className="md:col-span-2">
                                     <div className="relative">
                                         <img
-                                            src={image}
+                                            src={optimizedImage}
                                             alt={name}
+                                            loading="eager"
+                                            fetchPriority="high"
+                                            decoding="async"
+                                            width="960"
+                                            height="720"
+                                            srcSet={`${getOptimizedImageUrl(image, { width: 480, height: 360, quality: 76 })} 480w, ${getOptimizedImageUrl(image, { width: 720, height: 540, quality: 78 })} 720w, ${getOptimizedImageUrl(image, { width: 960, height: 720, quality: 80 })} 960w`}
+                                            sizes="(max-width: 768px) 100vw, 40vw"
                                             className="w-full h-80 object-cover rounded-xl shadow-lg"
                                         />
                                         <div className="absolute -bottom-4 -right-4 bg-indigo-600 text-white rounded-full p-2 shadow-lg flex items-center gap-2">
@@ -181,7 +195,7 @@ const DoctorDetails = () => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="md:col-span-3 flex flex-col justify-center space-y-4">
                                     <div>
                                         <h1 className="text-xl md:text-3xl font-bold text-gray-900">
@@ -293,17 +307,17 @@ const DoctorDetails = () => {
                         </div>
                     </div>
 
-                    
+
                     <div className="lg:col-span-1">
                         <div className="sticky top-24 space-y-6">
-                            
+
                             <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-100">
                                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
                                     Book Appointment
                                 </h3>
 
                                 <form onSubmit={handleBookAppointment}>
-                                    
+
                                     <div className="mb-4">
                                         <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                                             <FaUser className="text-indigo-600" size={14} />
@@ -318,7 +332,7 @@ const DoctorDetails = () => {
                                             className="input input-bordered w-full rounded-lg focus:outline-none focus:ring focus:ring-indigo-600 p-2 border"
                                         />
                                     </div>
-                                    
+
                                     <div className="mb-6">
                                         <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                                             <FaPhoneAlt className="text-indigo-600" size={14} />
@@ -334,7 +348,7 @@ const DoctorDetails = () => {
                                         />
                                     </div>
 
-                                    
+
                                     <div className="mb-4">
                                         <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                                             <FaCalendarAlt className="text-indigo-600" size={14} />
@@ -359,7 +373,7 @@ const DoctorDetails = () => {
                                         )}
                                     </div>
 
-                                    
+
                                     <div className="mb-6">
                                         <label className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                                             <FaClock className="text-indigo-600" size={14} />
@@ -379,10 +393,10 @@ const DoctorDetails = () => {
                                                             onClick={() => setSelectedTime(time)}
                                                             disabled={selectedDate && !isDateAvailable()}
                                                             className={`py-2 px-3 rounded-lg font-medium transition text-sm ${selectedTime === time
-                                                                    ? "bg-indigo-600 text-white shadow-lg"
-                                                                    : selectedDate && !isDateAvailable()
-                                                                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                                                ? "bg-indigo-600 text-white shadow-lg"
+                                                                : selectedDate && !isDateAvailable()
+                                                                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                                                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                                                                 }`}
                                                         >
                                                             {time}
@@ -397,7 +411,7 @@ const DoctorDetails = () => {
                                         )}
                                     </div>
 
-                                    
+
                                     <div className="border-t border-gray-200 pt-4 mb-6">
                                         <div className="flex justify-between items-center mb-2">
                                             <span className="text-gray-700">Consultation Fee</span>
@@ -417,7 +431,7 @@ const DoctorDetails = () => {
                                         </div>
                                     </div>
 
-                                    
+
                                     <button
                                         type="submit"
                                         disabled={
@@ -437,7 +451,7 @@ const DoctorDetails = () => {
                                 </div>
                             </div>
 
-                            
+
                             <div className="space-y-3">
                                 <div className="bg-green-50 border border-green-200 rounded-xl p-4">
                                     <p className="text-sm font-semibold text-green-900 flex items-center gap-2">
