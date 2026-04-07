@@ -134,6 +134,8 @@ async function run() {
       }
     });
 
+
+
     app.post('/physiotherapy-bookings', async (req, res) => {
       const bookingData = req.body;
 
@@ -153,6 +155,15 @@ async function run() {
       }
 
       const result = await physiotherapyBookingCollection.insertOne(bookingData);
+      res.send(result);
+    });
+
+    app.get('/physiotherapy-bookings', async (req, res) => {
+      let query = {};
+      if (req.query?.email) {
+        query = { patientEmail: req.query.email };
+      }
+      const result = await physiotherapyBookingCollection.find(query).toArray();
       res.send(result);
     });
 
