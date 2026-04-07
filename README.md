@@ -45,14 +45,15 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-04-06 13:25:18.073Z
+Last updated: 2026-04-06 13:39:25.924Z
 
 ### Project Structure
 
 ```text
 Medical-Help/
 ├── .githooks/
-│   └── pre-commit
+│   ├── pre-commit
+│   └── pre-push
 ├── medical-help-client/
 │   ├── public/
 │   │   ├── banner_1.jpg
@@ -178,6 +179,13 @@ Medical-Help/
 - GET /
 <!-- AUTO-GENERATED:END -->
 
-## License
+## Licensing FAQ
 
-ISC (see package settings).
+This repository is under the **ISC** open-source license.  
+You do not need to purchase or request it.
+
+To use it correctly:
+
+1. Add a `LICENSE` file containing the ISC license text at the repo root.
+2. Keep the original copyright and permission notice in redistributions.
+3. Check third-party dependency licenses separately, since they may differ.
