@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useState } from "react";
 import {
     Calendar,
     Bone,
@@ -15,8 +15,112 @@ import {
     ThumbsUp,
 } from "lucide-react";
 import banner from "/banner_1.jpg";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 
 const Physiotherapy = () => {
+    const { user } = use(AuthContext);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPlan, setSelectedPlan] = useState(null);
+
+    const [formData, setFormData] = useState({
+        patientName: "",
+        phone: "",
+        address: "",
+        startDate: "",
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleBookService = (e) => {
+        e.preventDefault();
+
+        if (
+            !formData.patientName ||
+            !formData.phone ||
+            !formData.address ||
+            !formData.startDate
+        ) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "অনুগ্রহ করে সবগুলো তথ্য পূরণ করুন!",
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: 'আপনি কি নিশ্চিত?',
+            text: `আপনি ${formData.patientName}-এর জন্য "${selectedPlan.name}" প্যাকেজটি বুক করতে চাচ্ছেন।`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0d9488',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'হ্যাঁ, বুক করুন!',
+            cancelButtonText: 'বাতিল করুন'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const bookingData = {
+                    ...formData,
+                    patientEmail: user?.email || 'Unknown Email',
+                    planName: selectedPlan.name,
+                    planPrice: selectedPlan.price,
+                    status: 'pending'
+                };
+
+                console.log("Submitting Nursing Booking:", bookingData);
+
+                fetch('http://localhost:4000/physiotherapy-bookings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bookingData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'বুকিং সফল হয়েছে!',
+                                text: 'খুব শীঘ্রই আমাদের একজন প্রতিনিধি আপনার সাথে যোগাযোগ করবেন।',
+                                confirmButtonColor: '#0d9488'
+                            });
+
+                            setFormData({ patientName: '', phone: '', address: '', startDate: '' });
+                            setIsModalOpen(false);
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'দুঃখিত!',
+                                text: data.message || 'ইতিমধ্যে এই বুকিংটি করা হয়েছে।',
+                                confirmButtonColor: '#0d9488'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error submitting nursing booking:", error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'সার্ভার এরর',
+                            text: 'সার্ভারের সাথে কানেক্ট করা যাচ্ছে না। একটু পর আবার চেষ্টা করুন।',
+                            confirmButtonColor: '#0d9488'
+                        });
+                    });
+            }
+        });
+    };
+
+    const handlePlanSelect = (plan) => {
+        setSelectedPlan(plan);
+        setIsModalOpen(true);
+    };
+
+
     const services = [
         {
             title: "অর্থোপেডিক ফিজিওথেরাপি",
@@ -156,7 +260,6 @@ const Physiotherapy = () => {
     ];
 
 
-
     return (
         <div className="font-sans bg-gray-50 pb-16">
             {/* Hero Section */}
@@ -248,6 +351,8 @@ const Physiotherapy = () => {
                                     </div>
                                 )}
 
+
+
                                 <div className="text-center mb-6">
                                     <h3 className="text-lg font-bold text-gray-800 mb-2">
                                         {pkg.title}
@@ -281,6 +386,7 @@ const Physiotherapy = () => {
                                 </ul>
 
                                 <button
+                                    onClick={() => handlePlanSelect(pkg)}
                                     className={`w-full py-3 rounded-lg font-bold text-sm transition ${pkg.isPopular ? "bg-teal-500 hover:bg-teal-600 text-white" : "bg-gray-50 hover:bg-gray-100 text-gray-800 border border-gray-200"}`}
                                 >
                                     প্যাকেজ বুক করুন
@@ -289,6 +395,95 @@ const Physiotherapy = () => {
                         ))}
                     </div>
                 </section>
+
+                {isModalOpen && (
+                    <div className="fixed inset-0 bg-opacity-800 flex justify-center items-center z-50 px-4">
+                        <div className="bg-white rounded-2xl p-8 max-w-md w-full relative shadow-2xl">
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl"
+                            >
+                                &times;
+                            </button>
+
+                            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                                সার্ভিস বুকিং
+                            </h3>
+                            <p className="text-teal-600 font-semibold mb-6">
+                                প্যাকেজ: {selectedPlan?.name} ({selectedPlan?.price})
+                            </p>
+
+                            <form onSubmit={handleBookService} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        রোগীর নাম
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="patientName"
+                                        value={formData.patientName}
+                                        onChange={handleInputChange}
+                                        className="input input-bordered w-full focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                                        placeholder="রোগীর নাম লিখুন"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        যোগাযোগের নম্বর
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleInputChange}
+                                        className="input input-bordered w-full focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                                        placeholder="মোবাইল নম্বর লিখুন"
+                                        required
+                                    />
+                                </div>
+
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        ঠিকানা (যেখানে সেবা প্রয়োজন)
+                                    </label>
+                                    <textarea
+                                        name="address"
+                                        value={formData.address}
+                                        onChange={handleInputChange}
+                                        className="textarea textarea-bordered w-full focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                                        placeholder="বাড়ির নাম্বার, রাস্তা, এলাকা"
+                                        rows="2"
+                                        required
+                                    ></textarea>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        কবে থেকে সেবা শুরু হবে?
+                                    </label>
+                                    <input
+                                        type="date"
+                                        name="startDate"
+                                        value={formData.startDate}
+                                        onChange={handleInputChange}
+                                        className="input input-bordered w-full focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                                        required
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="btn w-full bg-teal-600 text-white hover:bg-teal-700 mt-4 border-none"
+                                >
+                                    বুকিং কনফার্ম করুন
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                )}
 
                 <section className="mt-20">
                     <h2 className="text-xl font-bold text-gray-800 mb-8 pb-2 text-center">
@@ -305,9 +500,7 @@ const Physiotherapy = () => {
                                 >
                                     <step.icon size={28} />
                                 </div>
-                                <div className="text-lg font-bold mb-2">
-                                    {step.id}
-                                </div>
+                                <div className="text-lg font-bold mb-2">{step.id}</div>
                                 <h3 className="font-bold text-gray-800 text-sm md:text-base">
                                     {step.title}
                                 </h3>
