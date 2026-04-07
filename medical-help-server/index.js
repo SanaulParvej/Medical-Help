@@ -134,7 +134,27 @@ async function run() {
       }
     });
 
+    app.post('/physiotherapy-bookings', async (req, res) => {
+      const bookingData = req.body;
 
+      const query = {
+        phone: bookingData.phone,
+        startDate: bookingData.startDate,
+        planName: bookingData.planName
+      };
+
+      const alreadyBooked = await physiotherapyBookingCollection.findOne(query);
+
+      if (alreadyBooked) {
+        return res.send({
+          message: 'আপনি ইতিমধ্যে এই তারিখের জন্য এই প্যাকেজটি বুক করেছেন! আমাদের প্রতিনিধি শীঘ্রই আপনার সাথে যোগাযোগ করবেন।',
+          insertedId: null
+        });
+      }
+
+      const result = await physiotherapyBookingCollection.insertOne(bookingData);
+      res.send(result);
+    });
 
     app.post('/physiotherapy-bookings', async (req, res) => {
       const bookingData = req.body;
