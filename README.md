@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-03-17 08:40:51.038Z
+Last updated: 2026-04-06 13:25:18.073Z
 
 ### Project Structure
 
@@ -63,6 +63,7 @@ Medical-Help/
 │   │   │   ├── logo.png
 │   │   │   └── react.svg
 │   │   ├── Component/
+│   │   │   ├── Loader/
 │   │   │   └── Shared/
 │   │   ├── contexts/
 │   │   │   └── AuthContext/
@@ -81,14 +82,19 @@ Medical-Help/
 │   │   │   ├── DashboardHome/
 │   │   │   ├── DoctorDetails/
 │   │   │   ├── Doctors/
+│   │   │   ├── EmergencyService/
 │   │   │   ├── Home/
+│   │   │   ├── HomeCare/
 │   │   │   ├── NursingCare/
-│   │   │   └── Services/
+│   │   │   ├── Services/
+│   │   │   └── User/
 │   │   ├── router/
 │   │   │   └── router.jsx
 │   │   ├── routes/
 │   │   │   ├── AdminRoutes.jsx
 │   │   │   └── PrivateRoutes.jsx
+│   │   ├── utils/
+│   │   │   └── image.js
 │   │   ├── App.css
 │   │   ├── App.jsx
 │   │   ├── index.css
@@ -137,7 +143,10 @@ Medical-Help/
 - react: ^19.2.0
 - react-dom: ^19.2.0
 - react-icons: ^5.5.0
+- react-loader-spinner: ^8.0.2
 - react-router: ^7.13.1
+- react-tabs: ^6.1.0
+- recharts: ^3.8.1
 - sweetalert2: ^11.26.21
 - swiper: ^12.1.2
 - tailwindcss: ^4.2.0
@@ -152,9 +161,20 @@ Medical-Help/
 - GET /users/role/:email
 - GET /users
 - POST /users
+- POST /nursing-bookings
+- GET /nursing-bookings
+- PATCH /nursing-bookings/:id
+- POST /homecare-bookings
+- GET /homecare-bookings
 - GET /doctors
 - GET /doctors/:id
 - POST /doctors
+- DELETE /doctors/:id
+- PATCH /doctors/:id
+- POST /appointments
+- GET /appointments
+- PATCH /appointments/:id
+- GET /admin-stats
 - GET /
 <!-- AUTO-GENERATED:END -->
 
