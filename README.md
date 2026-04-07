@@ -179,6 +179,13 @@ Medical-Help/
 - GET /
 <!-- AUTO-GENERATED:END -->
 
-## License
+## Licensing FAQ
 
-ISC (see package settings).
+This repository is under the **ISC** open-source license.  
+You do not need to purchase or request it.
+
+To use it correctly:
+
+1. Add a `LICENSE` file containing the ISC license text at the repo root.
+2. Keep the original copyright and permission notice in redistributions.
+3. Check third-party dependency licenses separately, since they may differ.
