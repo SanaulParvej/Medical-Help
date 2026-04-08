@@ -62,7 +62,7 @@ const DoctorDetails = () => {
         const slots = [];
         for (let i = startHour; i <= endHour; i++) {
             const hour = i % 12 || 12;
-            const ampm = i >= 12 ? "PM" : "AM";
+            const ampm = i >= 12 ? "PM" : "PM";
             slots.push(`${hour}:00 ${ampm}`);
         }
         return slots;
