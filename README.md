@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-04-06 13:39:25.924Z
+Last updated: 2026-04-08 15:21:28.928Z
 
 ### Project Structure
 
@@ -57,6 +57,7 @@ Medical-Help/
 ├── medical-help-client/
 │   ├── public/
 │   │   ├── banner_1.jpg
+│   │   ├── reviews.json
 │   │   └── vite.svg
 │   ├── src/
 │   │   ├── assets/
@@ -87,6 +88,7 @@ Medical-Help/
 │   │   │   ├── Home/
 │   │   │   ├── HomeCare/
 │   │   │   ├── NursingCare/
+│   │   │   ├── Physiotherapy/
 │   │   │   ├── Services/
 │   │   │   └── User/
 │   │   ├── router/
@@ -157,6 +159,7 @@ Medical-Help/
 - dotenv: ^16.6.1
 - express: ^5.2.1
 - mongodb: ^7.1.0
+- nodemon: ^3.1.14
 
 ### API Endpoints (from server code)
 - GET /users/role/:email
@@ -165,6 +168,8 @@ Medical-Help/
 - POST /nursing-bookings
 - GET /nursing-bookings
 - PATCH /nursing-bookings/:id
+- POST /physiotherapy-bookings
+- GET /physiotherapy-bookings
 - POST /homecare-bookings
 - GET /homecare-bookings
 - GET /doctors
@@ -179,13 +184,6 @@ Medical-Help/
 - GET /
 <!-- AUTO-GENERATED:END -->
 
-## Licensing FAQ
+## License
 
-This repository is under the **ISC** open-source license.  
-You do not need to purchase or request it.
-
-To use it correctly:
-
-1. Add a `LICENSE` file containing the ISC license text at the repo root.
-2. Keep the original copyright and permission notice in redistributions.
-3. Check third-party dependency licenses separately, since they may differ.
+ISC (see package settings).
