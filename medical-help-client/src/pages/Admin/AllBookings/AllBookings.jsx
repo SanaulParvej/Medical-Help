@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import NursingCareBookings from './NursingCareBookings/NursingCareBookings';
 import HomeCareBookings from './HomeCareBookings/HomeCareBookings';
+import PhysiotherapyBookings from './PhysiotherapyBookings/PhysiotherapyBookings';
 
 const AllBookings = () => {
     return (
@@ -27,7 +28,7 @@ const AllBookings = () => {
                         <HomeCareBookings></HomeCareBookings>
                     </TabPanel>
                     <TabPanel>
-                        <h2>Alll</h2>
+                        <PhysiotherapyBookings></PhysiotherapyBookings>
                     </TabPanel>
                 </Tabs>
             </div>
