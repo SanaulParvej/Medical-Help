@@ -15,6 +15,7 @@ import { FaFileMedical } from "react-icons/fa";
 import useAdmin from "../../../hooks/useAdmin";
 import { AuthContext } from "../../../contexts/AuthContext/AuthContext";
 import Loading from "../../Loader/Loading";
+import Swal from "sweetalert2";
 
 const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
   const [role, isAdminLoading] = useAdmin();
