@@ -85,10 +85,13 @@ const DoctorCard = ({ doctor }) => {
                         Details
                     </Link>
 
-                    <button className="flex-1 flex items-center justify-center gap-2 rounded-lg btn btn-primary">
+                    <Link
+                        to={`/doctor/${_id}`}
+                        className="flex-1 flex items-center justify-center gap-2 rounded-lg btn btn-primary"
+                    >
                         <FaCalendarAlt size={16} />
                         Book
-                    </button>
+                    </Link>
                 </div>
 
             </div>
