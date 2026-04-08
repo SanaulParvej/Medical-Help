@@ -2,6 +2,7 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import MyNursingCareBookings from './MyNursingCareBookings';
+import MyHomeCareBookings from './MyHomeCareBookings';
 
 const MyBookings = () => {
     return (
@@ -22,7 +23,7 @@ const MyBookings = () => {
                         <MyNursingCareBookings></MyNursingCareBookings>
                     </TabPanel>
                     <TabPanel>
-                        <h2>Alll</h2>
+                        <MyHomeCareBookings/>
                     </TabPanel>
                     <TabPanel>
                         <h2>Alll</h2>
