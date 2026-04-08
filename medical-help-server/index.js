@@ -348,11 +348,22 @@ async function run() {
           }
         ]).toArray();
 
+        const physiotherapyData = await physiotherapyBookingCollection.aggregate([
+          { $match: { status: "approved" } },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$planPrice" }
+            }
+          }
+        ]).toArray();
+
         const doctorRevenue = doctorData[0]?.total || 0;
         const nursingRevenue = nursingData[0]?.total || 0;
         const homecareRevenue = homecareData[0]?.total || 0;
+        const physiotherapyRevenue = physiotherapyData[0]?.total || 0;
 
-        const totalRevenue = doctorRevenue + nursingRevenue + homecareRevenue;
+        const totalRevenue = doctorRevenue + nursingRevenue + homecareRevenue + physiotherapyRevenue;
 
         const recentAppointments = await appointmentCollection
           .find()
@@ -377,7 +388,8 @@ async function run() {
           revenueByService: {
             doctor: doctorRevenue,
             nursing: nursingRevenue,
-            homecare: homecareRevenue
+            homecare: homecareRevenue,
+            physiotherapy: physiotherapyRevenue
           },
 
           recentAppointments

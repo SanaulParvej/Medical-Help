@@ -97,7 +97,7 @@ const AllDoctors = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-6 relative">
+        <div className="px-6 py-8">
             
             <div className="flex flex-col lg:flex-row justify-between items-start mb-8 gap-4">
                 <div>
