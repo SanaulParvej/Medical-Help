@@ -72,7 +72,7 @@ const AdminDashboard = () => {
       <div className="grid md:grid-cols-2 gap-8 mb-10">
         <div className="bg-white p-4 rounded-xl shadow">
           <h2 className="mb-4 font-semibold">Appointment Status</h2>
-          <PieChart width={350} height={300}>
+          <PieChart width={700} height={500}>
             <Pie data={appointmentData} dataKey="value" outerRadius={100} label>
               {appointmentData.map((entry, index) => (
                 <Cell key={index} fill={COLORS[index]} />
@@ -85,12 +85,38 @@ const AdminDashboard = () => {
 
         <div className="bg-white p-4 rounded-xl shadow">
           <h2 className="mb-4 font-semibold">Revenue by Service</h2>
-          <BarChart width={400} height={300} data={revenueData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="value" />
+          <BarChart width={700} height={500} data={revenueData}>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={false}
+              stroke="#e2e8f0"
+            />
+            <XAxis
+              dataKey="name"
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "#64748b", fontSize: 14, fontWeight: 500 }}
+            />
+            <YAxis
+              tickLine={false}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "white",
+                borderRadius: "8px",
+                border: "none",
+                boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+                fontSize: "13px",
+                padding: "8px 12px",
+              }}
+              cursor={{ fill: "#f1f5f9" }}
+            />
+            <Bar
+              dataKey="value"
+              fill="#6366f1"
+              radius={[6, 6, 0, 0]}
+              maxBarSize={50}
+            />
           </BarChart>
         </div>
       </div>
