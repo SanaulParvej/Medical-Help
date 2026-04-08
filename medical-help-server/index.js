@@ -134,8 +134,6 @@ async function run() {
       }
     });
 
-
-
     app.post('/physiotherapy-bookings', async (req, res) => {
       const bookingData = req.body;
 
@@ -166,6 +164,7 @@ async function run() {
       res.send(result);
     });
 
+    // Home Care Bookings
 
     app.post('/homecare-bookings', async (req, res) => {
       const bookingData = req.body;
@@ -197,6 +196,29 @@ async function run() {
       const result = await homecareBookingCollection.find(query).toArray();
       res.send(result);
     });
+
+    app.patch("/homecare-bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const { status } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          status: status,
+        },
+      };
+
+      try {
+        const result = await homecareBookingCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      } catch (error) {
+        console.error("Error updating status:", error);
+        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
+      }
+    });
+
+
+    // Doctors
 
     app.get("/doctors", async (req, res) => {
       const result = await doctorCollection.find().toArray();
@@ -253,7 +275,7 @@ async function run() {
       res.send(result);
     });
 
-
+    // Appointments
 
     app.post("/appointments", async (req, res) => {
       const appointment = req.body;
@@ -305,6 +327,8 @@ async function run() {
         res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
       }
     });
+
+    // Admin State
 
     app.get("/admin-stats", async (req, res) => {
       try {

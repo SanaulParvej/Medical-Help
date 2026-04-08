@@ -138,7 +138,7 @@ const NursingCareBookings = () => {
                                             <button
                                                 onClick={() => handleApprove(item._id)}
                                                 className="btn btn-sm btn-success text-white"
-                                                disabled={item.status === 'approved' || item.status === 'completed' || item.status === 'cancelled'}
+                                                disabled={item.status === 'approved' || item.status === 'cancelled'}
                                             >
                                                 Approve
                                             </button>
@@ -146,7 +146,7 @@ const NursingCareBookings = () => {
                                             <button
                                                 onClick={() => handleCancel(item._id)}
                                                 className="btn btn-sm btn-error text-white"
-                                                disabled={item.status === 'cancelled' || item.status === 'approved'}
+                                                disabled={item.status === 'cancelled'}
                                             >
                                                 Cancel
                                             </button>
