@@ -63,7 +63,6 @@ async function run() {
       next();
     };
 
-
     app.get("/users", async (req, res) => {
       const result = await userCollection.find().toArray();
       res.send(result);
@@ -82,6 +81,7 @@ async function run() {
       res.send(result);
     });
 
+    // Nursing Care Bookings
 
     app.post('/nursing-bookings', async (req, res) => {
       const bookingData = req.body;
@@ -134,6 +134,8 @@ async function run() {
       }
     });
 
+    // Physiotherapy Bookings
+
     app.post('/physiotherapy-bookings', async (req, res) => {
       const bookingData = req.body;
 
@@ -163,6 +165,25 @@ async function run() {
       }
       const result = await physiotherapyBookingCollection.find(query).toArray();
       res.send(result);
+    });
+
+    app.patch("/physiotherapy-bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const { status } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          status: status,
+        },
+      };
+      try {
+        const result = await physiotherapyBookingCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      } catch (error) {
+        console.error("Error updating status:", error);
+        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
+      }
     });
 
     // Home Care Bookings
@@ -275,6 +296,7 @@ async function run() {
       const result = await doctorCollection.updateOne(filter, updateDoc);
       res.send(result);
     });
+
 
     // Appointments
 
