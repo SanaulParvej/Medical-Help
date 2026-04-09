@@ -187,9 +187,7 @@ const HomeCareBookings = () => {
                       <button
                         onClick={() => handleCancel(item._id)}
                         className="btn btn-sm btn-error text-white"
-                        disabled={
-                          item.status === "cancelled" 
-                        }
+                        disabled={item.status === "cancelled"}
                       >
                         Cancel
                       </button>
