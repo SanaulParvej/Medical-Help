@@ -140,7 +140,8 @@ const MyNursingCareBookings = () => {
                             <div className="pt-4 border-t border-gray-100">
                                 <button
                                     onClick={() => handleCancelBooking(booking._id)}
-                                    className="w-full py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-lg text-sm flex items-center justify-center gap-2 transition"
+                                    className="w-full btn btn-error font-semibold rounded-lg text-sm flex items-center justify-center gap-2"
+                                    disabled={booking.status === "cancelled"}
                                 >
                                     <XCircle size={18} /> Cancel Booking
                                 </button>
