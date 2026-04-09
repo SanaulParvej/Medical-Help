@@ -31,6 +31,46 @@ const MyHomeCareBookings = () => {
     }
   }, [user?.email]);
 
+    const handleCancelBooking = (id) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to cancel this nursing care booking?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ef4444",
+        cancelButtonColor: "#6b7280",
+        confirmButtonText: "Yes, cancel it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`http://localhost:4000/homecare-bookings/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: "cancelled" }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.modifiedCount > 0) {
+                Swal.fire(
+                  "Cancelled!",
+                  "Your booking has been cancelled.",
+                  "success",
+                );
+                setBookings((previousBookings) =>
+                  previousBookings.map((booking) =>
+                    booking._id === id
+                      ? { ...booking, status: "cancelled" }
+                      : booking,
+                  ),
+                );
+              }
+            })
+            .catch((error) => {
+              console.error("Error cancelling booking:", error);
+            });
+        }
+      });
+    };
+
 
   if (loading) {
     return <Loading></Loading>;
@@ -70,6 +110,7 @@ const MyHomeCareBookings = () => {
                   {booking.status}
                 </span>
               </div>
+              
 
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3 text-sm">
@@ -124,7 +165,9 @@ const MyHomeCareBookings = () => {
 
               <div className="pt-4 border-t border-gray-100">
                 <button
-                  className="w-full py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-lg text-sm flex items-center justify-center gap-2 transition"
+                  onClick={() => handleCancelBooking(booking._id)}
+                  className="w-full btn btn-error font-semibold rounded-lg text-sm flex items-center justify-center gap-2"
+                  disabled={booking.status === "cancelled"}
                 >
                   <XCircle size={18} /> Cancel Booking
                 </button>
