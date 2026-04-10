@@ -8,6 +8,43 @@ const AllUsers = () => {
     const loadedUsers = useLoaderData();
     const [users, setUsers] = useState(loadedUsers);
 
+    const handleMakeAdmin = (user) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: `Do you want to make ${user.name || user.email} an Admin?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#4f46e5",
+            cancelButtonColor: "#d1d5db",
+            confirmButtonText: "Yes, make Admin!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:4000/users/role/${user._id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ role: 'admin' })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.modifiedCount > 0) {
+                        const updatedUsers = users.map(u => 
+                            u._id === user._id ? { ...u, role: 'admin' } : u
+                        );
+                        setUsers(updatedUsers);
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: `${user.name || user.email} is now an Admin.`,
+                            icon: "success"
+                        });
+                    }
+                })
+            }
+        });
+    };
+
     return (
         <div className="p-6">
             
@@ -52,6 +89,7 @@ const AllUsers = () => {
                                         </td>
                                         <td className="px-6 py-4 flex justify-end gap-3">
                                             <button 
+                                            onClick={() => handleMakeAdmin(user)}
                                                 disabled={user.role === 'admin'}
                                                 className="btn btn-sm btn-primary disabled:bg-gray-100 disabled:text-gray-400 font-medium transition"
                                             >
