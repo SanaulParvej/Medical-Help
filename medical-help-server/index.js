@@ -45,6 +45,20 @@ async function run() {
       res.send({ role: role });
     });
 
+    app.patch("/users/role/:id", async (req, res) => {
+      const id = req.params.id;
+      const { role } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          role: role
+        },
+      };
+        const result = await userCollection.updateOne(filter, updateDoc);
+        res.send(result);
+    });
+
     const checkAdminRole = async (req, res, next) => {
       const email = req.headers["user-email"];
 
@@ -64,7 +78,12 @@ async function run() {
     };
 
     app.get("/users", async (req, res) => {
-      const result = await userCollection.find().toArray();
+      let query = {};
+
+      if (req.query?.email) {
+        query = { email: req.query.email };
+      }
+      const result = await userCollection.find(query).toArray();
       res.send(result);
     });
 
@@ -80,6 +99,7 @@ async function run() {
       const result = await userCollection.insertOne(user);
       res.send(result);
     });
+
 
     // Nursing Care Bookings
 
