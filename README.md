@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-04-08 17:18:43.787Z
+Last updated: 2026-04-10 15:34:05.650Z
 
 ### Project Structure
 
@@ -163,6 +163,7 @@ Medical-Help/
 
 ### API Endpoints (from server code)
 - GET /users/role/:email
+- PATCH /users/role/:id
 - GET /users
 - POST /users
 - POST /nursing-bookings
@@ -170,8 +171,10 @@ Medical-Help/
 - PATCH /nursing-bookings/:id
 - POST /physiotherapy-bookings
 - GET /physiotherapy-bookings
+- PATCH /physiotherapy-bookings/:id
 - POST /homecare-bookings
 - GET /homecare-bookings
+- PATCH /homecare-bookings/:id
 - GET /doctors
 - GET /doctors/:id
 - POST /doctors

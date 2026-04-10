@@ -24,7 +24,7 @@ import HomeCare from "../pages/HomeCare/HomeCare";
 import MyBookings from "../pages/User/MyBookings/MyBookings";
 import Physiotherapy from "../pages/Physiotherapy/Physiotherapy";
 import MyAppointments from "../pages/User/MyAppointments/MyAppointments";
-
+import MyProfile from "../pages/User/MyProfile/MyProfile";
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -130,7 +130,12 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/my-bookings',
                 element: <PrivateRoutes><MyBookings></MyBookings></PrivateRoutes>
+            },
+            {
+                path: 'my-profile',
+                element: <PrivateRoutes> <MyProfile></MyProfile> </PrivateRoutes>
             }
         ]
+        
     }
 ]);
