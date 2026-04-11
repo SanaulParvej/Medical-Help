@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from "react";
 import {
   Activity,
   CalendarDays,
@@ -7,8 +7,9 @@ import {
   Phone,
   XCircle,
 } from "lucide-react";
-import Loading from '../../../Component/Loader/Loading';
-import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
+import Loading from "../../../Component/Loader/Loading";
+import { AuthContext } from "../../../contexts/AuthContext/AuthContext";
+import Swal from "sweetalert2";
 
 const MyPhysiotherapyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -29,6 +30,46 @@ const MyPhysiotherapyBookings = () => {
         });
     }
   }, [user?.email]);
+
+  const handleCancelBooking = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to cancel this nursing care booking?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, cancel it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:4000/physiotherapy-bookings/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "cancelled" }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount > 0) {
+              Swal.fire(
+                "Cancelled!",
+                "Your booking has been cancelled.",
+                "success",
+              );
+              setBookings((previousBookings) =>
+                previousBookings.map((booking) =>
+                  booking._id === id
+                    ? { ...booking, status: "cancelled" }
+                    : booking,
+                ),
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Error cancelling booking:", error);
+          });
+      }
+    });
+  };
 
   if (loading) {
     return <Loading></Loading>;
@@ -106,7 +147,6 @@ const MyPhysiotherapyBookings = () => {
                     </p>
                   </div>
                 </div>
-                
 
                 <div className="flex items-center gap-3 text-sm">
                   <div className="w-8 h-8 rounded-full bg-green-50 text-green-600 flex items-center justify-center shrink-0">
@@ -123,6 +163,8 @@ const MyPhysiotherapyBookings = () => {
 
               <div className="pt-4 border-t border-gray-100">
                 <button
+                  onClick={() => handleCancelBooking(booking._id)}
+                  disabled={booking.status === "cancelled"}
                   className="w-full btn btn-error font-semibold rounded-lg text-sm flex items-center justify-center gap-2"
                 >
                   <XCircle size={18} /> Cancel Booking
