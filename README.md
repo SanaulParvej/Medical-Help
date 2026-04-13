@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-04-13 15:13:56.634Z
+Last updated: 2026-04-13 15:14:53.702Z
 
 ### Project Structure
 
