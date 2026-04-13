@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-04-13 13:10:29.090Z
+Last updated: 2026-04-13 14:23:39.878Z
 
 ### Project Structure
 
@@ -164,6 +164,7 @@ Medical-Help/
 ### API Endpoints (from server code)
 - GET /users/role/:email
 - PATCH /users/role/:id
+- PATCH /users/:email
 - GET /users
 - POST /users
 - POST /nursing-bookings
@@ -184,6 +185,7 @@ Medical-Help/
 - GET /appointments
 - PATCH /appointments/:id
 - GET /admin-stats
+- GET /user-stats/:email
 - GET /
 <!-- AUTO-GENERATED:END -->
 
