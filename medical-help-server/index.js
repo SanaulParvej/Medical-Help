@@ -58,6 +58,21 @@ async function run() {
         const result = await userCollection.updateOne(filter, updateDoc);
         res.send(result);
     });
+    app.patch("/users/:email", async (req, res) => {
+      const email = req.params.email;
+      const updatedData = req.body;
+      const filter = { email: email };
+      const updateDoc = {
+        $set: updatedData,
+      };
+
+      try {
+        const result = await userCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to update profile" });
+      }
+    });
 
     const checkAdminRole = async (req, res, next) => {
       const email = req.headers["user-email"];
@@ -471,8 +486,8 @@ async function run() {
 app.get("/user-stats/:email", async (req, res) => {
   try {
     const email = req.params.email;
-    const query = { patientEmail: email }; 
-    const now = new Date().toISOString(); 
+    const query = { patientEmail: email };
+    const now = new Date().toISOString();
 
     const doctorCount = await appointmentCollection.countDocuments(query);
     const nursingCount = await nursingBookingCollection.countDocuments(query);
@@ -496,19 +511,19 @@ app.get("/user-stats/:email", async (req, res) => {
 
     // 4. Upcoming Appointments (Approved and in the future)
     const upcomingAppointments = await appointmentCollection
-      .find({ 
-        ...query, 
-        status: "approved", 
-        date: { $gte: now } 
+      .find({
+        ...query,
+        status: "approved",
+        date: { $gte: now }
       })
       .sort({ date: 1 })
       .toArray();
 
     // 5. Past Appointments (Any status in the past)
     const pastAppointments = await appointmentCollection
-      .find({ 
-        ...query, 
-        date: { $lt: now } 
+      .find({
+        ...query,
+        date: { $lt: now }
       })
       .sort({ date: -1 })
       .limit(10)
