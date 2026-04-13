@@ -192,7 +192,6 @@ async function run() {
       const result = await physiotherapyBookingCollection.insertOne(bookingData);
       res.send(result);
     });
-
     app.get('/physiotherapy-bookings', async (req, res) => {
       let query = {};
       if (req.query?.email) {

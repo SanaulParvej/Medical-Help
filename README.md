@@ -45,7 +45,7 @@ node scripts/update-readme.mjs
 <!-- AUTO-GENERATED:START -->
 ## Auto-Generated Project Snapshot
 
-Last updated: 2026-04-13 14:23:39.878Z
+Last updated: 2026-04-13 15:13:56.634Z
 
 ### Project Structure
 
@@ -69,7 +69,6 @@ Medical-Help/
 │   │   │   └── Shared/
 │   │   ├── contexts/
 │   │   │   └── AuthContext/
-│   │   ├── data/
 │   │   ├── firebase/
 │   │   │   └── firebase.init.js
 │   │   ├── hooks/

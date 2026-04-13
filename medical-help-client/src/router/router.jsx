@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
                 index: true,
                 Component: Home
             },
-                        {
+            {
                 path: '/physiotherapy-services',
                 Component: Physiotherapy
             },
