@@ -55,8 +55,8 @@ async function run() {
           role: role
         },
       };
-        const result = await userCollection.updateOne(filter, updateDoc);
-        res.send(result);
+      const result = await userCollection.updateOne(filter, updateDoc);
+      res.send(result);
     });
     app.patch("/users/:email", async (req, res) => {
       const email = req.params.email;
@@ -481,71 +481,71 @@ async function run() {
       }
     });
 
-// Note the change to "/user-stats/:email"
-app.get("/user-stats/:email", async (req, res) => {
-  try {
-    const email = req.params.email;
-    const query = { patientEmail: email };
-    const now = new Date().toISOString();
+    // Note the change to "/user-stats/:email"
+    app.get("/user-stats/:email", async (req, res) => {
+      try {
+        const email = req.params.email;
+        const query = { patientEmail: email };
+        const now = new Date().toISOString();
 
-    const doctorCount = await appointmentCollection.countDocuments(query);
-    const nursingCount = await nursingBookingCollection.countDocuments(query);
-    const homecareCount = await homecareBookingCollection.countDocuments(query);
-    const physioCount = await physiotherapyBookingCollection.countDocuments(query);
+        const doctorCount = await appointmentCollection.countDocuments(query);
+        const nursingCount = await nursingBookingCollection.countDocuments(query);
+        const homecareCount = await homecareBookingCollection.countDocuments(query);
+        const physioCount = await physiotherapyBookingCollection.countDocuments(query);
 
-    const totalServiceTaken = doctorCount + nursingCount + homecareCount + physioCount;
+        const totalServiceTaken = doctorCount + nursingCount + homecareCount + physioCount;
 
-    // 2. Status specific (Doctor Appointments)
-    const pendingCount = await appointmentCollection.countDocuments({ ...query, status: "pending" });
-    const cancelledCount = await appointmentCollection.countDocuments({ ...query, status: "cancelled" });
+        // 2. Status specific (Doctor Appointments)
+        const pendingCount = await appointmentCollection.countDocuments({ ...query, status: "pending" });
+        const cancelledCount = await appointmentCollection.countDocuments({ ...query, status: "cancelled" });
 
-    // 3. Total Approved (Across all collections)
-    const approvedCounts = await Promise.all([
-      appointmentCollection.countDocuments({ ...query, status: "approved" }),
-      nursingBookingCollection.countDocuments({ ...query, status: "approved" }),
-      homecareBookingCollection.countDocuments({ ...query, status: "approved" }),
-      physiotherapyBookingCollection.countDocuments({ ...query, status: "approved" }),
-    ]);
-    const totalApproved = approvedCounts.reduce((acc, curr) => acc + curr, 0);
+        // 3. Total Approved (Across all collections)
+        const approvedCounts = await Promise.all([
+          appointmentCollection.countDocuments({ ...query, status: "approved" }),
+          nursingBookingCollection.countDocuments({ ...query, status: "approved" }),
+          homecareBookingCollection.countDocuments({ ...query, status: "approved" }),
+          physiotherapyBookingCollection.countDocuments({ ...query, status: "approved" }),
+        ]);
+        const totalApproved = approvedCounts.reduce((acc, curr) => acc + curr, 0);
 
-    // 4. Upcoming Appointments (Approved and in the future)
-    const upcomingAppointments = await appointmentCollection
-      .find({
-        ...query,
-        status: "approved",
-        date: { $gte: now }
-      })
-      .sort({ date: 1 })
-      .toArray();
+        // 4. Upcoming Appointments (Approved and in the future)
+        const upcomingAppointments = await appointmentCollection
+          .find({
+            ...query,
+            status: "approved",
+            date: { $gte: now }
+          })
+          .sort({ date: 1 })
+          .toArray();
 
-    // 5. Past Appointments (Any status in the past)
-    const pastAppointments = await appointmentCollection
-      .find({
-        ...query,
-        date: { $lt: now }
-      })
-      .sort({ date: -1 })
-      .limit(10)
-      .toArray();
+        // 5. Past Appointments (Any status in the past)
+        const pastAppointments = await appointmentCollection
+          .find({
+            ...query,
+            date: { $lt: now }
+          })
+          .sort({ date: -1 })
+          .limit(10)
+          .toArray();
 
-    // Send Response
-    res.send({
-      stats: {
-        pendingAppointments: pendingCount,
-        upcomingCount: upcomingAppointments.length,
-        totalCancelled: cancelledCount,
-        totalApprovedService: totalApproved,
-        totalServiceTaken: totalServiceTaken,
-      },
-      upcomingAppointments,
-      pastAppointments
+        // Send Response
+        res.send({
+          stats: {
+            pendingAppointments: pendingCount,
+            upcomingCount: upcomingAppointments.length,
+            totalCancelled: cancelledCount,
+            totalApprovedService: totalApproved,
+            totalServiceTaken: totalServiceTaken,
+          },
+          upcomingAppointments,
+          pastAppointments
+        });
+
+      } catch (error) {
+        console.error("User stats error:", error);
+        res.status(500).send({ message: "Error fetching user dashboard stats" });
+      }
     });
-
-  } catch (error) {
-    console.error("User stats error:", error);
-    res.status(500).send({ message: "Error fetching user dashboard stats" });
-  }
-});
 
 
     await client.db("admin").command({ ping: 1 });

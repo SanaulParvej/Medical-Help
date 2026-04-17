@@ -21,7 +21,7 @@ const DoctorCard = ({ doctor }) => {
     });
 
     return (
-        <div className="h-full rounded-xl shadow-lg border border-gray-100">
+        <div className="h-full rounded-2xl shadow-lg border border-gray-100">
 
 
             <div className="relative h-72 overflow-hidden">
@@ -34,7 +34,7 @@ const DoctorCard = ({ doctor }) => {
                     height="420"
                     srcSet={`${getOptimizedImageUrl(image, { width: 320, height: 240, quality: 72 })} 320w, ${getOptimizedImageUrl(image, { width: 560, height: 420, quality: 76 })} 560w, ${getOptimizedImageUrl(image, { width: 800, height: 600, quality: 78 })} 800w`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-tl-2xl rounded-tr-2xl"
                 />
 
                 <div className="absolute top-4 right-4 bg-base-200 px-3 py-1 rounded-full text-sm font-semibold shadow-lg flex items-center gap-1">
