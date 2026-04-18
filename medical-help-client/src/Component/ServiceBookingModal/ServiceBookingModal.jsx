@@ -42,7 +42,7 @@ const ServiceBookingModal = ({
       duration: `${formData.durationNumber} ${formData.durationUnit}`,
       extraNotes: formData.extraNotes,
 
-      patientEmail: user?.email || "Unknown Email",
+      patientEmail: user?.email,
       planName: selectedPlan.title,
       planPrice: selectedPlan.price,
       status: "pending",

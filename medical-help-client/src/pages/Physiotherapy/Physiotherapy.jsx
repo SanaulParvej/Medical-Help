@@ -322,7 +322,6 @@ const Physiotherapy = () => {
         {/* CTA Footer */}
         <ServiceCTA></ServiceCTA>
         
-
         <ServiceBookingModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
