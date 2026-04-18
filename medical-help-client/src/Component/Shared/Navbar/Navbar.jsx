@@ -171,7 +171,11 @@ const Navbar = () => {
                   <div className="w-10 rounded-full">
                     <img
                       alt="Tailwind CSS Navbar component"
-                      src={user.photoURL?user.photoURL : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
+                      src={
+                        user.photoURL
+                          ? user.photoURL
+                          : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      }
                     />
                   </div>
                 </div>
@@ -180,12 +184,10 @@ const Navbar = () => {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <a className="justify-between">
-                      {user.displayName}
-                    </a>
+                    <a className="justify-between">{user.displayName}</a>
                   </li>
                   <li>
-                    <Link to={'/dashboard/my-profile'}>Profile</Link>
+                    <Link to={"/dashboard/my-profile"}>Profile</Link>
                   </li>
                   <li className="flex lg:hidden">
                     <button

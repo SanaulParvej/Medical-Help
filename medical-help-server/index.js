@@ -58,6 +58,7 @@ async function run() {
       const result = await userCollection.updateOne(filter, updateDoc);
       res.send(result);
     });
+
     app.patch("/users/:email", async (req, res) => {
       const email = req.params.email;
       const updatedData = req.body;
@@ -65,32 +66,9 @@ async function run() {
       const updateDoc = {
         $set: updatedData,
       };
-
-      try {
-        const result = await userCollection.updateOne(filter, updateDoc);
-        res.send(result);
-      } catch (error) {
-        res.status(500).send({ message: "Failed to update profile" });
-      }
+      const result = await userCollection.updateOne(filter, updateDoc);
+      res.send(result);
     });
-
-    const checkAdminRole = async (req, res, next) => {
-      const email = req.headers["user-email"];
-
-      if (!email) {
-        return res.status(401).send({ message: "Email not provided" });
-      }
-
-      const user = await userCollection.findOne({ email: email });
-
-      if (user?.role !== "admin") {
-        return res
-          .status(403)
-          .send({ message: "Forbidden access. Only admins allowed." });
-      }
-
-      next();
-    };
 
     app.get("/users", async (req, res) => {
       let query = {};
@@ -160,13 +138,10 @@ async function run() {
         },
       };
 
-      try {
-        const result = await nursingBookingCollection.updateOne(filter, updateDoc);
-        res.send(result);
-      } catch (error) {
-        console.error("Error updating status:", error);
-        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
-      }
+
+      const result = await nursingBookingCollection.updateOne(filter, updateDoc);
+      res.send(result);
+
     });
 
     // Physiotherapy Bookings
@@ -192,6 +167,7 @@ async function run() {
       const result = await physiotherapyBookingCollection.insertOne(bookingData);
       res.send(result);
     });
+    
     app.get('/physiotherapy-bookings', async (req, res) => {
       let query = {};
       if (req.query?.email) {
@@ -211,13 +187,10 @@ async function run() {
           status: status,
         },
       };
-      try {
-        const result = await physiotherapyBookingCollection.updateOne(filter, updateDoc);
-        res.send(result);
-      } catch (error) {
-        console.error("Error updating status:", error);
-        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
-      }
+
+      const result = await physiotherapyBookingCollection.updateOne(filter, updateDoc);
+      res.send(result);
+
     });
 
     // Home Care Bookings
@@ -264,13 +237,9 @@ async function run() {
         },
       };
 
-      try {
-        const result = await homecareBookingCollection.updateOne(filter, updateDoc);
-        res.send(result);
-      } catch (error) {
-        console.error("Error updating status:", error);
-        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
-      }
+      const result = await homecareBookingCollection.updateOne(filter, updateDoc);
+      res.send(result);
+
     });
 
 
@@ -308,14 +277,8 @@ async function run() {
     app.delete("/doctors/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-
-      try {
-        const result = await doctorCollection.deleteOne(query);
-        res.send(result);
-      } catch (error) {
-        console.error("Error deleting doctor:", error);
-        res.status(500).send({ message: "ডাক্তার ডিলিট করতে সার্ভারে সমস্যা হয়েছে" });
-      }
+      const result = await doctorCollection.deleteOne(query);
+      res.send(result);
     });
 
     app.patch("/doctors/:id", async (req, res) => {
@@ -376,175 +339,160 @@ async function run() {
         },
       };
 
-      try {
-        const result = await appointmentCollection.updateOne(filter, updateDoc);
-        res.send(result);
-      } catch (error) {
-        console.error("Error updating status:", error);
-        res.status(500).send({ message: "স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে" });
-      }
+      const result = await appointmentCollection.updateOne(filter, updateDoc);
+      res.send(result);
     });
 
-    // Admin State
+    // Admin Stats
 
     app.get("/admin-stats", async (req, res) => {
-      try {
-        const totalUsers = await userCollection.estimatedDocumentCount();
-        const totalDoctors = await doctorCollection.estimatedDocumentCount();
-        const totalAppointments = await appointmentCollection.estimatedDocumentCount();
+      const totalUsers = await userCollection.estimatedDocumentCount();
+      const totalDoctors = await doctorCollection.estimatedDocumentCount();
+      const totalAppointments = await appointmentCollection.estimatedDocumentCount();
 
-        const pendingAppointments = await appointmentCollection.countDocuments({ status: "pending" });
-        const approvedAppointments = await appointmentCollection.countDocuments({ status: "approved" });
-        const cancelledAppointments = await appointmentCollection.countDocuments({ status: "cancelled" });
+      const pendingAppointments = await appointmentCollection.countDocuments({ status: "pending" });
+      const approvedAppointments = await appointmentCollection.countDocuments({ status: "approved" });
+      const cancelledAppointments = await appointmentCollection.countDocuments({ status: "cancelled" });
 
 
-        const doctorData = await appointmentCollection.aggregate([
-          { $match: { status: "approved" } },
-          {
-            $group: {
-              _id: null,
-              total: { $sum: "$totalFee" }
-            }
+      const doctorData = await appointmentCollection.aggregate([
+        { $match: { status: "approved" } },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$totalFee" }
           }
-        ]).toArray();
+        }
+      ]).toArray();
 
-        const nursingData = await nursingBookingCollection.aggregate([
-          { $match: { status: "approved" } },
-          {
-            $group: {
-              _id: null,
-              total: { $sum: "$planPrice" }
-            }
+      const nursingData = await nursingBookingCollection.aggregate([
+        { $match: { status: "approved" } },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$planPrice" }
           }
-        ]).toArray();
+        }
+      ]).toArray();
 
-        const homecareData = await homecareBookingCollection.aggregate([
-          { $match: { status: "approved" } },
-          {
-            $group: {
-              _id: null,
-              total: { $sum: "$planPrice" }
-            }
+      const homecareData = await homecareBookingCollection.aggregate([
+        { $match: { status: "approved" } },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$planPrice" }
           }
-        ]).toArray();
+        }
+      ]).toArray();
 
-        const physiotherapyData = await physiotherapyBookingCollection.aggregate([
-          { $match: { status: "approved" } },
-          {
-            $group: {
-              _id: null,
-              total: { $sum: "$planPrice" }
-            }
+      const physiotherapyData = await physiotherapyBookingCollection.aggregate([
+        { $match: { status: "approved" } },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$planPrice" }
           }
-        ]).toArray();
+        }
+      ]).toArray();
 
-        const doctorRevenue = doctorData[0]?.total || 0;
-        const nursingRevenue = nursingData[0]?.total || 0;
-        const homecareRevenue = homecareData[0]?.total || 0;
-        const physiotherapyRevenue = physiotherapyData[0]?.total || 0;
+      const doctorRevenue = doctorData[0]?.total || 0;
+      const nursingRevenue = nursingData[0]?.total || 0;
+      const homecareRevenue = homecareData[0]?.total || 0;
+      const physiotherapyRevenue = physiotherapyData[0]?.total || 0;
 
-        const totalRevenue = doctorRevenue + nursingRevenue + homecareRevenue + physiotherapyRevenue;
+      const totalRevenue = doctorRevenue + nursingRevenue + homecareRevenue + physiotherapyRevenue;
 
-        const recentAppointments = await appointmentCollection
-          .find()
-          .sort({ _id: -1 })
-          .limit(5)
-          .toArray();
+      const recentAppointments = await appointmentCollection
+        .find()
+        .sort({ _id: -1 })
+        .limit(5)
+        .toArray();
 
-        res.send({
-          overview: {
-            totalUsers,
-            totalDoctors,
-            totalAppointments,
-            totalRevenue
-          },
+      res.send({
+        overview: {
+          totalUsers,
+          totalDoctors,
+          totalAppointments,
+          totalRevenue
+        },
 
-          appointments: {
-            pending: pendingAppointments,
-            approved: approvedAppointments,
-            cancelled: cancelledAppointments
-          },
+        appointments: {
+          pending: pendingAppointments,
+          approved: approvedAppointments,
+          cancelled: cancelledAppointments
+        },
 
-          revenueByService: {
-            doctor: doctorRevenue,
-            nursing: nursingRevenue,
-            homecare: homecareRevenue,
-            physiotherapy: physiotherapyRevenue
-          },
+        revenueByService: {
+          doctor: doctorRevenue,
+          nursing: nursingRevenue,
+          homecare: homecareRevenue,
+          physiotherapy: physiotherapyRevenue
+        },
 
-          recentAppointments
-        });
+        recentAppointments
+      });
 
-      } catch (error) {
-        console.error("Admin stats error:", error);
-        res.status(500).send({ message: "Admin stats error" });
-      }
     });
 
-    // Note the change to "/user-stats/:email"
+    // User stats
     app.get("/user-stats/:email", async (req, res) => {
-      try {
-        const email = req.params.email;
-        const query = { patientEmail: email };
-        const now = new Date().toISOString();
 
-        const doctorCount = await appointmentCollection.countDocuments(query);
-        const nursingCount = await nursingBookingCollection.countDocuments(query);
-        const homecareCount = await homecareBookingCollection.countDocuments(query);
-        const physioCount = await physiotherapyBookingCollection.countDocuments(query);
+      const email = req.params.email;
+      const query = { patientEmail: email };
+      const now = new Date().toISOString();
 
-        const totalServiceTaken = doctorCount + nursingCount + homecareCount + physioCount;
+      const doctorCount = await appointmentCollection.countDocuments(query);
+      const nursingCount = await nursingBookingCollection.countDocuments(query);
+      const homecareCount = await homecareBookingCollection.countDocuments(query);
+      const physioCount = await physiotherapyBookingCollection.countDocuments(query);
 
-        // 2. Status specific (Doctor Appointments)
-        const pendingCount = await appointmentCollection.countDocuments({ ...query, status: "pending" });
-        const cancelledCount = await appointmentCollection.countDocuments({ ...query, status: "cancelled" });
+      const totalServiceTaken = doctorCount + nursingCount + homecareCount + physioCount;
 
-        // 3. Total Approved (Across all collections)
-        const approvedCounts = await Promise.all([
-          appointmentCollection.countDocuments({ ...query, status: "approved" }),
-          nursingBookingCollection.countDocuments({ ...query, status: "approved" }),
-          homecareBookingCollection.countDocuments({ ...query, status: "approved" }),
-          physiotherapyBookingCollection.countDocuments({ ...query, status: "approved" }),
-        ]);
-        const totalApproved = approvedCounts.reduce((acc, curr) => acc + curr, 0);
+      // 2. Status specific (Doctor Appointments)
+      const pendingCount = await appointmentCollection.countDocuments({ ...query, status: "pending" });
+      const cancelledCount = await appointmentCollection.countDocuments({ ...query, status: "cancelled" });
 
-        // 4. Upcoming Appointments (Approved and in the future)
-        const upcomingAppointments = await appointmentCollection
-          .find({
-            ...query,
-            status: "approved",
-            date: { $gte: now }
-          })
-          .sort({ date: 1 })
-          .toArray();
+      // 3. Total Approved (Across all collections)
+      const approvedCounts = await Promise.all([
+        appointmentCollection.countDocuments({ ...query, status: "approved" }),
+        nursingBookingCollection.countDocuments({ ...query, status: "approved" }),
+        homecareBookingCollection.countDocuments({ ...query, status: "approved" }),
+        physiotherapyBookingCollection.countDocuments({ ...query, status: "approved" }),
+      ]);
+      const totalApproved = approvedCounts.reduce((acc, curr) => acc + curr, 0);
 
-        // 5. Past Appointments (Any status in the past)
-        const pastAppointments = await appointmentCollection
-          .find({
-            ...query,
-            date: { $lt: now }
-          })
-          .sort({ date: -1 })
-          .limit(10)
-          .toArray();
+      // 4. Upcoming Appointments (Approved and in the future)
+      const upcomingAppointments = await appointmentCollection
+        .find({
+          ...query,
+          status: "approved",
+          date: { $gte: now }
+        })
+        .sort({ date: 1 })
+        .toArray();
 
-        // Send Response
-        res.send({
-          stats: {
-            pendingAppointments: pendingCount,
-            upcomingCount: upcomingAppointments.length,
-            totalCancelled: cancelledCount,
-            totalApprovedService: totalApproved,
-            totalServiceTaken: totalServiceTaken,
-          },
-          upcomingAppointments,
-          pastAppointments
-        });
+      // 5. Past Appointments (Any status in the past)
+      const pastAppointments = await appointmentCollection
+        .find({
+          ...query,
+          date: { $lt: now }
+        })
+        .sort({ date: -1 })
+        .limit(10)
+        .toArray();
 
-      } catch (error) {
-        console.error("User stats error:", error);
-        res.status(500).send({ message: "Error fetching user dashboard stats" });
-      }
+      // Send Response
+      res.send({
+        stats: {
+          pendingAppointments: pendingCount,
+          upcomingCount: upcomingAppointments.length,
+          totalCancelled: cancelledCount,
+          totalApprovedService: totalApproved,
+          totalServiceTaken: totalServiceTaken,
+        },
+        upcomingAppointments,
+        pastAppointments
+      });
     });
 
 
@@ -553,17 +501,17 @@ async function run() {
       "Pinged your deployment. You successfully connected to MongoDB!",
     );
 
+    app.get("/", (req, res) => {
+      res.send(" server is running");
+    });
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
   } finally {
   }
 }
+
 run().catch((error) => {
   console.error("Failed to start server:", error);
   process.exit(1);
-});
-
-app.get("/", (req, res) => {
-  res.send(" server is running");
 });
