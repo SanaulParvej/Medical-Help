@@ -9,7 +9,7 @@ import { IoIosPeople } from "react-icons/io";
 
 const Hero = () => {
     return (
-        <div className="hero bg-base-200 font-bangla overflow-hidden lg:py-8">
+        <div className="hero bg-base-200 font-bangla lg:py-8">
             <div className="hero-content flex-col lg:flex-row-reverse max-w-7xl mx-auto w-full justify-between p-6 lg:p-12 gap-12">
 
                 <div className="flex-1">
