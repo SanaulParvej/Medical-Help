@@ -17,7 +17,7 @@ console.log(userData,userEmail);
             chronicIllness: form.chronicIllness.value,
         };
 
-        fetch(`http://localhost:4000/users/${userEmail}`, {
+        fetch(`https://medical-help-server.vercel.app/users/${userEmail}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedInfo),

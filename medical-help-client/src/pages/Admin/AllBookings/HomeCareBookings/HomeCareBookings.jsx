@@ -7,7 +7,7 @@ const HomeCareBookings = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:4000/homecare-bookings")
+    fetch("https://medical-help-server.vercel.app/homecare-bookings")
       .then((res) => res.json())
       .then((data) => {
         setBookings(data);
@@ -34,7 +34,7 @@ const HomeCareBookings = () => {
       confirmButtonText: "Yes, Approve!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:4000/homecare-bookings/${id}`, {
+        fetch(`https://medical-help-server.vercel.app/homecare-bookings/${id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ status: "approved" }),
@@ -70,7 +70,7 @@ const HomeCareBookings = () => {
       confirmButtonText: "Yes, Cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:4000/homecare-bookings/${id}`, {
+        fetch(`https://medical-help-server.vercel.app/homecare-bookings/${id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ status: "cancelled" }),

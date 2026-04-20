@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/admin-stats")
+    fetch("https://medical-help-server.vercel.app/admin-stats")
       .then((res) => res.json())
       .then((data) => setStats(data));
   }, []);

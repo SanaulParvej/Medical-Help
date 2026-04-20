@@ -18,7 +18,7 @@ const MyHomeCareBookings = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:4000/homecare-bookings?email=${user.email}`)
+      fetch(`https://medical-help-server.vercel.app/homecare-bookings?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setBookings(data);
@@ -42,7 +42,7 @@ const MyHomeCareBookings = () => {
         confirmButtonText: "Yes, cancel it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:4000/homecare-bookings/${id}`, {
+          fetch(`https://medical-help-server.vercel.app/homecare-bookings/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ status: "cancelled" }),

@@ -50,7 +50,7 @@ const AddDoctor = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:4000/doctors', {
+            const response = await fetch('https://medical-help-server.vercel.app/doctors', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

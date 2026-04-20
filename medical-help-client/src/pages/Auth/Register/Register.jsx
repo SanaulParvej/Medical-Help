@@ -75,7 +75,7 @@ const Register = () => {
                             role: 'user'
                         };
 
-                        return fetch('http://localhost:4000/users', {
+                        return fetch('https://medical-help-server.vercel.app/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'

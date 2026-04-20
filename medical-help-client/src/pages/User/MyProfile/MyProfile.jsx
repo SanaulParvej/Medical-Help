@@ -27,7 +27,7 @@ const MyProfile = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:4000/users?email=${user.email}`)
+            fetch(`https://medical-help-server.vercel.app/users?email=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
                     setUserData(data[0]);

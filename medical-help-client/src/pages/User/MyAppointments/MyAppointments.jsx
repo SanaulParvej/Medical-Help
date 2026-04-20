@@ -18,7 +18,7 @@ const MyAppointments = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:4000/appointments?email=${user.email}`)
+            fetch(`https://medical-help-server.vercel.app/appointments?email=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
                     setAppointments(data);
@@ -42,7 +42,7 @@ const MyAppointments = () => {
             confirmButtonText: "Yes, cancel it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4000/appointments/${id}`, {
+                fetch(`https://medical-help-server.vercel.app/appointments/${id}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ status: "cancelled" }),

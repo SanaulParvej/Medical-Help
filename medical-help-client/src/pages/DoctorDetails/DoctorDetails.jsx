@@ -126,7 +126,7 @@ const DoctorDetails = () => {
                     totalFee: consultation_fee + 50,
                     status: "pending",
                 };
-                fetch("http://localhost:4000/appointments", {
+                fetch("https://medical-help-server.vercel.app/appointments", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
