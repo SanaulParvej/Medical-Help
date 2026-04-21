@@ -2,6 +2,9 @@
 
 A full-stack healthcare web application with a React frontend and an Express + MongoDB backend.
 
+Live Site Link - `https://medical-web-3d1c6.web.app`
+Live Server Link - `https://medical-help-server.vercel.app`
+
 ## Quick Start
 
 ### 1) Run backend server
