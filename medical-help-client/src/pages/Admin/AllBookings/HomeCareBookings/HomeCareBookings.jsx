@@ -113,7 +113,7 @@ const HomeCareBookings = () => {
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                   Patient
                 </th>
-                <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                   Disease
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
