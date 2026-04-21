@@ -99,7 +99,7 @@ const HomeCareBookings = () => {
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-6">
-        Nursing Care Bookings ({bookings.length})
+        Home Care Bookings ({bookings.length})
       </h2>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
@@ -112,6 +112,9 @@ const HomeCareBookings = () => {
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                   Patient
+                </th>
+                <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
+                  Disease
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                   Contact
@@ -139,6 +142,12 @@ const HomeCareBookings = () => {
                       {item.patientEmail}
                     </div>
                   </td>
+                                    <td className="px-4 py-3 text-sm text-gray-900">
+                    <div className="font-medium">{item.disease}</div>
+                    <div className="text-xs text-gray-500">
+                      {item.extraNotes}
+                    </div>
+                  </td>
                   <td className="px-4 py-3 text-sm text-gray-900">
                     <div className="font-medium">{item.phone}</div>
                     <div
@@ -151,7 +160,7 @@ const HomeCareBookings = () => {
                   <td className="px-4 py-3 text-sm text-gray-700">
                     <div className="font-medium">{item.planName}</div>
                     <div className="text-xs text-gray-500 font-semibold">
-                      {item.startDate}
+                      {item.duration}
                     </div>
                   </td>
                   <td className="px-4 py-3">
@@ -160,7 +169,7 @@ const HomeCareBookings = () => {
                         item.status === "pending"
                           ? "bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold"
                           : item.status === "completed" ||
-                              item.status === "approved"
+                            item.status === "approved"
                             ? "bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold"
                             : item.status === "cancelled"
                               ? "bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-semibold"

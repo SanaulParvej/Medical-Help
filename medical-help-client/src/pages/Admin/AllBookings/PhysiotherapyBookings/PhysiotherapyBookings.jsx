@@ -113,6 +113,9 @@ const PhysiotherapyBookings = () => {
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                   Patient
                 </th>
+                                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                  Disease
+                </th>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                   Contact
                 </th>
@@ -139,6 +142,12 @@ const PhysiotherapyBookings = () => {
                       {item.patientEmail}
                     </div>
                   </td>
+                                    <td className="px-4 py-3 text-sm text-gray-900">
+                    <div className="font-medium">{item.disease}</div>
+                    <div className="text-xs text-gray-500">
+                      {item.extraNotes}
+                    </div>
+                  </td>
                   <td className="px-4 py-3 text-sm text-gray-900">
                     <div className="font-medium">{item.phone}</div>
                     <div
@@ -151,7 +160,7 @@ const PhysiotherapyBookings = () => {
                   <td className="px-4 py-3 text-sm text-gray-700">
                     <div className="font-medium">{item.planName}</div>
                     <div className="text-xs text-gray-500 font-semibold">
-                      {item.startDate}
+                      {item.duration}
                     </div>
                   </td>
                   <td className="px-4 py-3">
