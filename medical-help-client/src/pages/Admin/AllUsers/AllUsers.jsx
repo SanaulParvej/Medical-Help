@@ -19,7 +19,7 @@ const AllUsers = () => {
             confirmButtonText: "Yes, make Admin!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4000/users/role/${user._id}`, {
+                fetch(`https://medical-help-server.vercel.app/users/role/${user._id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'

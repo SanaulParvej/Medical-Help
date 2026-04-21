@@ -18,7 +18,7 @@ const MyPhysiotherapyBookings = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:4000/physiotherapy-bookings?email=${user.email}`)
+      fetch(`https://medical-help-server.vercel.app/physiotherapy-bookings?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setBookings(data);
@@ -42,7 +42,7 @@ const MyPhysiotherapyBookings = () => {
       confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:4000/physiotherapy-bookings/${id}`, {
+        fetch(`https://medical-help-server.vercel.app/physiotherapy-bookings/${id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ status: "cancelled" }),

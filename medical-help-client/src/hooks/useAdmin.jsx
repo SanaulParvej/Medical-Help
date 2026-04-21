@@ -8,7 +8,7 @@ const useAdmin = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:4000/users/role/${user.email}`)
+            fetch(`https://medical-help-server.vercel.app/users/role/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setRole(data?.role); 
