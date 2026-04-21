@@ -12,7 +12,7 @@ const UserDashboard = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:4000/user-stats/${email}`)
+        fetch(`https://medical-help-server.vercel.app/user-stats/${email}`)
             .then(res => res.json())
             .then(data => {
                 setData(data);

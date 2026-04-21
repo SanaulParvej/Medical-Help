@@ -27,7 +27,7 @@ const AllDoctors = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4000/doctors/${id}`, { method: 'DELETE' })
+                fetch(`https://medical-help-server.vercel.app/doctors/${id}`, { method: 'DELETE' })
                     .then(res => res.json())
                     .then(data => {
                         if (data.deletedCount > 0) {
@@ -74,7 +74,7 @@ const AllDoctors = () => {
         e.preventDefault();
         const { _id, ...updateData } = currentDoctor;
 
-        fetch(`http://localhost:4000/doctors/${_id}`, {
+        fetch(`https://medical-help-server.vercel.app/doctors/${_id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateData)

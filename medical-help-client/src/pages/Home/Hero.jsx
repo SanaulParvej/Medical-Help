@@ -6,6 +6,7 @@ import { MdSlowMotionVideo } from "react-icons/md";
 import { FaUserDoctor } from "react-icons/fa6";
 import { LuHospital } from "react-icons/lu";
 import { IoIosPeople } from "react-icons/io";
+import { Link } from 'react-router';
 
 const Hero = () => {
     return (
@@ -14,7 +15,7 @@ const Hero = () => {
 
                 <div className="flex-1">
                     <Lottie
-                        style={{ width: '550px' }}
+                    className='w-80 md:w-full'
                         animationData={doctorLottie}
                         loop={true}>
                     </Lottie>
@@ -29,14 +30,14 @@ const Hero = () => {
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                        <button className="btn btn-lg text-white btn-info">
+                        <Link to={'/doctors'} className="btn btn-lg text-white btn-info">
                             <IoIosPersonAdd size={25} />
                             এখনই শুরু করুন
-                        </button>
-                        <button className="btn btn-outline btn-lg btn-info hover:text-white">
+                        </Link>
+                        <a href='https://youtu.be/74DWwSxsVSs?si=0cL8WUOMcEm39gM2' target='_blank' className="btn btn-outline btn-lg btn-info hover:text-white">
                             <MdSlowMotionVideo size={25} />
                             ভিডিও দেখুন
-                        </button>
+                        </a>
                     </div>
                     <div className="flex justify-center lg:justify-start gap-8 lg:gap-16 pt-6">
                         <div className="flex flex-col justify-center items-center text-center lg:text-left">

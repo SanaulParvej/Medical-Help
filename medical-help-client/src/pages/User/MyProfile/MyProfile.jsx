@@ -18,6 +18,7 @@ import { use } from "react";
 import { AuthContext } from "../../../contexts/AuthContext/AuthContext";
 import Loading from "../../../Component/Loader/Loading";
 import InfoCard from "./InfoCard";
+import UpdateProfileForm from "./UpdateProfileForm";
 
 const MyProfile = () => {
   const { user } = use(AuthContext);
@@ -26,7 +27,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:4000/users?email=${user.email}`)
+      fetch(`https://medical-help-server.vercel.app/users?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setUserData(data[0]);
@@ -39,7 +40,22 @@ const MyProfile = () => {
     }
   }, [user?.email]);
 
+  const openModal = () => {
+    document.getElementById("edit_profile_modal").showModal();
+  };
+
+  const closeModal = () => {
+    document.getElementById("edit_profile_modal").close();
+  };
+
   console.log(user);
+
+  const handleUpdateSuccess = (updatedInfo) => {
+    setUserData((prevData) => ({
+      ...prevData,
+      ...updatedInfo,
+    }));
+  };
 
   if (loading) return <Loading></Loading>;
 
@@ -48,7 +64,9 @@ const MyProfile = () => {
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-10 mb-8 relative">
         {/* Edit Button */}
         <div className="absolute top-0 right-0 p-4">
-          <button className="btn btn-circle bg-indigo-50 text-indigo-600 shadow-sm">
+          <button 
+          onClick={openModal}
+          className="btn btn-circle bg-indigo-50 text-indigo-600 shadow-sm">
             <Edit size={20} />
           </button>
         </div>
@@ -127,6 +145,15 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
+
+      {userData && (
+        <UpdateProfileForm
+          userData={userData}
+          userEmail={user?.email}
+          onUpdateSuccess={handleUpdateSuccess}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

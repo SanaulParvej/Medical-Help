@@ -49,7 +49,16 @@ const ServiceBookingModal = ({
       createdAt: new Date().toISOString(),
     };
 
-    fetch(`http://localhost:4000/${apiEndpoint}`, {
+    if (!user) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You need to login to book Appointment",
+      });
+      return;
+    }
+
+    fetch(`https://medical-help-server.vercel.app/${apiEndpoint}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bookingData),

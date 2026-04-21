@@ -10,6 +10,7 @@ import {
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../contexts/AuthContext/AuthContext";
 import Loading from "../../../Component/Loader/Loading";
+import { Link } from "react-router";
 
 const MyHomeCareBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -18,7 +19,7 @@ const MyHomeCareBookings = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:4000/homecare-bookings?email=${user.email}`)
+      fetch(`https://medical-help-server.vercel.app/homecare-bookings?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setBookings(data);
@@ -42,7 +43,7 @@ const MyHomeCareBookings = () => {
         confirmButtonText: "Yes, cancel it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:4000/homecare-bookings/${id}`, {
+          fetch(`https://medical-help-server.vercel.app/homecare-bookings/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ status: "cancelled" }),
@@ -187,6 +188,7 @@ const MyHomeCareBookings = () => {
             আপনি এখনও কোনো হোমকেয়ার সার্ভিসের জন্য বুকিং
             করেননি।
           </p>
+          <Link to={'/home-care-services'} className="btn btn-info mt-4 text-white">বুকিং করুন</Link>
         </div>
       )}
     </div>

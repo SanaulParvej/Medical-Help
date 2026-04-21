@@ -57,12 +57,12 @@ export const router = createBrowserRouter([
             {
                 path: '/doctors',
                 hydrateFallbackElement: <h1 className="loading loading-bars"></h1>,
-                loader: () => fetch("http://localhost:4000/doctors"),
+                loader: () => fetch("https://medical-help-server.vercel.app/doctors"),
                 Component: Doctors
             },
             {
                 path: '/doctor/:id',
-                loader: ({ params }) => fetch(`http://localhost:4000/doctors/${params.id}`).then(res => res.json()),
+                loader: ({ params }) => fetch(`https://medical-help-server.vercel.app/doctors/${params.id}`).then(res => res.json()),
                 Component: DoctorDetails
             }
         ]
@@ -93,7 +93,7 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/all-doctors',
                 hydrateFallbackElement: <Loading></Loading>,
-                loader: () => fetch("http://localhost:4000/doctors"),
+                loader: () => fetch("https://medical-help-server.vercel.app/doctors"),
                 element: <PrivateRoutes> <AdminRoutes> <AllDoctors></AllDoctors> </AdminRoutes> </PrivateRoutes>
             },
             {
@@ -103,7 +103,7 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/all-appointments',
                 hydrateFallbackElement: <Loading></Loading>,
-                loader: () => fetch("http://localhost:4000/appointments"),
+                loader: () => fetch("https://medical-help-server.vercel.app/appointments"),
                 element: <PrivateRoutes> <AdminRoutes> <AllAppointments></AllAppointments> </AdminRoutes> </PrivateRoutes>
             },
             {
@@ -114,13 +114,13 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/all-bookings/nursing',
                 hydrateFallbackElement: <Loading></Loading>,
-                loader: () => fetch("http://localhost:4000/doctors"),
+                loader: () => fetch("https://medical-help-server.vercel.app/doctors"),
                 element: <PrivateRoutes> <AdminRoutes> <NursingCareBookings></NursingCareBookings> </AdminRoutes> </PrivateRoutes>
             },
             {
                 path: '/dashboard/all-users',
                 hydrateFallbackElement: <Loading></Loading>,
-                loader: () => fetch("http://localhost:4000/users"),
+                loader: () => fetch("https://medical-help-server.vercel.app/users"),
                 element: <PrivateRoutes> <AdminRoutes> <AllUsers></AllUsers> </AdminRoutes> </PrivateRoutes>
             },
             {

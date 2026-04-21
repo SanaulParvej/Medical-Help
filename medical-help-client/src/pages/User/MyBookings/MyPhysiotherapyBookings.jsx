@@ -7,6 +7,7 @@ import {
   Phone,
   XCircle,
 } from "lucide-react";
+import { Link } from "react-router";
 import Loading from "../../../Component/Loader/Loading";
 import { AuthContext } from "../../../contexts/AuthContext/AuthContext";
 import Swal from "sweetalert2";
@@ -18,7 +19,9 @@ const MyPhysiotherapyBookings = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:4000/physiotherapy-bookings?email=${user.email}`)
+      fetch(
+        `https://medical-help-server.vercel.app/physiotherapy-bookings?email=${user.email}`,
+      )
         .then((res) => res.json())
         .then((data) => {
           setBookings(data);
@@ -42,11 +45,14 @@ const MyPhysiotherapyBookings = () => {
       confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:4000/physiotherapy-bookings/${id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: "cancelled" }),
-        })
+        fetch(
+          `https://medical-help-server.vercel.app/physiotherapy-bookings/${id}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: "cancelled" }),
+          },
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount > 0) {
@@ -109,7 +115,6 @@ const MyPhysiotherapyBookings = () => {
                   {booking.status}
                 </span>
               </div>
-              
 
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3 text-sm">
@@ -184,6 +189,7 @@ const MyPhysiotherapyBookings = () => {
           <p className="text-gray-500 max-w-sm mx-auto">
             আপনি এখনও কোনো বুকিং করেননি।
           </p>
+          <Link to={'/physiotherapy-services'} className="btn btn-info mt-4 text-white">বুকিং করুন</Link>
         </div>
       )}
     </div>

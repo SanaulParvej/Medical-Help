@@ -23,7 +23,7 @@ const AllAppointments = () => {
             confirmButtonText: 'Yes, Approve!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4000/appointments/${id}`, {
+                fetch(`https://medical-help-server.vercel.app/appointments/${id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ status: 'approved' })
@@ -53,7 +53,7 @@ const AllAppointments = () => {
             confirmButtonText: 'Yes, Cancel it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4000/appointments/${id}`, {
+                fetch(`https://medical-help-server.vercel.app/appointments/${id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ status: 'cancelled' })
