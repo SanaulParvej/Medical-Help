@@ -95,6 +95,7 @@ const NursingCareBookings = () => {
                             <tr>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">#</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Patient</th>
+                                  <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Disease</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Contact</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Plan & Date</th>
                                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
@@ -109,13 +110,17 @@ const NursingCareBookings = () => {
                                         <div className="font-medium">{item.patientName}</div>
                                         <div className="text-xs text-gray-500">{item.patientEmail}</div>
                                     </td>
+                                                                        <td className="px-4 py-3 text-sm text-gray-900">
+                                        <div className="font-medium">{item.disease}</div>
+                                        <div className="text-xs text-gray-500">{item.extraNotes}</div>
+                                    </td>
                                     <td className="px-4 py-3 text-sm text-gray-900">
                                         <div className="font-medium">{item.phone}</div>
                                         <div className="text-xs text-gray-500 truncate w-32" title={item.address}>{item.address}</div>
                                     </td>
                                     <td className="px-4 py-3 text-sm text-gray-700">
                                         <div className="font-medium">{item.planName}</div>
-                                        <div className="text-xs text-gray-500 font-semibold">{item.startDate}</div>
+                                        <div className="text-xs text-gray-500 font-semibold">{item.duration}</div>
                                     </td>
                                     <td className="px-4 py-3">
                                         <span
