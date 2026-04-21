@@ -10,6 +10,7 @@ import {
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../contexts/AuthContext/AuthContext";
 import Loading from "../../../Component/Loader/Loading";
+import { Link } from "react-router";
 
 const MyHomeCareBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -187,6 +188,7 @@ const MyHomeCareBookings = () => {
             আপনি এখনও কোনো হোমকেয়ার সার্ভিসের জন্য বুকিং
             করেননি।
           </p>
+          <Link to={'/home-care-services'} className="btn btn-info mt-4 text-white">বুকিং করুন</Link>
         </div>
       )}
     </div>

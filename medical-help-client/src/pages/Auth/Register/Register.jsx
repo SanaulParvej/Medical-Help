@@ -178,10 +178,6 @@ const Register = () => {
                                     </div>
                                     {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
                                 </div>
-
-                                <div className="text-right">
-                                    <a className="link link-hover text-sm text-black">Forgot password?</a>
-                                </div>
                                 {authError && <p className="text-red-500 text-sm text-center">{authError}</p>}
                                 <button type="submit" className="btn btn-neutral w-full">Register</button>
                             </fieldset>

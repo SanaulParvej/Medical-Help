@@ -111,13 +111,12 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {" "}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
+                />
               </svg>
             </div>
             <ul
@@ -131,8 +130,8 @@ const Navbar = () => {
             className="flex justify-center items-center font-open-sans"
             to={"/"}
           >
-            <img className="w-8" src={Logo} alt="" />
-            <h1 className="font-bold text-xl text-info">Medical Help</h1>
+            <img className="w-5 md:w-8" src={Logo} alt="" />
+            <h1 className="font-bold text-sm md:text-xl text-info">Medical Help</h1>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -143,13 +142,13 @@ const Navbar = () => {
             <>
               <Link
                 to={"/auth/login"}
-                className="btn btn-xs lg:btn-md rounded-2xl btn-info btn-outline hover:scale-105 hover:transition-all hover:text-white"
+                className="btn btn-xs lg:btn-md rounded-md btn-info btn-outline hover:scale-105  hover:text-white"
               >
                 <CgLogIn size={20} /> সাইন ইন
               </Link>
               <Link
                 to={"/auth/register"}
-                className="btn btn-xs lg:btn-md rounded-2xl btn-info text-white hover:scale-105 hover:transition-all"
+                className="btn btn-xs lg:btn-md rounded-md btn-info text-white hover:scale-105 "
               >
                 <FaUserFriends size={20} /> সাইন আপ
               </Link>
