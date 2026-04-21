@@ -1,0 +1,102 @@
+import { Link } from "react-router";
+import { FaCalendarAlt, FaBriefcaseMedical, FaMapMarkerAlt } from "react-icons/fa";
+import { getOptimizedImageUrl } from "../../utils/image";
+
+const DoctorCard = ({ doctor }) => {
+    const {
+        _id,
+        image,
+        name,
+        speciality,
+        experience_years,
+        working_place,
+        consultation_fee,
+        rating,
+    } = doctor;
+
+    const optimizedImage = getOptimizedImageUrl(image, {
+        width: 560,
+        height: 420,
+        quality: 76,
+    });
+
+    return (
+        <div className="h-full rounded-2xl shadow-lg border border-gray-100">
+
+
+            <div className="relative h-72 overflow-hidden">
+                <img
+                    src={optimizedImage}
+                    alt={name}
+                    loading="lazy"
+                    decoding="async"
+                    width="560"
+                    height="420"
+                    srcSet={`${getOptimizedImageUrl(image, { width: 320, height: 240, quality: 72 })} 320w, ${getOptimizedImageUrl(image, { width: 560, height: 420, quality: 76 })} 560w, ${getOptimizedImageUrl(image, { width: 800, height: 600, quality: 78 })} 800w`}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-full object-cover rounded-tl-2xl rounded-tr-2xl"
+                />
+
+                <div className="absolute top-4 right-4 bg-base-200 px-3 py-1 rounded-full text-sm font-semibold shadow-lg flex items-center gap-1">
+                    ⭐️ {rating}
+                </div>
+            </div>
+
+
+            <div className="p-6 space-y-2">
+
+                <div>
+                    <h3 className="text-xl font-bold text-gray-900">
+                        {name}
+                    </h3>
+                </div>
+
+
+                <div className="flex items-center gap-2">
+                    <FaBriefcaseMedical className="text-indigo-600" size={16} />
+                    <p className="text-sm font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
+                        {speciality}
+                    </p>
+                </div>
+
+
+                <div className="flex items-start gap-2 text-sm text-gray-600">
+                    <FaMapMarkerAlt className="text-red-500 mt-1 shrink-0" size={14} />
+                    <p className="line-clamp-2">{working_place}</p>
+                </div>
+
+
+                <div className="flex items-center justify-between py-3 border-t border-b border-gray-100">
+                    <div className="text-center">
+                        <p className="text-2xl font-bold text-indigo-600">{experience_years}+ <span className="text-xs text-gray-500 font-medium">Years Experience</span> </p>
+                    </div>
+                    <div className="text-center">
+                        <p className="text-2xl font-bold text-green-600">{consultation_fee} <span className="text-xs text-gray-500 font-medium">BDT/session</span></p>
+                    </div>
+                </div>
+
+
+                <div className="flex gap-3 mt-2 pt-2">
+                    <Link
+                        to={`/doctor/${_id}`}
+                        className="flex-1 flex items-center justify-center gap-2 rounded-lg btn btn-primary btn-outline"
+                    >
+                        <FaBriefcaseMedical size={16} />
+                        Details
+                    </Link>
+
+                    <Link
+                        to={`/doctor/${_id}`}
+                        className="flex-1 flex items-center justify-center gap-2 rounded-lg btn btn-primary"
+                    >
+                        <FaCalendarAlt size={16} />
+                        Book
+                    </Link>
+                </div>
+
+            </div>
+        </div >
+    );
+};
+
+export default DoctorCard;

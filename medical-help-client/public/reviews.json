@@ -1,0 +1,74 @@
+[
+    {
+        "id": "5f47ac10b4f1c03e8c123456",
+        "user_email": "john.doe@example.com",
+        "userName": "Arif Hossain",
+        "ratings": 4.5,
+        "review": "Booked an online consultation for chest discomfort and the doctor responded quickly. The prescription and follow-up plan were very clear.",
+        "user_photoURL": "https://randomuser.me/api/portraits/men/10.jpg",
+        "date": "2024-05-08T14:30:00.000Z"
+    },
+    {
+        "id": "5f47ac10b4f1c03e8c234567",
+        "user_email": "jane.smith@example.com",
+        "userName": "Nusrat Jahan",
+        "ratings": 3.8,
+        "review": "নার্সিং কেয়ার টিম খুবই আন্তরিক ছিল। আমার মায়ের রিকভারি সময় নিয়মিত চেকআপ করেছে, তবে অ্যাপয়েন্টমেন্ট কনফার্ম হতে একটু দেরি হয়েছিল।",
+        "user_photoURL": "https://randomuser.me/api/portraits/women/25.jpg",
+        "date": "2024-06-10T10:15:00.000Z"
+    },
+    {
+        "id": "5f47ac10b4f1c03e8c345678",
+        "user_email": "alex.brown@example.com",
+        "userName": "Sabbir Ahmed",
+        "ratings": 5.0,
+        "review": "Physiotherapy sessions were excellent. I had lower back pain for months, and after a few sessions I noticed real improvement in mobility.",
+        "user_photoURL": "https://randomuser.me/api/portraits/men/34.jpg",
+        "date": "2024-07-01T08:50:00.000Z"
+    },
+    {
+        "id": "5f47ac10b4f1c03e8c456789",
+        "user_email": "lisa.white@example.com",
+        "userName": "Mim Akter",
+        "ratings": 4.2,
+        "review": "Late night emergency telemedicine service ta onek helpful chilo. ডাক্তার শান্তভাবে গাইড করেছেন এবং হাসপাতালে যাওয়ার আগে কী করতে হবে স্পষ্ট বলেছেন।",
+        "user_photoURL": "https://randomuser.me/api/portraits/women/12.jpg",
+        "date": "2024-07-15T09:10:00.000Z"
+    },
+    {
+        "id": "5f47ac10b4f1c03e8c567890",
+        "user_email": "david.lee@example.com",
+        "userName": "Tanvir Hasan",
+        "ratings": 2.9,
+        "review": "The specialist consultation was helpful, but the waiting time at the clinic was longer than expected. Better scheduling updates would improve the experience.",
+        "user_photoURL": "https://randomuser.me/api/portraits/men/19.jpg",
+        "date": "2024-08-02T16:45:00.000Z"
+    },
+    {
+        "id": "5f47ac10b4f1c03e8c678901",
+        "user_email": "nina.khan@example.com",
+        "userName": "Farzana Rahman",
+        "ratings": 4.9,
+        "review": "হোম কেয়ার সার্ভিস অসাধারণ ছিল। কেয়ারগিভার নিয়মিত ভায়টালস চেক করেছে এবং প্রতিটি ভিজিটের পর আমাদের পরিবারকে আপডেট দিয়েছে।",
+        "user_photoURL": "https://randomuser.me/api/portraits/women/8.jpg",
+        "date": "2024-08-10T12:00:00.000Z"
+    },
+    {
+        "id": "5f47ac10b4f1c03e8c789012",
+        "user_email": "michael.jordan@example.com",
+        "userName": "Rakibul Islam",
+        "ratings": 3.3,
+        "review": "Doctors are knowledgeable and friendly, but the app should show clearer instructions for uploading previous test reports.",
+        "user_photoURL": "https://randomuser.me/api/portraits/men/22.jpg",
+        "date": "2024-08-14T18:20:00.000Z"
+    },
+    {
+        "id": "5f47ac10b4f1c03e8c890123",
+        "user_email": "emma.watson@example.com",
+        "userName": "Tanjila Sultana",
+        "ratings": 4.7,
+        "review": "পেডিয়াট্রিক কনসালটেশনটা দারুণ ছিল। ডাক্তার খুব সহজ ভাষায় চিকিৎসার অপশন বুঝিয়েছেন এবং পরের দিন ফোন দিয়ে বাচ্চার অবস্থা জেনেছেন।",
+        "user_photoURL": "https://randomuser.me/api/portraits/women/5.jpg",
+        "date": "2024-08-20T07:30:00.000Z"
+    }
+]
